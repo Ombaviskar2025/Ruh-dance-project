@@ -31,8 +31,8 @@ const Admin = () => {
 
   const fetchData = async () => {
     try {
-      const inquiryRes = await axios.get('https://ruh-danceproject.onrender.com/api/inquiries');
-      const styleRes = await axios.get('https://ruh-danceproject.onrender.com/api/styles');
+      const inquiryRes = await axios.get('https://ruh-dance-project.onrender.com/api/inquiries');
+      const styleRes = await axios.get('https://ruh-dance-project.onrender.com/api/styles');
       setInquiries(inquiryRes.data.data);
       setStyles(styleRes.data.data);
     } catch (err) {
@@ -56,7 +56,7 @@ const Admin = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://ruh-danceproject.onrender.com/api/styles/${editingStyle}`, editFormData);
+      await axios.put(`https://ruh-dance-project.onrender.com/api/styles/${editingStyle}`, editFormData);
       setEditingStyle(null);
       fetchData(); // Refresh list
       alert("Style updated successfully!");
@@ -69,7 +69,7 @@ const Admin = () => {
   const deleteInquiry = async (id) => {
     if (window.confirm("Delete this inquiry?")) {
       try {
-        await axios.delete(`https://ruh-danceproject.onrender.com/api/inquiries/${id}`);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/inquiries/${id}`);
         fetchData();
       } catch (err) {
         alert("Delete failed");

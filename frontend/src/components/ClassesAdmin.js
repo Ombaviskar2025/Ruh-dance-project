@@ -15,14 +15,14 @@ const ClassesAdmin = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await axios.get('https://ruh-danceproject.onrender.com/api/classes');
+      const res = await axios.get('https://ruh-dance-project.onrender.com/api/classes');
       setClasses(res.data);
     } catch (err) { console.error("Error fetching classes"); }
 
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const instRes = await axios.get('https://ruh-danceproject.onrender.com/api/auth/instructors', config);
+      const instRes = await axios.get('https://ruh-dance-project.onrender.com/api/auth/instructors', config);
       setInstructors(instRes.data.instructors || instRes.data || []);
     } catch (err) { console.error("Error fetching instructors"); }
   }, []);
@@ -41,9 +41,9 @@ const ClassesAdmin = () => {
     e.preventDefault();
     try {
       if (editingClass) {
-        await axios.put(`https://ruh-danceproject.onrender.com/api/classes/${editingClass._id}`, formData);
+        await axios.put(`https://ruh-dance-project.onrender.com/api/classes/${editingClass._id}`, formData);
       } else {
-        await axios.post('https://ruh-danceproject.onrender.com/api/classes', formData);
+        await axios.post('https://ruh-dance-project.onrender.com/api/classes', formData);
       }
       setIsModalOpen(false); setEditingClass(null); setFormData({ className: '', instructorName: '', scheduleTime: '', capacity: '' });
       fetchData();
@@ -53,7 +53,7 @@ const ClassesAdmin = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Delete this scheduled class?")) {
       try {
-        await axios.delete(`https://ruh-danceproject.onrender.com/api/classes/${id}`);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/classes/${id}`);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }

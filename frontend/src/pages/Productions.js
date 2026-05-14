@@ -38,7 +38,7 @@ const Productions = () => {
 
   const fetchProductions = async () => {
     try {
-      const res = await axios.get('https://ruh-danceproject.onrender.com/api/productions');
+      const res = await axios.get('https://ruh-dance-project.onrender.com/api/productions');
       const data = res.data.productions || res.data.data;
       if (data && data.length > 0) {
         setProductions(data);
@@ -79,7 +79,7 @@ const Productions = () => {
     if (newImageFile) formData.append('image', newImageFile);
 
     try {
-      await axios.put(`https://ruh-danceproject.onrender.com/api/productions/${editingProd._id}`, formData, { 
+      await axios.put(`https://ruh-dance-project.onrender.com/api/productions/${editingProd._id}`, formData, { 
         headers: { 
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}` 
@@ -106,7 +106,7 @@ const Productions = () => {
           <div key={prod._id} className="prod-card glass-hero-panel" style={{ padding: '0', overflow: 'hidden', position: 'relative' }}>
             <div style={{ overflow: 'hidden', borderRadius: '10px 10px 0 0' }}>
               <img 
-                src={prod.image?.startsWith('http') ? prod.image : (prod.image ? `https://ruh-danceproject.onrender.com${prod.image}` : 'https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=800&q=80')} 
+                src={prod.image?.startsWith('http') ? prod.image : (prod.image ? `https://ruh-dance-project.onrender.com${prod.image}` : 'https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=800&q=80')} 
                 alt={prod.title} 
                 style={{ width: '100%', height: '250px', objectFit: 'cover', display: 'block' }} 
               />
