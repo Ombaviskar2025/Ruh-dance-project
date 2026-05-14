@@ -14,7 +14,7 @@ const ResetPassword = () => {
     if (password !== confirmPassword) return alert("Passwords do not match!");
 
     try {
-      const res = await axios.post(`https://ruh-dance-project.onrender.com/api/auth/reset-password/${token}`, { password });
+      const res = await axios.post(`https://ruh-danceproject.onrender.com/api/auth/reset-password/${token}`, { password });
       alert(res.data.message);
       navigate('/'); 
     } catch (err) {

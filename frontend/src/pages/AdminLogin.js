@@ -13,7 +13,7 @@ const AdminLogin = () => {
         e.preventDefault();
         try {
             // Using your existing admin login endpoint
-            const res = await axios.post('https://ruh-dance-project.onrender.com/api/auth/login/admin', { email, password });
+            const res = await axios.post('https://ruh-danceproject.onrender.com/api/auth/login/admin', { email, password });
             
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('role', 'admin');

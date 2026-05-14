@@ -29,11 +29,11 @@ const FinanceAdmin = () => {
   const fetchData = useCallback(async () => {
     try {
       const [transRes, studentRes, feeRes] = await Promise.all([
-        axios.get('https://ruh-dance-project.onrender.com/api/finance'),
-        axios.get('https://ruh-dance-project.onrender.com/api/auth/students', {
+        axios.get('https://ruh-danceproject.onrender.com/api/finance'),
+        axios.get('https://ruh-danceproject.onrender.com/api/auth/students', {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         }),
-        axios.get('https://ruh-dance-project.onrender.com/api/finance/fee-rates')
+        axios.get('https://ruh-danceproject.onrender.com/api/finance/fee-rates')
       ]);
       setTransactions(transRes.data);
       setStudents(studentRes.data.students || studentRes.data || []);
@@ -49,7 +49,7 @@ const FinanceAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://ruh-dance-project.onrender.com/api/finance', formData);
+      await axios.post('https://ruh-danceproject.onrender.com/api/finance', formData);
       setIsModalOpen(false); 
       setFormData({
         type: 'INCOME', amount: '', category: '', description: '', 
@@ -63,7 +63,7 @@ const FinanceAdmin = () => {
   const handleFeeSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://ruh-dance-project.onrender.com/api/finance/fee-rates', feeFormData);
+      await axios.post('https://ruh-danceproject.onrender.com/api/finance/fee-rates', feeFormData);
       setIsFeeModalOpen(false);
       setFeeFormData({ category: '', amount: '', duration: 'Monthly', id: null });
       fetchData();
@@ -73,7 +73,7 @@ const FinanceAdmin = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Permanently delete this financial record?")) {
       try {
-        await axios.delete(`https://ruh-dance-project.onrender.com/api/finance/${id}`);
+        await axios.delete(`https://ruh-danceproject.onrender.com/api/finance/${id}`);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }
@@ -82,7 +82,7 @@ const FinanceAdmin = () => {
   const handleDeleteFee = async (id) => {
     if (window.confirm("Delete this fee structure?")) {
       try {
-        await axios.delete(`https://ruh-dance-project.onrender.com/api/finance/fee-rates/${id}`);
+        await axios.delete(`https://ruh-danceproject.onrender.com/api/finance/fee-rates/${id}`);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }

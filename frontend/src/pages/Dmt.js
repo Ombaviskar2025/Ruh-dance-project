@@ -56,7 +56,7 @@ const Dmt = () => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (!user?._id) return;
     try {
-      const res = await axios.get(`https://ruh-dance-project.onrender.com/api/dmt-bookings/my-bookings/${user._id}`);
+      const res = await axios.get(`https://ruh-danceproject.onrender.com/api/dmt-bookings/my-bookings/${user._id}`);
       setMyBookings(res.data);
     } catch { /* silent */ }
   };
@@ -85,7 +85,7 @@ const Dmt = () => {
     setLoading(true); setError('');
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
-      await axios.post('https://ruh-dance-project.onrender.com/api/dmt-bookings', {
+      await axios.post('https://ruh-danceproject.onrender.com/api/dmt-bookings', {
         ...form,
         studentId: user?._id || null,
       });

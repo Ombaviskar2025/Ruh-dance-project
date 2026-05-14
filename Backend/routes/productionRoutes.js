@@ -4,7 +4,7 @@ const router = express.Router();
 const Production = require('../models/Production');
 
 // 1. GET all productions (Current)
-// This matches https://ruh-dance-project.onrender.com/api/productions/
+// This matches https://ruh-danceproject.onrender.com/api/productions/
 router.get('/', async (req, res) => {
     try {
         const allProductions = await Production.find();

@@ -23,7 +23,7 @@ const InstructorDashboard = () => {
     // 2. Fetch Events for "Studio Announcements"
     const fetchEvents = async () => {
       try {
-        const res = await axios.get('https://ruh-dance-project.onrender.com/api/events');
+        const res = await axios.get('https://ruh-danceproject.onrender.com/api/events');
         setEvents(res.data);
       } catch (err) {
         console.error("Error fetching announcements:", err);
@@ -33,7 +33,7 @@ const InstructorDashboard = () => {
     // 3. Fetch Classes
     const fetchClasses = async () => {
       try {
-        const res = await axios.get('https://ruh-dance-project.onrender.com/api/classes');
+        const res = await axios.get('https://ruh-danceproject.onrender.com/api/classes');
         const allClasses = res.data;
         // Filter classes where instructorName loosely matches the logged in user's name
         const myName = currentUser?.fullName || currentUser?.name || currentUser?.username;
@@ -56,7 +56,7 @@ const InstructorDashboard = () => {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`https://ruh-dance-project.onrender.com/api/auth/update-profile/${user.id || user._id}`, editFormData);
+      const res = await axios.put(`https://ruh-danceproject.onrender.com/api/auth/update-profile/${user.id || user._id}`, editFormData);
       
       const updatedUser = res.data.user;
       localStorage.setItem('user', JSON.stringify(updatedUser));

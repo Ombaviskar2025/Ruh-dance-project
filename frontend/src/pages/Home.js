@@ -48,10 +48,10 @@ const Home = () => {
     // 3. Fetch Settings (Video)
     const fetchHomeSettings = async () => {
       try {
-        const res = await axios.get('https://ruh-dance-project.onrender.com/api/settings');
+        const res = await axios.get('https://ruh-danceproject.onrender.com/api/settings');
         if (res.data.success && res.data.data.homeVideoUrl) {
           const url = res.data.data.homeVideoUrl;
-          setHomeVideoUrl(url.startsWith('http') ? url : `https://ruh-dance-project.onrender.com${url}`);
+          setHomeVideoUrl(url.startsWith('http') ? url : `https://ruh-danceproject.onrender.com${url}`);
         }
       } catch (err) {
         console.error("Failed to fetch home settings", err);
@@ -106,7 +106,7 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://ruh-dance-project.onrender.com/api/inquiries', formData);
+      await axios.post('https://ruh-danceproject.onrender.com/api/inquiries', formData);
       alert('Your soul has spoken, inquiry sent successfully !!');
       setFormData({ fullName: '', phone: '', gender: '', age: '', danceStyle: '' , email: '', interest: '',message: '' });
       setShowModal(false);

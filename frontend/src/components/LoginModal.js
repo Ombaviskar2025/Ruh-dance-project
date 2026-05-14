@@ -27,7 +27,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
     e.preventDefault();
     try {
       // Sending email and password to the role-based login route
-      const res = await axios.post(`https://ruh-dance-project.onrender.com/api/auth/login/${role}`, loginData);
+      const res = await axios.post(`https://ruh-danceproject.onrender.com/api/auth/login/${role}`, loginData);
       
       // Critical: Save these for ProtectedRoute and persistent login state
       localStorage.setItem('token', res.data.token);
@@ -58,7 +58,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
     e.preventDefault();
     try {
       // Register with the additional fields seen in your registration form
-      await axios.post('https://ruh-dance-project.onrender.com/api/auth/register', {
+      await axios.post('https://ruh-danceproject.onrender.com/api/auth/register', {
         ...regData,
         role: role 
       });
@@ -73,7 +73,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
     const email = prompt("Please enter your registered email address:");
     if (email) {
       try {
-        await axios.post('https://ruh-dance-project.onrender.com/api/auth/forgot-password', { email, role });
+        await axios.post('https://ruh-danceproject.onrender.com/api/auth/forgot-password', { email, role });
         alert("Success! Please check your Gmail inbox for the reset link.");
       } catch (err) {
         alert(err.response?.data?.message || "Error processing request.");
