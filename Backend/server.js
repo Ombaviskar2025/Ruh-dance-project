@@ -26,7 +26,10 @@ const app = express();
 const path = require('path');
 // 4. Middleware
 app.use(express.json()); 
-app.use(cors());   
+app.use(cors({
+  origin: "https://ruhdance.netlify.app",
+  credentials: true
+}));   
 app.use('/uploads', express.static( 'uploads'));      
 
 // 5. Use the routes
