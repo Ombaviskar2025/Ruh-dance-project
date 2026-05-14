@@ -1,4 +1,4 @@
-import { Nav, NavItem as ReactstrapNavItem, NavLink, TabContent, TabPane, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import axios from 'axios';
@@ -52,7 +52,6 @@ const AdminDashboard = () => {
     fullName: '', email: '', password: '', age: '', danceStyle: '', gender: '', phone: '', bio: ''
   });
   const [newInstructorPhoto, setNewInstructorPhoto] = useState(null);
-  const [instructorPhotoPreview, setInstructorPhotoPreview] = useState(null);
 
   // Settings State
   const [settings, setSettings] = useState({ homeVideoUrl: '' });
@@ -137,7 +136,6 @@ const AdminDashboard = () => {
       setShowAddModal(false);
       setNewInstructor({ fullName: '', email: '', password: '', age: '', danceStyle: '', gender: '', phone: '', bio: '' });
       setNewInstructorPhoto(null);
-      setInstructorPhotoPreview(null);
       fetchData();
     } catch (err) { alert(err.response?.data?.message || "Server Error"); }
   };

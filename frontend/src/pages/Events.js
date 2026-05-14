@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios'; // Fixes 'axios' is not defined
-import { LuPencil, LuPlus, LuX, LuTrash2 } from "react-icons/lu";
+import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 // import './Events.css'; // Restore your original CSS file
 
 const Events = ({ isAdmin }) => {
