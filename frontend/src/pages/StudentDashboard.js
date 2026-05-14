@@ -30,7 +30,7 @@ const StudentDashboard = () => {
     // 2. Fetch Events for "Studio Announcements"
     const fetchEvents = async () => {
       try {
-        const res = await axios.get('https://ruh-danceproject.onrender.com/api/events');
+        const res = await axios.get('https://ruh-dance-project.onrender.com/api/events');
         setEvents(res.data);
       } catch (err) {
         console.error("Error fetching announcements:", err);
@@ -42,7 +42,7 @@ const StudentDashboard = () => {
     const fetchDmtBookings = async () => {
       if (!loadedUser) return;
       try {
-        const res = await axios.get(`https://ruh-danceproject.onrender.com/api/dmt-bookings/my-bookings/${loadedUser.id || loadedUser._id}`);
+        const res = await axios.get(`https://ruh-dance-project.onrender.com/api/dmt-bookings/my-bookings/${loadedUser.id || loadedUser._id}`);
         setDmtBookings(res.data);
       } catch (err) {
         console.error("Error fetching DMT bookings:", err);
@@ -53,7 +53,7 @@ const StudentDashboard = () => {
     const fetchPayments = async () => {
       if (!loadedUser) return;
       try {
-        const res = await axios.get('https://ruh-danceproject.onrender.com/api/finance');
+        const res = await axios.get('https://ruh-dance-project.onrender.com/api/finance');
         // Filter transactions for this student only
         const myPayments = res.data.filter(t => t.studentId?._id === (loadedUser.id || loadedUser._id));
         setPayments(myPayments);
@@ -67,7 +67,7 @@ const StudentDashboard = () => {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`https://ruh-danceproject.onrender.com/api/auth/update-profile/${user.id || user._id}`, editFormData);
+      const res = await axios.put(`https://ruh-dance-project.onrender.com/api/auth/update-profile/${user.id || user._id}`, editFormData);
       
       // Update local storage and current session so user doesn't have to re-login
       const updatedUser = res.data.user;
@@ -94,7 +94,7 @@ const StudentDashboard = () => {
         time: dmtFormData.time,
         notes: dmtFormData.notes
       };
-      const res = await axios.post('https://ruh-danceproject.onrender.com/api/dmt-bookings', payload);
+      const res = await axios.post('https://ruh-dance-project.onrender.com/api/dmt-bookings', payload);
       alert('Booking Requested Successfully!');
       setDmtBookings([res.data.booking, ...dmtBookings]);
       setIsDmtModalOpen(false);

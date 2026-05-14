@@ -80,32 +80,32 @@ const AdminDashboard = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const instRes = await axios.get('https://ruh-danceproject.onrender.com/api/auth/instructors', config);
+      const instRes = await axios.get('https://ruh-dance-project.onrender.com/api/auth/instructors', config);
       setInstructors(instRes.data.instructors || instRes.data || []);
     } catch (err) {}
 
     try {
-      const studentRes = await axios.get('https://ruh-danceproject.onrender.com/api/auth/students', config);
+      const studentRes = await axios.get('https://ruh-dance-project.onrender.com/api/auth/students', config);
       setStudents(studentRes.data.students || studentRes.data || []);
     } catch (err) {}
 
     try {
-      const prodRes = await axios.get('https://ruh-danceproject.onrender.com/api/productions');
+      const prodRes = await axios.get('https://ruh-dance-project.onrender.com/api/productions');
       setProductions(prodRes.data.productions || prodRes.data.data || (Array.isArray(prodRes.data) ? prodRes.data : []));
     } catch (err) {}
 
     try {
-      const styleRes = await axios.get('https://ruh-danceproject.onrender.com/api/styles');
+      const styleRes = await axios.get('https://ruh-dance-project.onrender.com/api/styles');
       setStyles(styleRes.data.data || []);
     } catch (err) {}
 
     try {
-      const guruRes = await axios.get('https://ruh-danceproject.onrender.com/api/gurus');
+      const guruRes = await axios.get('https://ruh-dance-project.onrender.com/api/gurus');
       setGurus(guruRes.data.data || []);
     } catch (err) {}
 
     try {
-      const settingsRes = await axios.get('https://ruh-danceproject.onrender.com/api/settings');
+      const settingsRes = await axios.get('https://ruh-dance-project.onrender.com/api/settings');
       if (settingsRes.data.success) {
         setSettings(settingsRes.data.data);
         setVideoUrlInput(settingsRes.data.data.homeVideoUrl);
@@ -113,7 +113,7 @@ const AdminDashboard = () => {
     } catch (err) {}
 
     try {
-      const signatureRes = await axios.get('https://ruh-danceproject.onrender.com/api/signatures');
+      const signatureRes = await axios.get('https://ruh-dance-project.onrender.com/api/signatures');
       setSignatures(signatureRes.data.data || []);
     } catch (err) {}
   }, [config]);
@@ -130,7 +130,7 @@ const AdminDashboard = () => {
       const formData = new FormData();
       Object.entries(newInstructor).forEach(([key, val]) => formData.append(key, val));
       if (newInstructorPhoto) formData.append('profilePhoto', newInstructorPhoto);
-      await axios.post('https://ruh-danceproject.onrender.com/api/auth/admin/add-instructor', formData, {
+      await axios.post('https://ruh-dance-project.onrender.com/api/auth/admin/add-instructor', formData, {
         headers: { ...config.headers, 'Content-Type': 'multipart/form-data' }
       });
       alert("Instructor added successfully!");
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
   const handleDeleteInstructor = async (id) => {
     if (window.confirm("Remove instructor?")) {
       try {
-        await axios.delete(`https://ruh-danceproject.onrender.com/api/auth/instructor/${id}`, config);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/auth/instructor/${id}`, config);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }
@@ -154,7 +154,7 @@ const AdminDashboard = () => {
   const handleDeleteStudent = async (id) => {
     if (window.confirm("Remove student?")) {
       try {
-        await axios.delete(`https://ruh-danceproject.onrender.com/api/auth/student/${id}`, config);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/auth/student/${id}`, config);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }
@@ -170,7 +170,7 @@ const AdminDashboard = () => {
     if (addProdImageFile) formData.append('image', addProdImageFile);
 
     try {
-      await axios.post('https://ruh-danceproject.onrender.com/api/productions', formData, { headers: { ...config.headers } });
+      await axios.post('https://ruh-dance-project.onrender.com/api/productions', formData, { headers: { ...config.headers } });
       alert('Production Added!');
       setShowAddProdModal(false);
       setNewProdFormData({ title: '', year: '', subtitle: ''});
@@ -193,7 +193,7 @@ const AdminDashboard = () => {
     if (newImageFile) formData.append('image', newImageFile);
 
     try {
-        await axios.put(`https://ruh-danceproject.onrender.com/api/productions/${editingProd._id}`, formData, { headers: { ...config.headers } });
+        await axios.put(`https://ruh-dance-project.onrender.com/api/productions/${editingProd._id}`, formData, { headers: { ...config.headers } });
         alert("Update successful!");
         setEditingProd(null);
         fetchData(); 
@@ -203,7 +203,7 @@ const AdminDashboard = () => {
   const handleDeleteProduction = async (id) => {
     if (window.confirm("Delete this production?")) {
       try {
-        await axios.delete(`https://ruh-danceproject.onrender.com/api/productions/${id}`, config);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/productions/${id}`, config);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }
@@ -233,10 +233,10 @@ const AdminDashboard = () => {
 
     try {
       if (editingStyle) {
-        await axios.put(`https://ruh-danceproject.onrender.com/api/styles/${editingStyle._id}`, formData, { headers: { ...config.headers } });
+        await axios.put(`https://ruh-dance-project.onrender.com/api/styles/${editingStyle._id}`, formData, { headers: { ...config.headers } });
         alert('Style Updated!');
       } else {
-        await axios.post('https://ruh-danceproject.onrender.com/api/styles', formData, { headers: { ...config.headers } });
+        await axios.post('https://ruh-dance-project.onrender.com/api/styles', formData, { headers: { ...config.headers } });
         alert('Style Added!');
       }
       setShowStyleModal(false);
@@ -249,7 +249,7 @@ const AdminDashboard = () => {
   const handleDeleteStyle = async (id) => {
     if (window.confirm("Delete this dance style?")) {
       try {
-        await axios.delete(`https://ruh-danceproject.onrender.com/api/styles/${id}`, config);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/styles/${id}`, config);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }
@@ -279,10 +279,10 @@ const AdminDashboard = () => {
 
     try {
       if (editingGuru) {
-        await axios.put(`https://ruh-danceproject.onrender.com/api/gurus/${editingGuru._id}`, formData, { headers: { ...config.headers } });
+        await axios.put(`https://ruh-dance-project.onrender.com/api/gurus/${editingGuru._id}`, formData, { headers: { ...config.headers } });
         alert('Guru Updated!');
       } else {
-        await axios.post('https://ruh-danceproject.onrender.com/api/gurus', formData, { headers: { ...config.headers } });
+        await axios.post('https://ruh-dance-project.onrender.com/api/gurus', formData, { headers: { ...config.headers } });
         alert('Guru Added!');
       }
       setShowGuruModal(false);
@@ -296,7 +296,7 @@ const AdminDashboard = () => {
   const handleDeleteGuru = async (id) => {
     if (window.confirm("Delete this Guru from the system?")) {
       try {
-        await axios.delete(`https://ruh-danceproject.onrender.com/api/gurus/${id}`, config);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/gurus/${id}`, config);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }
@@ -314,7 +314,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const res = await axios.post('https://ruh-danceproject.onrender.com/api/settings', formData, {
+      const res = await axios.post('https://ruh-dance-project.onrender.com/api/settings', formData, {
         headers: { 
           ...config.headers 
         }
@@ -364,7 +364,7 @@ const AdminDashboard = () => {
 
     try {
       if (editingSignature) {
-        await axios.put(`https://ruh-danceproject.onrender.com/api/signatures/${editingSignature._id}`, formData, {
+        await axios.put(`https://ruh-dance-project.onrender.com/api/signatures/${editingSignature._id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data', ...config.headers }
         });
         alert('Performance Updated!');
@@ -373,7 +373,7 @@ const AdminDashboard = () => {
         if (!newSignatureImageFile && !editingSignature && !newSignatureVideoFile) {
           return alert('Please upload at least an image or a video for the new performance.');
         }
-        await axios.post('https://ruh-danceproject.onrender.com/api/signatures', formData, {
+        await axios.post('https://ruh-dance-project.onrender.com/api/signatures', formData, {
           headers: { 'Content-Type': 'multipart/form-data', ...config.headers }
         });
         alert('Performance Added!');
@@ -389,7 +389,7 @@ const AdminDashboard = () => {
   const handleDeleteSignature = async (id) => {
     if (window.confirm("Delete this signature photo?")) {
       try {
-        await axios.delete(`https://ruh-danceproject.onrender.com/api/signatures/${id}`, config);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/signatures/${id}`, config);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }
@@ -606,7 +606,7 @@ const AdminDashboard = () => {
                 }}>
                   <div style={{ overflow: 'hidden', borderRadius: '10px 10px 0 0', position: 'relative' }}>
                     <img 
-                      src={prod.image?.startsWith('http') ? prod.image : `https://ruh-danceproject.onrender.com${prod.image}`}
+                      src={prod.image?.startsWith('http') ? prod.image : `https://ruh-dance-project.onrender.com${prod.image}`}
                       alt={prod.title} 
                       style={{ width: '100%', height: '250px', objectFit: 'cover', display: 'block' }} 
                     />
@@ -696,7 +696,7 @@ const AdminDashboard = () => {
                       <div className="preview-video-container">
                         <label className="preview-label">Current Video Preview</label>
                         <video 
-                          src={settings.homeVideoUrl.startsWith('http') ? settings.homeVideoUrl : `https://ruh-danceproject.onrender.com${settings.homeVideoUrl}`} 
+                          src={settings.homeVideoUrl.startsWith('http') ? settings.homeVideoUrl : `https://ruh-dance-project.onrender.com${settings.homeVideoUrl}`} 
                           controls 
                           muted 
                         />
@@ -737,7 +737,7 @@ const AdminDashboard = () => {
                             <div className="table-img-wrapper" style={{ position: 'relative' }}>
                               {sig.image ? (
                                 <img 
-                                  src={sig.image.startsWith('http') ? sig.image : `https://ruh-danceproject.onrender.com${sig.image}`} 
+                                  src={sig.image.startsWith('http') ? sig.image : `https://ruh-dance-project.onrender.com${sig.image}`} 
                                   alt=""
                                 />
                               ) : (
@@ -818,7 +818,7 @@ const AdminDashboard = () => {
                     muted 
                     controls 
                     style={{ maxHeight: '150px', maxWidth: '100%' }}
-                    src={newSignatureVideoFile ? URL.createObjectURL(newSignatureVideoFile) : (signatureFormData.videoUrl?.startsWith('http') ? signatureFormData.videoUrl : `https://ruh-danceproject.onrender.com${signatureFormData.videoUrl}`)}
+                    src={newSignatureVideoFile ? URL.createObjectURL(newSignatureVideoFile) : (signatureFormData.videoUrl?.startsWith('http') ? signatureFormData.videoUrl : `https://ruh-dance-project.onrender.com${signatureFormData.videoUrl}`)}
                   />
                 </div>
               )}
@@ -848,7 +848,7 @@ const AdminDashboard = () => {
             <h2 className="PROD-MODAL-TITLE">Edit Production</h2>
             <div className="PROD-MODAL-PREVIEW">
               <img 
-                src={editFormData.image?.startsWith('http') ? editFormData.image : `https://ruh-danceproject.onrender.com${editFormData.image}`} 
+                src={editFormData.image?.startsWith('http') ? editFormData.image : `https://ruh-dance-project.onrender.com${editFormData.image}`} 
                 alt="Preview" 
                 style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', borderRadius: '8px' }}
               />

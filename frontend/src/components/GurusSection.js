@@ -10,7 +10,7 @@ const GurusSection = () => {
   useEffect(() => {
     const fetchGurus = async () => {
       try {
-        const res = await axios.get('https://ruh-danceproject.onrender.com/api/gurus');
+        const res = await axios.get('https://ruh-dance-project.onrender.com/api/gurus');
         setGurus(res.data.data || []);
       } catch (err) {
         console.error("Failed to fetch gurus from backend:", err);
@@ -37,7 +37,7 @@ const GurusSection = () => {
             >
               <div className="guru-image-wrapper" onClick={() => setSelectedGuru(guru)}>
                 <img 
-                  src={guru.image?.startsWith('http') ? guru.image : `https://ruh-danceproject.onrender.com${guru.image}`} 
+                  src={guru.image?.startsWith('http') ? guru.image : `https://ruh-dance-project.onrender.com${guru.image}`} 
                   alt={guru.name} 
                   className="guru-image" 
                 />
@@ -63,7 +63,7 @@ const GurusSection = () => {
             <button className="guru-close-btn" onClick={() => setSelectedGuru(null)}>&times;</button>
             <div className="guru-modal-layout">
               <img 
-                 src={selectedGuru.image?.startsWith('http') ? selectedGuru.image : `https://ruh-danceproject.onrender.com${selectedGuru.image}`} 
+                 src={selectedGuru.image?.startsWith('http') ? selectedGuru.image : `https://ruh-dance-project.onrender.com${selectedGuru.image}`} 
                  alt={selectedGuru.name} 
                  className="guru-modal-img" 
               />

@@ -53,7 +53,7 @@ const Styles = () => {
 
   const fetchStyles = async () => {
     try {
-      const res = await axios.get('https://ruh-danceproject.onrender.com/api/styles');
+      const res = await axios.get('https://ruh-dance-project.onrender.com/api/styles');
       if (res.data.data && res.data.data.length > 0) {
         setStyles(res.data.data);
       } else {
@@ -93,7 +93,7 @@ const Styles = () => {
     if (newStyleImageFile) formData.append('image', newStyleImageFile);
 
     try {
-      await axios.put(`https://ruh-danceproject.onrender.com/api/styles/${editingStyle._id}`, formData, { 
+      await axios.put(`https://ruh-dance-project.onrender.com/api/styles/${editingStyle._id}`, formData, { 
         headers: { 
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}` 
@@ -121,7 +121,7 @@ const Styles = () => {
         {styles.map((s) => (
           <div key={s._id} className="glass-hero-panel" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column', position: 'relative' }}>
             <img 
-               src={s.image?.startsWith('http') ? s.image : (s.image ? `https://ruh-danceproject.onrender.com${s.image}` : 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?auto=format&fit=crop&w=800&q=80')} 
+               src={s.image?.startsWith('http') ? s.image : (s.image ? `https://ruh-dance-project.onrender.com${s.image}` : 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?auto=format&fit=crop&w=800&q=80')} 
                alt={s.name} 
                style={{ width: '100%', height: '250px', objectFit: 'cover' }} 
                onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?auto=format&fit=crop&w=800&q=80'; }} 

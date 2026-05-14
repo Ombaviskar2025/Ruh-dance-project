@@ -9,7 +9,7 @@ const MasterpieceGallery = () => {
   useEffect(() => {
     const fetchSignatures = async () => {
       try {
-        const res = await axios.get('https://ruh-danceproject.onrender.com/api/signatures');
+        const res = await axios.get('https://ruh-dance-project.onrender.com/api/signatures');
         if (res.data.success && res.data.data.length > 0) {
           setSignatures(res.data.data);
         }
@@ -29,7 +29,7 @@ const MasterpieceGallery = () => {
 
   const handleCardClick = (sig) => {
     if (sig.videoUrl) {
-      const fullUrl = sig.videoUrl.startsWith('http') ? sig.videoUrl : `https://ruh-danceproject.onrender.com${sig.videoUrl}`;
+      const fullUrl = sig.videoUrl.startsWith('http') ? sig.videoUrl : `https://ruh-dance-project.onrender.com${sig.videoUrl}`;
       window.open(fullUrl, '_blank');
     }
   };
@@ -54,17 +54,17 @@ const MasterpieceGallery = () => {
                 <div className="card-content">
                   {sig.videoUrl ? (
                     <video 
-                      src={sig.videoUrl.startsWith('http') ? sig.videoUrl : `https://ruh-danceproject.onrender.com${sig.videoUrl}`}
+                      src={sig.videoUrl.startsWith('http') ? sig.videoUrl : `https://ruh-dance-project.onrender.com${sig.videoUrl}`}
                       autoPlay 
                       loop 
                       muted 
                       playsInline
-                      poster={sig.image?.startsWith('http') ? sig.image : (sig.image ? `https://ruh-danceproject.onrender.com${sig.image}` : '')}
+                      poster={sig.image?.startsWith('http') ? sig.image : (sig.image ? `https://ruh-dance-project.onrender.com${sig.image}` : '')}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   ) : sig.image ? (
                     <img 
-                      src={sig.image?.startsWith('http') ? sig.image : `https://ruh-danceproject.onrender.com${sig.image}`} 
+                      src={sig.image?.startsWith('http') ? sig.image : `https://ruh-dance-project.onrender.com${sig.image}`} 
                       alt={sig.title} 
                     />
                   ) : (

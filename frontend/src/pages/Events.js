@@ -14,8 +14,8 @@ const Events = ({ isAdmin }) => {
   // Define fetchData correctly to fix 'fetchData' is not defined
   const fetchData = useCallback(async () => {
     try {
-      // Must match your Backend port https://ruh-danceproject.onrender.com
-      const res = await axios.get('https://ruh-danceproject.onrender.com/api/events');
+      // Must match your Backend port https://ruh-dance-project.onrender.com
+      const res = await axios.get('https://ruh-dance-project.onrender.com/api/events');
       setEvents(res.data);
     } catch (err) {
       console.error("Error fetching existing events:", err);
@@ -31,9 +31,9 @@ const Events = ({ isAdmin }) => {
     e.preventDefault();
     try {
       if (editingEvent) {
-        await axios.put(`https://ruh-danceproject.onrender.com/api/events/${editingEvent._id}`, formData);
+        await axios.put(`https://ruh-dance-project.onrender.com/api/events/${editingEvent._id}`, formData);
       } else {
-        await axios.post('https://ruh-danceproject.onrender.com/api/events', formData);
+        await axios.post('https://ruh-dance-project.onrender.com/api/events', formData);
       }
       setIsModalOpen(false);
       setEditingEvent(null);
@@ -46,7 +46,7 @@ const Events = ({ isAdmin }) => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this event?")) {
       try {
-        await axios.delete(`https://ruh-danceproject.onrender.com/api/events/${id}`);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/events/${id}`);
         fetchData();
       } catch (err) {
         alert("Failed to delete event.");
