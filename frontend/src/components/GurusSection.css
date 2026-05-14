@@ -1,0 +1,228 @@
+.gurus-section-wrapper {
+  background-color: transparent; /* Use App.css background or let it inherit */
+  padding: 80px 20px;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+}
+
+.gurus-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+}
+
+.gurus-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #E491C9, #F1E9E9, #982598, #E491C9);
+  background-size: 300% auto;
+  color: #fff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerText 5s linear infinite, floatTitle 4s ease-in-out infinite;
+  line-height: 1.2;
+}
+
+.gurus-subtitle {
+  font-size: 1.2rem;
+  color: #d1d5db;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.gurus-grid {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.guru-card {
+  text-align: center;
+  cursor: pointer;
+  transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 250px;
+  background: rgba(255, 255, 255, 0.05); /* Glass feel */
+  padding: 25px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transform-style: preserve-3d;
+}
+
+.guru-image-wrapper {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 20px auto;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+}
+
+.guru-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.guru-insta-float {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 10;
+}
+
+.guru-insta-float:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 6px 15px rgba(220, 39, 67, 0.5);
+}
+
+/* Hover Animations on Image Cards (Gurus) mapped to Home page features */
+.guru-card:hover {
+  transform: translateY(-15px) scale(1.05) rotateX(5deg) rotateY(5deg);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 50px rgba(228, 145, 201, 0.3);
+  border: 1px solid rgba(228, 145, 201, 0.3);
+}
+
+.guru-card:hover .guru-image-wrapper {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: 0 15px 30px rgba(228, 145, 201, 0.5);
+}
+
+.guru-card:hover .guru-image {
+  transform: scale(1.1);
+}
+
+.guru-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 0 0 5px 0;
+  transition: color 0.3s ease;
+}
+
+.guru-card:hover .guru-name {
+  color: #E491C9; /* Soft pink glow on hover */
+}
+
+.guru-style {
+  font-size: 0.9rem;
+  color: #E491C9;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.8;
+}
+
+/* Modal Styling (Glassmorphism match) */
+.guru-modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(15, 17, 35, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.guru-modal-content {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 750px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+  color: #fff;
+  animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.guru-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: #E491C9;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s;
+}
+
+.guru-close-btn:hover {
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.guru-modal-layout {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.guru-modal-img {
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.guru-modal-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #fff;
+  margin: 0 0 10px 0;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.guru-modal-info h4 {
+  font-size: 1.1rem;
+  color: #E491C9;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.guru-modal-info p {
+  font-size: 1.1rem;
+  color: #d1d5db;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .guru-modal-layout {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

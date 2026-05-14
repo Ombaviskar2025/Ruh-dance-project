@@ -1,0 +1,1371 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+/* Styles Grid */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.style-card {
+  background: white;
+  border-bottom: 4px solid var(--wine);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Inquiry Section */
+.inquiry-section {
+  background-color: #f4e9eb;
+  /* Very light wine tint */
+  padding: 80px 20px;
+}
+
+.soul-form {
+  max-width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.soul-form input,
+.soul-form select,
+.soul-form textarea {
+  padding: 12px;
+  border: 1px solid #722F37;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.soul-form textarea {
+  height: 120px;
+}
+
+.soulful-btn {
+  background: var(--wine);
+  border: none;
+  font-weight: bold;
+}
+
+/* Admin Table Styles */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  background: white;
+}
+
+.admin-table th {
+  background-color: var(--wine);
+  color: white;
+  padding: 15px;
+  text-align: left;
+}
+
+.admin-table td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+}
+
+.admin-table tr:hover {
+  background-color: #f4e9eb;
+}
+
+:root {
+  --wine: #722F37;
+  --light-purple: #D8BFD8;
+  /* Thistle/Light Purple */
+  --deep-purple: #4B0082;
+  --white: #ffffff;
+}
+
+.main-header {
+  background: rgba(21, 23, 61, 0.4);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  /* Pushes logo left and nav right */
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Styling for the centered RUH Title */
+.brand-title {
+  text-align: center;
+  /* Centers the text horizontally */
+  margin: 40px auto;
+  /* Adds space above/below and balances left/right */
+  font-family: 'Playfair Display', serif;
+  /* An elegant, artistic font */
+  color: #722F37;
+  /* Our signature Wine Red color */
+  font-size: 5rem;
+  /* Makes it a bold statement piece */
+  letter-spacing: 20px;
+  /* Adds a modern, airy feel */
+  text-transform: uppercase;
+  font-weight: 300;
+  /* Light weight for a sophisticated look */
+  text-indent: 20px;
+  /* Offsets the letter-spacing to keep it perfectly centered */
+}
+
+/* Optional: Add a subtle glow/shadow to make it pop */
+.brand-title:hover {
+  color: #D8BFD8;
+  /* Changes to Light Purple on hover */
+  transition: 0.5s ease;
+  cursor: default;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: center;
+  /* Centers the tabs */
+  gap: 25px;
+  margin-top: 20px;
+  padding-bottom: 15px;
+}
+
+.nav-tab {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+
+.nav-tab:hover {
+  color: var(--light-purple);
+  text-shadow: 0 0 8px rgba(216, 191, 216, 0.6);
+  border-bottom: 2px solid var(--light-purple);
+}
+
+/* Responsive fix for smaller screens */
+@media (max-width: 768px) {
+  .nav-bar {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+.value-item {
+  padding: 15px 30px;
+  background: white;
+  border: 1px solid var(--wine);
+  color: var(--wine);
+  border-radius: 50px;
+  cursor: default;
+  transition: 0.3s;
+}
+
+.value-item:hover {
+  background-color: var(--wine);
+  color: var(--light-purple);
+  transform: translateY(-5px);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.prod-card:hover {
+  transform: scale(1.03);
+}
+
+.prod-card img {
+  transition: transform 0.5s ease;
+}
+
+.prod-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Logo Styling (Left Side) */
+.logo-link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text {
+  color: #4B0082;
+  /* Deep Indigo/Purple */
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.logo-subtext {
+  color: #722F37;
+  /* Wine accent */
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Navigation Tabs (Right Side) */
+.nav-bar {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-tab {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 5px 0;
+  transition: all 0.3s ease;
+  letter-spacing: 1.5px;
+}
+
+.nav-tab:hover {
+  color: #722F37;
+  border-bottom: 2px solid #D8BFD8;
+}
+
+.hero-section {
+  height: 55vh;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #f8f4ff;
+  /* Very light purple tint */
+}
+
+.hero-title {
+  font-size: 3rem;
+  color: #4B0082;
+  font-family: 'Playfair Display', serif;
+  line-height: 1.1;
+}
+
+.begin-button {
+  margin-top: 30px;
+  padding: 15px 40px;
+  background-color: #722F37;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Align icon and text in the logo */
+.logo-flex-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* Space between icon and "RUH" */
+}
+
+.logo-icon {
+  width: 40px;
+  /* Small dancing girl image size */
+  height: auto;
+  opacity: 0.8;
+}
+
+/* Make the tab section width smaller and more compact */
+.nav-bar {
+  display: flex;
+  gap: 12px;
+  /* Reduced gap between tabs */
+  max-width: 500px;
+  /* Restricts the width of the tab section */
+  justify-content: flex-end;
+}
+
+.nav-tab {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Ensure the header container uses all available space to separate logo and tabs */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Modal Background Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Modal Box */
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #666;
+}
+
+/* Form Styling */
+.inquiry-form input,
+.inquiry-form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* LoginModal.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 450px;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.role-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.role-selector button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: #f5f5f5;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.role-selector button.active {
+  background: #722F37;
+  color: white;
+}
+
+.reg-form input,
+.reg-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.signin-tab-option {
+  cursor: pointer;
+  color: #722F37;
+  /* RUH Maroon to make it stand out slightly */
+  font-weight: 700;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-left: 15px;
+  transition: 0.3s;
+}
+
+.signin-tab-option:hover {
+  color: #333;
+  /* Shifts to dark grey on hover */
+  text-decoration: underline;
+}
+
+/* Ensure nav-bar uses flex to keep items in a line */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 25px;
+  /* Increased gap for a more premium feel */
+}
+
+.nav-tab,
+.signin-tab-option {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 1.5px;
+  transition: 0.3s;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.signin-tab-option {
+  color: #722F37;
+  /* RUH Maroon to subtly draw the eye */
+}
+
+.nav-tab:hover,
+.signin-tab-option:hover {
+  color: #722F37;
+  opacity: 0.8;
+}
+
+.user-profile-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 20px;
+  padding: 4px 12px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.user-profile-container:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(228, 145, 201, 0.5);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #F1E9E9;
+  text-transform: capitalize;
+}
+
+.user-avatar-circle {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #722F37, #982598);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(114, 47, 55, 0.5);
+  transition: all 0.3s ease;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 15px);
+  right: 0;
+  background: rgba(21, 23, 61, 0.9);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  width: 220px;
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  animation: dropdownFadeIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform-origin: top right;
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dropdown-header {
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-role {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #E491C9;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.dropdown-user-email {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.dropdown-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: #F1E9E9 !important;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.dropdown-nav-btn:hover {
+  background: rgba(228, 145, 201, 0.1);
+  color: #E491C9 !important;
+  padding-left: 25px;
+}
+
+.dropdown-logout-btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: rgba(114, 47, 55, 0.1);
+  border: none;
+  color: #ff4d4d;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-logout-btn:hover {
+  background: rgba(255, 77, 77, 0.15);
+  padding-left: 25px;
+}
+
+/* =========================================
+   MODERN AESTHETIC HOME PAGE COMBINED
+   ========================================= */
+.home-aesthetic-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #15173D;
+  /* Dark Navy */
+  color: #F1E9E9;
+  /* Light Gray */
+  overflow: hidden;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Ambient Glowing Orbs */
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 0;
+  animation: floatOrb 12s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  background: #982598;
+  top: -150px;
+  left: -100px;
+  opacity: 0.5;
+}
+
+.orb-2 {
+  width: 400px;
+  height: 400px;
+  background: #E491C9;
+  bottom: -100px;
+  right: -50px;
+  opacity: 0.4;
+  animation-delay: -5s;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  background: rgba(114, 47, 55, 0.4);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+  animation-duration: 15s;
+}
+
+@keyframes floatOrb {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(30px, 30px) scale(1.05);
+  }
+
+  100% {
+    transform: translate(-20px, -40px) scale(0.95);
+  }
+}
+
+/* Aesthetic Floating Glass Shapes */
+.aesthetic-shape {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shape-1 {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  top: 10%;
+  left: 20%;
+  box-shadow: 0 10px 30px rgba(152, 37, 152, 0.3);
+  animation: floatShape1 8s ease-in-out infinite alternate;
+}
+
+.shape-2 {
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  bottom: 15%;
+  right: 18%;
+  box-shadow: 0 10px 30px rgba(228, 145, 201, 0.3);
+  animation: floatShape2 10s ease-in-out infinite alternate 2s;
+}
+
+.shape-3 {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  top: 50%;
+  right: 15%;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: floatShape1 12s ease-in-out infinite alternate 4s;
+  backdrop-filter: blur(5px);
+}
+
+@keyframes floatShape1 {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+  100% { transform: translateY(10px) scale(0.95); }
+}
+
+@keyframes floatShape2 {
+  0% { transform: translateY(0) rotate(45deg) scale(1); }
+  50% { transform: translateY(-40px) rotate(60deg) scale(1.05); }
+  100% { transform: translateY(20px) rotate(30deg) scale(0.95); }
+}
+
+/* Glassmorphic Hero Section */
+.modern-hero-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  padding: 80px 8%;
+  gap: 40px;
+}
+
+.glass-hero-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 60px 40px;
+  text-align: center;
+  max-width: 600px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+@media (max-width: 992px) {
+  .modern-hero-wrapper {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .glass-hero-panel {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+.glass-hero-panel:hover {
+  transform: translateY(-5px);
+}
+
+.hero-title-modern {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #E491C9, #F1E9E9, #982598, #E491C9);
+  background-size: 300% auto;
+  color: #fff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerText 5s linear infinite, floatTitle 4s ease-in-out infinite;
+  line-height: 1.2;
+}
+
+@keyframes shimmerText {
+  to {
+    background-position: 300% center;
+  }
+}
+
+@keyframes floatTitle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.hero-desc-modern {
+  font-size: 1.2rem;
+  color: #d1d5db;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  line-height: 1.6;
+}
+
+.modern-btn {
+  background: linear-gradient(90deg, #982598, #E491C9);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(228, 145, 201, 0.4);
+  letter-spacing: 1px;
+}
+
+.modern-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(228, 145, 201, 0.6);
+}
+
+/* Marquee Section */
+.marquee-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 20px 0;
+  display: flex;
+}
+
+.marquee-content {
+  display: flex;
+  white-space: nowrap;
+  animation: scan 25s linear infinite;
+  width: 200%;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  color: #F1E9E9;
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  margin: 0 40px;
+  pointer-events: none;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.marquee-item.accent {
+  text-shadow: 0 0 10px rgba(228, 145, 201, 0.8);
+  color: #E491C9;
+}
+
+@keyframes scan {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Modern Glass Modal */
+.modern-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(21, 23, 61, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modern-modal-content {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 40px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  color: #F1E9E9;
+  animation: modalFadeIn 0.4s ease forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modern-modal-content h3 {
+  color: #E491C9;
+  font-family: 'Playfair Display', serif;
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.modern-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  color: #F1E9E9;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modern-close-btn:hover {
+  color: #E491C9;
+  transform: rotate(90deg);
+}
+
+.modern-form-input,
+.modern-form-select {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  background: rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #F1E9E9 !important;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  /* Prevent overflow */
+}
+
+/* Dropdown specific styles */
+.modern-form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.modern-form-select option {
+  background-color: #15173D;
+  /* Dropdowns read native, setting background is essential */
+  color: #F1E9E9;
+}
+
+.modern-form-input::placeholder {
+  color: rgba(241, 233, 233, 0.6);
+}
+
+.modern-form-input:focus,
+.modern-form-select:focus {
+  outline: none;
+  border-color: #E491C9;
+  box-shadow: 0 0 10px rgba(228, 145, 201, 0.3);
+}
+
+.modern-form-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* Let's make sure form inputs don't look broken when autofilled */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #15173D inset !important;
+  -webkit-text-fill-color: #F1E9E9 !important;
+}
+
+/* Global Navigation & Header Modernization */
+.modern-glass-header {
+  background: rgba(21, 23, 61, 0.5) !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.3s ease;
+}
+
+.modern-glass-header .logo-text {
+  color: #E491C9 !important;
+}
+
+.modern-glass-header .logo-subtext {
+  color: #D8BFD8 !important;
+}
+
+.modern-glass-header .nav-tab {
+  color: #F1E9E9 !important;
+}
+
+.modern-glass-header .nav-tab:hover {
+  color: #E491C9 !important;
+  border-bottom-color: #E491C9 !important;
+  text-shadow: 0 0 8px rgba(228, 145, 201, 0.6);
+}
+
+.modern-glass-header .signin-tab-option {
+  color: #E491C9 !important;
+}
+
+.modern-glass-header .signin-tab-option:hover {
+  color: #ffffff !important;
+}
+
+.modern-glass-header .user-name {
+  color: #F1E9E9 !important;
+}
+
+/* Global Fade In wrapper applied to pages */
+.modern-page-content {
+  position: relative;
+  z-index: 1;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Floating Social Icons Aesthetic */
+.floating-social-icons {
+  position: fixed;
+  right: 20px;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 9999;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.social-icon svg {
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.1) translateY(-5px);
+}
+
+.social-icon:hover svg {
+  transform: scale(1.1);
+}
+
+.instagram-icon {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  box-shadow: 0 4px 15px rgba(220, 39, 67, 0.4);
+}
+
+.whatsapp-icon {
+  background: #25D366;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+/* Global Nav Dropdown */
+.nav-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(21, 23, 61, 0.95);
+  backdrop-filter: blur(15px);
+  min-width: 180px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  border-radius: 8px;
+  padding: 10px 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 10px;
+}
+
+/* Invisible bridge so mouse doesn't fall off during gap gap */
+.nav-dropdown-container::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 15px;
+}
+
+.nav-dropdown-container:hover .nav-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.3s ease;
+}
+
+.nav-dropdown-item {
+  color: #F1E9E9;
+  padding: 12px 20px;
+  text-decoration: none;
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.nav-dropdown-item:hover {
+  background-color: rgba(228, 145, 201, 0.15);
+  color: #E491C9;
+}
+
+/* 1. Cursor Glow */
+.cursor-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(228, 145, 201, 0.15) 0%, rgba(0,0,0,0) 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  mix-blend-mode: screen;
+}
+
+/* 2. Hover 3D Card */
+.hover-3d-card {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hover-3d-card:hover {
+  transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) scale(1.02);
+}
+
+/* 3. Animated Gradient */
+.animated-gradient-btn {
+  background: linear-gradient(45deg, #982598, #E491C9, #4B0082, #982598);
+  background-size: 300% 300%;
+  animation: gradientBG 4s ease infinite;
+}
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 4. Scroll Reveal Animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease-out;
+}
+.scroll-reveal.scroll-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 5. Video Background Container */
+.hero-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; 
+  border-radius: inherit;
+}
+.hero-bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(21, 23, 61, 0.7) 0%, rgba(75, 0, 130, 0.4) 100%);
+}
+
+/* 6. Cinematic Fullscreen Video Header */
+.cinematic-hero-video-section {
+  position: relative;
+  width: 100%;
+  height: 80vh; /* Takes mostly full screen like the example */
+  min-height: 600px;
+  max-height: 900px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cinematic-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.cinematic-video-overlay-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Dark bottom gradient to make text readable */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 1;
+}
+
+.cinematic-titles-overlay {
+  position: absolute;
+  bottom: 80px;
+  left: 5%;
+  z-index: 2;
+  color: white;
+  max-width: 800px;
+}
+
+.cinematic-main-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.cinematic-sub-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  margin: 10px 0 25px 0;
+  font-weight: 400;
+  color: #f1f1f1;
+}
+
+.cinematic-buttons-row {
+  display: flex;
+  gap: 15px;
+}
+
+.cinematic-btn {
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.cinematic-btn.primary-pink {
+  background-color: #ff477e; /* pink matching example */
+  color: white;
+  border: 1px solid #ff477e;
+}
+.cinematic-btn.primary-pink:hover {
+  background-color: #ff3366;
+  box-shadow: 0 0 15px rgba(255, 71, 126, 0.5);
+}
+
+.cinematic-btn.outline-white {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+}
+.cinematic-btn.outline-white:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cinematic-controls-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 5%;
+  right: 5%;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.control-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.control-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.control-icon:hover {
+  transform: scale(1.2);
+}
+
+.control-time {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.control-right {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,182 @@
+/* Full Replacement for LoginModal.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(21, 23, 61, 0.85); /* Dark Navy */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(8px);
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.05); /* Glass Background */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 45px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  animation: modalFadeIn 0.4s ease-out;
+  color: #F1E9E9;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: #F1E9E9;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-btn:hover { color: #E491C9; transform: rotate(90deg); }
+
+/* Navigation Tabs */
+.modal-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.modal-tabs button {
+  background: none;
+  border: none;
+  padding: 10px 5px;
+  font-weight: 600;
+  color: rgba(241,233,233,0.6);
+  cursor: pointer;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+.modal-tabs button.active {
+  color: #E491C9;
+  border-bottom: 3px solid #E491C9;
+}
+
+/* Forms and Inputs */
+.modal-form h2 {
+  color: #E491C9;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.modal-form input, .modal-form select {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  background: rgba(0,0,0,0.2) !important;
+  color: #F1E9E9 !important;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+.modal-form select option {
+  background-color: #15173D;
+  color: #F1E9E9;
+}
+
+.modal-form input::placeholder { color: rgba(241,233,233,0.5); }
+
+.modal-form input:focus, .modal-form select:focus {
+  border-color: #E491C9;
+  box-shadow: 0 0 10px rgba(228,145,201,0.3);
+  outline: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(90deg, #982598, #E491C9);
+  color: white;
+  border: none;
+  border-radius: 30px; /* Modern pill */
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 15px;
+  text-transform: uppercase;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(228, 145, 201, 0.4);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(228, 145, 201, 0.6);
+}
+
+.toggle-text {
+  margin-top: 25px;
+  font-size: 14px;
+  color: #d1d5db;
+  text-align: center;
+}
+
+.toggle-text span {
+  color: #E491C9;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Success Animation styles (For when registration works) */
+.success-container {
+  padding: 20px;
+  text-align: center;
+}
+.checkmark-circle {
+  width: 70px;
+  height: 70px;
+  background: #982598;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: white;
+  font-size: 35px;
+}
+.forgot-password-link {
+  color: #E491C9; 
+  font-size: 12px;
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  text-decoration: underline;
+  width: 100%;
+  display: block;
+}
+
+.forgot-password-link:hover {
+  color: #ffffff;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #15173D inset !important;
+    -webkit-text-fill-color: #F1E9E9 !important;
+}

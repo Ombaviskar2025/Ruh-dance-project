@@ -1,0 +1,652 @@
+/* ============================================================
+   RUH DANCE PRODUCTION — DMT Page Styles
+   Premium dark-glass aesthetic matching the site theme
+   ============================================================ */
+
+/* ── Page wrapper ─────────────────────────────────────── */
+.dmt-page {
+  min-height: 100vh;
+  color: #F1E9E9;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.dmt-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 40px 80px;
+  text-align: center;
+  background: linear-gradient(160deg, #0d0f2e 0%, #1a1040 50%, #0d0f2e 100%);
+}
+
+.dmt-hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.dmt-orb-1 {
+  width: 400px; height: 400px;
+  background: rgba(152, 37, 152, 0.25);
+  top: -100px; left: -100px;
+}
+
+.dmt-orb-2 {
+  width: 350px; height: 350px;
+  background: rgba(228, 145, 201, 0.15);
+  bottom: -80px; right: -60px;
+}
+
+.dmt-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.dmt-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #E491C9;
+  background: rgba(228, 145, 201, 0.1);
+  border: 1px solid rgba(228, 145, 201, 0.25);
+  padding: 6px 18px;
+  border-radius: 30px;
+  margin-bottom: 24px;
+}
+
+.dmt-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #ffffff 30%, #E491C9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dmt-hero-quote {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(241, 233, 233, 0.65);
+  margin-bottom: 40px;
+}
+
+.dmt-hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── BUTTONS ──────────────────────────────────────────── */
+.dmt-cta-btn {
+  background: linear-gradient(135deg, #982598, #E491C9);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(152, 37, 152, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.dmt-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(152, 37, 152, 0.55);
+}
+
+.dmt-cta-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dmt-outline-btn {
+  background: transparent;
+  color: #E491C9;
+  border: 1.5px solid rgba(228, 145, 201, 0.4);
+  padding: 13px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dmt-outline-btn:hover {
+  background: rgba(228, 145, 201, 0.1);
+  border-color: #E491C9;
+  transform: translateY(-2px);
+}
+
+.dmt-full-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── SECTIONS ─────────────────────────────────────────── */
+.dmt-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 70px 40px;
+}
+
+.dmt-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.dmt-body-text {
+  color: rgba(241, 233, 233, 0.72);
+  line-height: 1.85;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+/* ── WHAT IS DMT GRID ─────────────────────────────────── */
+.dmt-what-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.dmt-what-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.dmt-stat {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(228, 145, 201, 0.15);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.dmt-stat:hover {
+  background: rgba(228, 145, 201, 0.08);
+  border-color: rgba(228, 145, 201, 0.35);
+  transform: translateY(-4px);
+}
+
+.dmt-stat-num {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #E491C9, #982598);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dmt-stat span:last-child {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── BENEFITS ─────────────────────────────────────────── */
+.dmt-benefits-section {
+  background: rgba(255, 255, 255, 0.015);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  max-width: 100%;
+  padding: 70px 10%;
+}
+
+.dmt-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.dmt-benefit-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 32px 28px;
+  transition: all 0.35s ease;
+}
+
+.dmt-benefit-card:hover {
+  background: rgba(228, 145, 201, 0.07);
+  border-color: rgba(228, 145, 201, 0.25);
+  transform: translateY(-6px);
+}
+
+.dmt-benefit-icon {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.dmt-benefit-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #E491C9;
+  margin-bottom: 10px;
+}
+
+.dmt-benefit-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ── FORMAT CARDS ─────────────────────────────────────── */
+.dmt-formats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.dmt-format-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dmt-format-card:hover {
+  background: rgba(152, 37, 152, 0.1);
+  border-color: rgba(228, 145, 201, 0.3);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* ── MY BOOKINGS ──────────────────────────────────────── */
+.dmt-bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.dmt-booking-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 20px 28px;
+  transition: background 0.2s;
+}
+
+.dmt-booking-row:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.dmt-booking-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.dmt-booking-type {
+  background: rgba(228, 145, 201, 0.15);
+  color: #E491C9;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.dmt-status-badge {
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+
+.dmt-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── MODAL OVERLAY ────────────────────────────────────── */
+.dmt-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 9, 25, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* ── MODAL BOX ────────────────────────────────────────── */
+.dmt-modal {
+  background: linear-gradient(160deg, #16183f 0%, #1c1044 100%);
+  border: 1px solid rgba(228, 145, 201, 0.25);
+  border-radius: 28px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+  animation: dmtModalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-height: 92vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(228,145,201,0.3) transparent;
+}
+
+@keyframes dmtModalIn {
+  from { opacity: 0; transform: scale(0.9) translateY(30px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.dmt-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 28px 32px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  position: sticky;
+  top: 0;
+  background: linear-gradient(160deg, #16183f, #1c1044);
+  z-index: 1;
+  border-radius: 28px 28px 0 0;
+}
+
+.dmt-modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: white;
+  margin: 0 0 8px;
+}
+
+.dmt-modal-close {
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: rgba(255,255,255,0.7);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.dmt-modal-close:hover {
+  background: rgba(255,77,77,0.2);
+  color: #ff6b6b;
+}
+
+/* ── STEPS INDICATOR ──────────────────────────────────── */
+.dmt-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.dmt-step {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.dmt-step.active { color: #E491C9; }
+
+.dmt-step-sep {
+  color: rgba(255,255,255,0.2);
+  font-size: 0.9rem;
+}
+
+/* ── MODAL BODY ───────────────────────────────────────── */
+.dmt-modal-body {
+  padding: 28px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ── FORM ELEMENTS ────────────────────────────────────── */
+.dmt-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dmt-form-group label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.dmt-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.dmt-input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.95rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.dmt-input:focus {
+  border-color: rgba(228,145,201,0.6);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 3px rgba(228,145,201,0.12);
+}
+
+.dmt-input[type="date"] {
+  color-scheme: dark;
+}
+
+.dmt-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ── PILL SELECTORS ───────────────────────────────────── */
+.dmt-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dmt-pill {
+  padding: 8px 18px;
+  border-radius: 30px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.dmt-pill:hover {
+  border-color: rgba(228,145,201,0.4);
+  color: #E491C9;
+}
+
+.dmt-pill.active {
+  background: linear-gradient(135deg, rgba(152,37,152,0.25), rgba(228,145,201,0.2));
+  border-color: #E491C9;
+  color: #E491C9;
+}
+
+/* ── TIME SLOTS ───────────────────────────────────────── */
+.dmt-timeslot-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.dmt-timeslot {
+  padding: 12px 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.dmt-timeslot:hover {
+  border-color: rgba(228,145,201,0.35);
+  color: #E491C9;
+  background: rgba(228,145,201,0.05);
+}
+
+.dmt-timeslot.active {
+  background: linear-gradient(135deg, rgba(152,37,152,0.3), rgba(228,145,201,0.2));
+  border-color: #E491C9;
+  color: white;
+  font-weight: 700;
+}
+
+/* ── SUMMARY CARD ─────────────────────────────────────── */
+.dmt-summary-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(228,145,201,0.15);
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+
+.dmt-summary-card h5 {
+  color: #E491C9;
+  font-size: 0.85rem;
+  margin: 0 0 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.dmt-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.88rem;
+}
+
+.dmt-summary-row:last-child { border-bottom: none; }
+
+.dmt-summary-row span { color: rgba(255,255,255,0.45); }
+.dmt-summary-row strong { color: white; }
+
+/* ── ERROR ────────────────────────────────────────────── */
+.dmt-error {
+  background: rgba(255, 77, 77, 0.1);
+  border: 1px solid rgba(255, 77, 77, 0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #ff8080;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* ── SUCCESS SCREEN ───────────────────────────────────── */
+.dmt-success {
+  text-align: center;
+  align-items: center;
+  padding: 40px 32px;
+}
+
+.dmt-success-icon {
+  font-size: 4rem;
+  animation: dmtBounce 0.6s ease;
+}
+
+@keyframes dmtBounce {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.dmt-success h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: white;
+  margin: 12px 0 8px;
+}
+
+.dmt-success p { color: rgba(255,255,255,0.65); }
+
+.dmt-success-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.dmt-success-detail span {
+  background: rgba(228,145,201,0.1);
+  border: 1px solid rgba(228,145,201,0.2);
+  border-radius: 30px;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  color: #E491C9;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .dmt-hero { padding: 70px 24px 60px; }
+  .dmt-section { padding: 50px 24px; }
+  .dmt-section, .dmt-benefits-section { padding: 50px 24px; }
+  .dmt-what-grid { grid-template-columns: 1fr; gap: 30px; }
+  .dmt-form-row { grid-template-columns: 1fr; }
+  .dmt-timeslot-grid { grid-template-columns: repeat(2, 1fr); }
+  .dmt-modal-header, .dmt-modal-body { padding: 20px; }
+}

@@ -1,0 +1,195 @@
+.masterpiece-wrapper {
+  background-color: #15173D;
+  width: 100%;
+  overflow: hidden;
+}
+
+.masterpiece-section {
+  padding: 100px 0;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.masterpiece-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #E491C9 0%, #F1E9E9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 60px;
+  letter-spacing: -1px;
+}
+
+/* 3D VIEWPORT */
+.gallery-viewport {
+  height: 450px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1500px; /* Depth of field */
+  perspective-origin: 50% 20%; /* Looking slightly down into the ring */
+}
+
+/* THE ROTATING RING */
+.gallery-ring {
+  position: relative;
+  width: 220px;
+  height: 300px;
+  transform-style: preserve-3d;
+  animation: rotateRing 40s linear infinite;
+  will-change: transform;
+}
+
+.gallery-ring:hover {
+  animation-play-state: paused;
+}
+
+@keyframes rotateRing {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* INDIVIDUAL CARDS */
+.gallery-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  /* Mathematically position in circle */
+  transform: 
+    rotateY(calc(var(--index) * (360deg / var(--count)))) 
+    translateZ(450px); /* Radius of the ring */
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid rgba(228, 145, 201, 0.3); /* Soft pink border */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  background: #000;
+  transition: transform 0.5s ease;
+}
+
+/* Glowing Rim Effect (Animated like the reference image) */
+.card-content::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(45deg, transparent, #E491C9, transparent, #982598, transparent);
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: borderFlow 10s linear infinite;
+  filter: blur(5px);
+  opacity: 0.3;
+}
+
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gallery-card:hover .card-content {
+  transform: translateY(-20px) scale(1.05);
+  border-color: #E491C9;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 30px rgba(228, 145, 201, 0.4);
+}
+
+.gallery-card:hover .card-content::before {
+  opacity: 1;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* TEXT OVERLAY ON CARD */
+.card-info-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 20px 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+  text-align: left;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+
+.gallery-card:hover .card-info-overlay {
+  transform: translateY(0);
+}
+
+.card-info-overlay h4 {
+  color: #E491C9;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  font-family: 'Playfair Display', serif;
+}
+
+.card-info-overlay p {
+  color: #fff;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* REFLECTION EFFECT (as seen in some high-end carousels) */
+.card-reflection {
+  position: absolute;
+  top: 102%;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background-image: linear-gradient(rgba(255,255,255,0.1), transparent);
+  -webkit-mask-image: linear-gradient(transparent, rgba(0,0,0,0.25));
+  mask-image: linear-gradient(transparent, rgba(0,0,0,0.25));
+  opacity: 0.3;
+  transform: scaleY(-1);
+  pointer-events: none;
+}
+
+.masterpiece-subtitle {
+  margin-top: 60px;
+  font-size: 1.1rem;
+  color: #aaa;
+  font-weight: 300;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .masterpiece-title { font-size: 4rem; }
+  .gallery-card { transform: rotateY(calc(var(--index) * (360deg / var(--count)))) translateZ(350px); }
+  .gallery-ring { width: 180px; height: 250px; }
+}
+
+@media (max-width: 768px) {
+  .masterpiece-title { font-size: 3rem; }
+  .gallery-card { transform: rotateY(calc(var(--index) * (360deg / var(--count)))) translateZ(280px); }
+  .gallery-ring { width: 150px; height: 210px; }
+  .gallery-viewport { height: 350px; }
+}
+
+@media (max-width: 480px) {
+  .masterpiece-title { font-size: 2.2rem; }
+  .gallery-card { transform: rotateY(calc(var(--index) * (360deg / var(--count)))) translateZ(200px); }
+  .gallery-ring { width: 120px; height: 170px; }
+  .gallery-viewport { height: 300px; }
+}
