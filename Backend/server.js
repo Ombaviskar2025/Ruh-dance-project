@@ -83,7 +83,7 @@ app.get('/', (req, res) => {
 // });
 
 // 8. Define the Port and Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || https://ruh-danceproject.onrender.com;
 app.listen(PORT, () => {
     console.log(`🚀 Server is flying on port ${PORT}`);
 });

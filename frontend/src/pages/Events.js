@@ -14,7 +14,7 @@ const Events = ({ isAdmin }) => {
   // Define fetchData correctly to fix 'fetchData' is not defined
   const fetchData = useCallback(async () => {
     try {
-      // Must match your Backend port 5000
+      // Must match your Backend port https://ruh-danceproject.onrender.com
       const res = await axios.get('https://ruh-danceproject.onrender.com/api/events');
       setEvents(res.data);
     } catch (err) {

@@ -41,7 +41,7 @@ router.post('/image', upload.single('image'), (req, res) => {
   }
 
   // Create the image URL that the frontend can use
-  // Assuming your server is running on port 5000 and serves static files
+  // Assuming your server is running on port https://ruh-danceproject.onrender.com and serves static files
   const imageUrl = `https://ruh-danceproject.onrender.com/${req.file.path.replace(/\\/g, '/')}`;
 
   res.status(200).json({
