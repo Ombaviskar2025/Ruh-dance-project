@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import axios from 'axios';
-import { LuPlus, LuTrash2, LuMail, LuCheckCircle, LuSettings } from 'react-icons/lu';
+import { LuPlus, LuTrash2, LuMail } from 'react-icons/lu';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 const FinanceAdmin = () => {
