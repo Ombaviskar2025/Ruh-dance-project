@@ -12,6 +12,13 @@ const Home = () => {
   });
   const [homeVideoUrl, setHomeVideoUrl] = useState('https://cdn.pixabay.com/video/2021/08/11/84687-587889617_tiny.mp4');
 
+  const isYouTube = (url) => url && (url.includes('youtube.com') || url.includes('youtu.be'));
+  const getYouTubeId = (url) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
+
   // 1. Video Control State
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -125,17 +132,28 @@ const Home = () => {
 
       {/* 4. Cinematic Fullscreen Video Header */}
       <div className="cinematic-hero-video-section fade-in">
-        <video 
-          ref={videoRef}
-          key={homeVideoUrl} 
-          className="cinematic-bg-video" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-        >
-          <source src={homeVideoUrl} type="video/mp4" />
-        </video>
+        {isYouTube(homeVideoUrl) ? (
+          <iframe
+            className="cinematic-bg-video"
+            src={`https://www.youtube.com/embed/${getYouTubeId(homeVideoUrl)}?autoplay=1&mute=1&controls=0&loop=1&playlist=${getYouTubeId(homeVideoUrl)}&playsinline=1`}
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            style={{ pointerEvents: 'none', width: '100%', height: '150%', objectFit: 'cover' }}
+          ></iframe>
+        ) : (
+          <video 
+            ref={videoRef}
+            key={homeVideoUrl} 
+            className="cinematic-bg-video" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+          >
+            <source src={homeVideoUrl} type="video/mp4" />
+          </video>
+        )}
         <div className="cinematic-video-overlay-gradient"></div>
         
         <div className="cinematic-titles-overlay">
@@ -203,10 +221,19 @@ const Home = () => {
 
         {/* Video Background Layer */}
         <div className="hero-video-container">
-          <video key={homeVideoUrl} autoPlay loop muted playsInline className="hero-bg-video">
-            {/* Generic beautiful aesthetic dance/abstract placeholder video */}
-            <source src={homeVideoUrl} type="video/mp4" />
-          </video>
+          {isYouTube(homeVideoUrl) ? (
+            <iframe
+              className="hero-bg-video"
+              src={`https://www.youtube.com/embed/${getYouTubeId(homeVideoUrl)}?autoplay=1&mute=1&controls=0&loop=1&playlist=${getYouTubeId(homeVideoUrl)}&playsinline=1`}
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              style={{ pointerEvents: 'none', width: '100%', height: '150%', objectFit: 'cover' }}
+            ></iframe>
+          ) : (
+            <video key={homeVideoUrl} autoPlay loop muted playsInline className="hero-bg-video">
+              <source src={homeVideoUrl} type="video/mp4" />
+            </video>
+          )}
           <div className="video-overlay"></div>
         </div>
 
