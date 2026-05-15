@@ -430,7 +430,6 @@ const AdminDashboard = () => {
           <SidebarItem Icon={LuListTodo} label="Classes" isActive={activeTab === 'Classes'} onClick={() => setActiveTab('Classes')} />
           <SidebarItem Icon={LuCalendarCheck} label="Events" isActive={activeTab === 'Events'} onClick={() => setActiveTab('Events')} />
           <SidebarItem Icon={LuCreditCard} label="Finance" isActive={activeTab === 'Finance'} onClick={() => setActiveTab('Finance')} />
-          <SidebarItem Icon={LuSettings} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => setActiveTab('Background Photos & Video')} />
         </nav>
       </aside>
 

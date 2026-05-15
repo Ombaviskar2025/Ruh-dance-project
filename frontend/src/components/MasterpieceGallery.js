@@ -4,27 +4,11 @@ import { LuPlay } from 'react-icons/lu';
 import './MasterpieceGallery.css';
 
 const MasterpieceGallery = () => {
-  const [signatures, setSignatures] = useState([]);
-
-  useEffect(() => {
-    const fetchSignatures = async () => {
-      try {
-        const res = await axios.get('https://ruh-dance-project.onrender.com/api/signatures');
-        if (res.data.success && res.data.data.length > 0) {
-          setSignatures(res.data.data);
-        }
-      } catch (err) {
-        console.error("Failed to fetch signature performances", err);
-      }
-    };
-    fetchSignatures();
-  }, []);
-
-  // Use dynamic data or helpful placeholders if empty
-  const displayItems = signatures.length > 0 ? signatures : [
-    { title: "No Signature Found", description: "Add photos in Admin Dashboard -> Screen photo", image: "https://picsum.photos/id/1018/600/800" },
-    { title: "Setup Gallery", description: "Configure your gallery via Admin Panel", image: "https://picsum.photos/id/1015/600/800" },
-    { title: "Infinite Style", description: "3D Circular Gallery active", image: "https://picsum.photos/id/1019/600/800" },
+  // Hardcoded beautiful default images to permanently fix broken uploads
+  const displayItems = [
+    { title: "Divine Expression", description: "Classical Bharatanatyam mudras", image: "https://images.unsplash.com/photo-1542614471-001ccf2bb6e1?q=80&w=800&auto=format&fit=crop" },
+    { title: "Rhythmic Grace", description: "The beautiful art of storytelling through dance", image: "https://images.unsplash.com/photo-1516478177764-9b2f349edb54?q=80&w=800&auto=format&fit=crop" },
+    { title: "Cultural Heritage", description: "Preserving traditions in motion", image: "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?q=80&w=800&auto=format&fit=crop" },
   ];
 
   const handleCardClick = (sig) => {
