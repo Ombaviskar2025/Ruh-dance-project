@@ -25,15 +25,13 @@ const signatureRoutes = require('./routes/signatureRoutes');
 const app = express();
 const path = require('path');
 // 4. Middleware
-app.use(express.json()); 
-app.use(cors({
-  origin: "https://ruhdance.netlify.app",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(express.json());
 
-app.options(/.*/, cors());  
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));  
 app.use('/uploads', express.static( 'uploads'));      
 
 // 5. Use the routes
