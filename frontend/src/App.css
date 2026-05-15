@@ -1369,3 +1369,35 @@ input:-webkit-autofill:active {
   display: flex;
   align-items: center;
 }
+/* =========================================
+   7. MEDIA QUERIES (MOBILE RESPONSIVENESS)
+   ========================================= */
+@media (max-width: 992px) {
+  .cinematic-main-title { font-size: 3rem; }
+  .cinematic-sub-title { font-size: 1.2rem; }
+  .header-container { padding: 10px; }
+  .grid-container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+}
+
+@media (max-width: 768px) {
+  .header-container { flex-direction: column; gap: 15px; }
+  .nav-bar { flex-wrap: wrap; justify-content: center; width: 100%; gap: 10px; }
+  .cinematic-main-title { font-size: 2.2rem; }
+  .cinematic-sub-title { font-size: 1rem; }
+  .cinematic-titles-overlay { left: 5%; right: 5%; bottom: 60px; text-align: center; }
+  .cinematic-buttons-row { justify-content: center; flex-wrap: wrap; }
+  .form-row { grid-template-columns: 1fr; display: flex; flex-direction: column; }
+  .login-box, .modal-content { width: 95%; padding: 20px; }
+  .hero-section { height: auto; padding: 40px 20px; }
+  .nav-tab { font-size: 0.8rem; padding: 5px; }
+  .cinematic-hero-video-section { min-height: 400px; height: 60vh; }
+}
+
+@media (max-width: 480px) {
+  .cinematic-main-title { font-size: 1.8rem; }
+  .brand-title { font-size: 2.5rem; letter-spacing: 10px; text-indent: 10px; }
+  .nav-tab { font-size: 0.7rem; }
+  .admin-table { font-size: 0.8rem; }
+  .admin-table th, .admin-table td { padding: 8px 4px; }
+  .cinematic-btn { padding: 10px 20px; font-size: 0.9rem; }
+}
