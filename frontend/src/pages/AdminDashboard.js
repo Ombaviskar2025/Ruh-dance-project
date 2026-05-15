@@ -811,38 +811,39 @@ const AdminDashboard = () => {
                         Choose to either upload a video file or provide a direct video URL (MP4).
                       </p>
                       <div className="input-stack">
-                          <label>Direct Video URL (MP4 Only)</label>
-                          <input 
-                            type="text" 
-                            className="modal-form-input" 
-                            placeholder="https://example.com/video.mp4"
-                            value={videoUrlInput}
-                            onChange={(e) => {
-                              setVideoUrlInput(e.target.value);
-                              setNewVideoFile(null);
-                            }}
-                          />
-                          <small style={{color: '#E491C9', fontSize: '10px', marginTop: '4px', display: 'block'}}>
-                            ⚠️ NOTE: YouTube/Vimeo links do NOT work here. Use direct .mp4 links.
-                          </small>
-                        </div>
-                        <div className="divider-or">
-                          <span className="line"></span>
-                          <span className="text">OR</span>
-                          <span className="line"></span>
-                        </div>
-                        <div className="file-drop-area">
-                          <label className="file-label">Upload Video File</label>
-                          <input 
-                            type="file" 
-                            accept="video/*" 
-                            onChange={(e) => {
-                              setNewVideoFile(e.target.files[0]);
-                              setVideoUrlInput('');
-                            }} 
-                          />
-                        </div>
+                        <label>Direct Video URL (MP4 Only)</label>
+                        <input 
+                          type="text" 
+                          className="modal-form-input" 
+                          placeholder="https://example.com/video.mp4"
+                          value={videoUrlInput}
+                          onChange={(e) => {
+                            setVideoUrlInput(e.target.value);
+                            setNewVideoFile(null);
+                          }}
+                        />
+                        <small style={{color: '#E491C9', fontSize: '10px', marginTop: '4px', display: 'block'}}>
+                          ⚠️ NOTE: YouTube/Vimeo links do NOT work here. Use direct .mp4 links.
+                        </small>
                       </div>
+                      <div className="divider-or">
+                        <span className="line"></span>
+                        <span className="text">OR</span>
+                        <span className="line"></span>
+                      </div>
+                      <div className="file-drop-area">
+                        <label className="file-label">Upload Video File</label>
+                        <input 
+                          type="file" 
+                          accept="video/*" 
+                          onChange={(e) => {
+                            setNewVideoFile(e.target.files[0]);
+                            setVideoUrlInput('');
+                          }} 
+                        />
+                      </div>
+                    </div>
+
                     {settings.homeVideoUrl && (
                       <div className="preview-video-container">
                         <label className="preview-label">Current Video Preview</label>
