@@ -27,20 +27,18 @@ const path = require('path');
 // 4. Middleware
 app.use(express.json());
 
-app.use(cors({
-  origin: "https://ruhdance.netlify.app",
+const corsOptions = {
+  origin: ["https://ruhdance.netlify.app"],
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200
+};
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://ruhdance.netlify.app");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
+app.use(cors(corsOptions));
+
+// Handle OPTIONS preflight for all routes
+app.options('*', cors(corsOptions));
 // 5. Use the routes
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/auth', authRoutes);
