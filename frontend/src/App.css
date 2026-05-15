@@ -1408,12 +1408,13 @@ input:-webkit-autofill:active {
 .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 5px; }
 .mobile-sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.5); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .mobile-sidebar-overlay.open { opacity: 1; pointer-events: all; }
-.mobile-sidebar { position: fixed; top: 0; right: 0; width: 280px; max-width: 80vw; height: 100vh; background-color: #ffffff; z-index: 2001; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; }
+.mobile-sidebar { position: fixed; top: 0; right: 0; width: 280px; max-width: 80vw; height: 100vh; background-color: var(--bg-color, #1a0f2e); z-index: 2001; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; }
 .mobile-sidebar.open { transform: translateX(0); }
 .mobile-sidebar-header { display: flex; justify-content: flex-end; padding: 25px 25px 10px 20px; }
 .close-sidebar-btn { background: none; border: none; cursor: pointer; }
 .mobile-sidebar-links { display: flex; flex-direction: column; padding: 0 40px; }
-.mobile-link { text-decoration: none; color: #333; font-family: 'Playfair Display', serif; font-size: 1.1rem; padding: 18px 0; border-bottom: 1px dotted #ccc; cursor: pointer; }
+.mobile-link { text-decoration: none; color: #fff; font-family: 'Playfair Display', serif; font-size: 1.1rem; padding: 18px 0; border-bottom: 1px dotted rgba(255,255,255,0.2); cursor: pointer; transition: color 0.3s; }
+.mobile-link:hover { color: var(--brand-pink, #ff69b4); }
 .mobile-link:last-child { border-bottom: none; }
 .logout-mobile-link { color: #ff4d4d; font-weight: bold; }
 @media (max-width: 992px) { .desktop-nav { display: none !important; } .mobile-menu-btn { display: block; } }

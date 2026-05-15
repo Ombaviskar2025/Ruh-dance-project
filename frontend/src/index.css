@@ -46,12 +46,12 @@ img, video, iframe {
     }
     
     /* Ensure padding doesn't break forms */
-    .admin-dashboard-container {
+    .admin-container {
         padding: 10px !important;
         flex-direction: column !important;
     }
 
-    .admin-sidebar {
+    .sidebar {
         width: 100% !important;
         height: auto !important;
         position: relative !important;
@@ -60,7 +60,7 @@ img, video, iframe {
         padding: 10px !important;
     }
     
-    .admin-main-content {
+    .main-content {
         margin-left: 0 !important;
         width: 100% !important;
         padding: 10px !important;

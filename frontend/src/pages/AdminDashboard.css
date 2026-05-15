@@ -730,3 +730,52 @@ input[type="file"]::file-selector-button:hover {
   .nav-item span { display: none; }
   .stats-row-container { flex-direction: column; }
 }
+
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column !important;
+  }
+  .sidebar {
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 10px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    align-items: center !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .sidebar-header {
+    margin-bottom: 0 !important;
+    margin-right: 20px !important;
+  }
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 10px !important;
+    margin-top: 0 !important;
+  }
+  .nav-item {
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    border-radius: 8px !important;
+  }
+  .nav-icon {
+    margin-right: 0 !important;
+  }
+  .nav-item span, .nav-item {
+    display: flex !important;
+    white-space: nowrap !important;
+  }
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 10px !important;
+  }
+}
