@@ -20,7 +20,7 @@ exports.updateSettings = async (req, res) => {
     }
 
     if (req.file) {
-      settings.homeVideoUrl = `/uploads/${req.file.filename}`;
+      settings.homeVideoUrl = req.file.path;
     } else if (req.body.homeVideoUrl) {
       settings.homeVideoUrl = req.body.homeVideoUrl; // Allow direct URL bypass if we want
     }

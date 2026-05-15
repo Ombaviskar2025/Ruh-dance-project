@@ -66,6 +66,7 @@ const AdminDashboard = () => {
   const [showGalleryModal, setShowGalleryModal] = useState(false);
   const [editingGalleryItem, setEditingGalleryItem] = useState(null);
   const [galleryFormData, setGalleryFormData] = useState({ title: '', description: '', type: 'photo', mediaUrl: '' });
+  const [galleryFile, setGalleryFile] = useState(null);
 
   // Signatures (Screen photo) State
   const [signatures, setSignatures] = useState([]);
@@ -323,17 +324,31 @@ const AdminDashboard = () => {
       setEditingGalleryItem(null);
       setGalleryFormData({ title: '', description: '', type: 'photo', mediaUrl: '' });
     }
+    setGalleryFile(null);
     setShowGalleryModal(true);
   };
 
   const handleSaveGallery = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', galleryFormData.title);
+    formData.append('description', galleryFormData.description);
+    formData.append('type', galleryFormData.type);
+    formData.append('mediaUrl', galleryFormData.mediaUrl);
+    if (galleryFile) {
+      formData.append('media', galleryFile);
+    }
+
     try {
       if (editingGalleryItem) {
-        await axios.put(`https://ruh-dance-project.onrender.com/api/gallery/${editingGalleryItem._id}`, galleryFormData, { headers: { ...config.headers } });
+        await axios.put(`https://ruh-dance-project.onrender.com/api/gallery/${editingGalleryItem._id}`, formData, { 
+          headers: { ...config.headers, 'Content-Type': 'multipart/form-data' } 
+        });
         alert('Gallery Item Updated!');
       } else {
-        await axios.post('https://ruh-dance-project.onrender.com/api/gallery', galleryFormData, { headers: { ...config.headers } });
+        await axios.post('https://ruh-dance-project.onrender.com/api/gallery', formData, { 
+          headers: { ...config.headers, 'Content-Type': 'multipart/form-data' } 
+        });
         alert('Gallery Item Added!');
       }
       setShowGalleryModal(false);
@@ -898,9 +913,13 @@ const AdminDashboard = () => {
               </Input>
             </FormGroup>
             <FormGroup>
-              <Label>Direct URL (Google Drive, Imgur, Pinterest, etc.)</Label>
-              <Input className="modal-form-input" required value={galleryFormData.mediaUrl} onChange={e => setGalleryFormData({...galleryFormData, mediaUrl: e.target.value})} placeholder="https://..." />
-              <small style={{color: '#aaa', marginTop: '5px', display: 'block'}}>Please provide a direct URL. File uploads are disabled for this section to prevent data loss on Render free tier.</small>
+              <Label>Or Upload File (Persistent)</Label>
+              <Input type="file" onChange={e => setGalleryFile(e.target.files[0])} />
+            </FormGroup>
+            <FormGroup>
+              <Label>Direct URL (Bypass Upload)</Label>
+              <Input className="modal-form-input" value={galleryFormData.mediaUrl} onChange={e => setGalleryFormData({...galleryFormData, mediaUrl: e.target.value})} placeholder="https://..." />
+              <small style={{color: '#aaa', marginTop: '5px', display: 'block'}}>Providing a URL will bypass the file upload if both are present.</small>
             </FormGroup>
           </ModalBody>
           <ModalFooter>

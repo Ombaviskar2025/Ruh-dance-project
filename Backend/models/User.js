@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
   age: { type: Number, required: true },
   danceStyle: { type: String, required: true }, // Ensure this matches frontend
   role: { type: String, default: 'student' },
+  profilePhoto: { type: String },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   isApproved: { type: Boolean, default: false }, // Instructors start as unapproved

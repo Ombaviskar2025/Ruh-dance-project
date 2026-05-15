@@ -17,7 +17,7 @@ exports.createStyle = async (req, res) => {
     try {
         const styleData = {
            ...req.body,
-           image: req.file ? `/uploads/${req.file.filename}` : req.body.image
+           image: req.file ? req.file.path : req.body.image
         };
         const style = await Style.create(styleData);
         res.status(201).json({ success: true, data: style });
@@ -32,7 +32,7 @@ exports.updateStyle = async (req, res) => {
     try {
         const updatedData = { ...req.body };
         if (req.file) {
-            updatedData.image = `/uploads/${req.file.filename}`;
+            updatedData.image = req.file.path;
         } else if (req.body.image) {
             updatedData.image = req.body.image;
         }

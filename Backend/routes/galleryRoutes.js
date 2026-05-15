@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Gallery = require('../models/Gallery');
 const { protect } = require('../middleware/authMiddleware');
+const upload = require('../middleware/multer');
 
 // @route   GET /api/gallery
 // @desc    Get all gallery items
@@ -17,14 +18,19 @@ router.get('/', async (req, res) => {
 });
 
 // @route   POST /api/gallery
-// @desc    Add a gallery item (URL ONLY)
+// @desc    Add a gallery item
 // @access  Private (Admin)
-router.post('/', protect, async (req, res) => {
+router.post('/', protect, upload.single('media'), async (req, res) => {
   try {
-    const { title, description, type, mediaUrl } = req.body;
+    const { title, description, type } = req.body;
+    let mediaUrl = req.body.mediaUrl;
+
+    if (req.file) {
+      mediaUrl = req.file.path;
+    }
 
     if (!title || !mediaUrl) {
-      return res.status(400).json({ success: false, message: 'Please provide a title and mediaUrl' });
+      return res.status(400).json({ success: false, message: 'Please provide a title and media (file or URL)' });
     }
 
     const newItem = new Gallery({
@@ -45,9 +51,14 @@ router.post('/', protect, async (req, res) => {
 // @route   PUT /api/gallery/:id
 // @desc    Update a gallery item
 // @access  Private (Admin)
-router.put('/:id', protect, async (req, res) => {
+router.put('/:id', protect, upload.single('media'), async (req, res) => {
   try {
-    const { title, description, type, mediaUrl } = req.body;
+    const { title, description, type } = req.body;
+    let mediaUrl = req.body.mediaUrl;
+
+    if (req.file) {
+      mediaUrl = req.file.path;
+    }
 
     let item = await Gallery.findById(req.params.id);
     if (!item) return res.status(404).json({ success: false, message: 'Item not found' });

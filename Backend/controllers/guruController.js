@@ -19,7 +19,7 @@ exports.createGuru = async (req, res) => {
     let imageUrl = '';
     
     if (req.file) {
-      imageUrl = `/uploads/${req.file.filename}`;
+      imageUrl = req.file.path;
     }
 
     const guru = await Guru.create({
@@ -53,7 +53,7 @@ exports.updateGuru = async (req, res) => {
     guru.instagram = instagram !== undefined ? instagram : guru.instagram;
 
     if (req.file) {
-      guru.image = `/uploads/${req.file.filename}`;
+      guru.image = req.file.path;
     }
 
     await guru.save();

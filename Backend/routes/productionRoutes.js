@@ -21,7 +21,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     year: req.body.year,
     title: req.body.title,
     subtitle: req.body.subtitle,
-    image: req.file ? `/uploads/${req.file.filename}` : req.body.image
+    image: req.file ? req.file.path : req.body.image
   });
 
   try {
@@ -43,7 +43,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {    try {
 
         // If a new image was uploaded, update the path
         if (req.file) {
-            updatedData.image = `/uploads/${req.file.filename}`;
+            updatedData.image = req.file.path;
         }
 
         const production = await Production.findByIdAndUpdate(req.params.id, updatedData, { new: true });

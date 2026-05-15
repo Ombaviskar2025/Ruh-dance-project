@@ -23,10 +23,10 @@ exports.createSignature = async (req, res) => {
         
         if (req.files) {
             if (req.files.image) {
-                signatureData.image = `/uploads/${req.files.image[0].filename}`;
+                signatureData.image = req.files.image[0].path;
             }
             if (req.files.videoUrl) {
-                signatureData.videoUrl = `/uploads/${req.files.videoUrl[0].filename}`;
+                signatureData.videoUrl = req.files.videoUrl[0].path;
             }
         }
         
@@ -53,13 +53,14 @@ exports.updateSignature = async (req, res) => {
         
         if (req.files) {
             if (req.files.image) {
-                updatedData.image = `/uploads/${req.files.image[0].filename}`;
+                updatedData.image = req.files.image[0].path;
             }
         
-        if (!updatedData.image) delete updatedData.image;
-        if (!updatedData.videoUrl) delete updatedData.videoUrl;
+            if (!updatedData.image) delete updatedData.image;
+            if (!updatedData.videoUrl) delete updatedData.videoUrl;
+
             if (req.files.videoUrl) {
-                updatedData.videoUrl = `/uploads/${req.files.videoUrl[0].filename}`;
+                updatedData.videoUrl = req.files.videoUrl[0].path;
             }
         }
 
