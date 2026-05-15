@@ -540,18 +540,18 @@ const AdminDashboard = () => {
              </button>
           </div>
         )}
-        <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex' }}>
-          <h2>Admin Control Panel</h2>
-        </header>
-
-        <div className="stats-row-container">
-            <div className="stat-card-item"><h3>TOTAL STUDENTS</h3><p>{students.length}</p></div>
-            <div className="stat-card-item"><h3>INSTRUCTORS</h3><p>{instructors.length}</p></div>
-            <div className="stat-card-item"><h3>PRODUCTIONS</h3><p>{productions.length}</p></div>
-        </div>
-
         {activeTab === 'Overview' && (
           <div className="admin-content-main fade-in">
+             <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex' }}>
+               <h2>Admin Control Panel</h2>
+             </header>
+
+             <div className="stats-row-container" style={{ marginBottom: '30px' }}>
+                <div className="stat-card-item"><h3>TOTAL STUDENTS</h3><p>{students.length}</p></div>
+                <div className="stat-card-item"><h3>INSTRUCTORS</h3><p>{instructors.length}</p></div>
+                <div className="stat-card-item"><h3>PRODUCTIONS</h3><p>{productions.length}</p></div>
+             </div>
+
              <section className="management-card-full" style={{padding: '40px', textAlign: 'center'}}>
                 <h2 style={{color: 'var(--brand-pink)'}}>Welcome to Ruh Dance Studio Admin</h2>
                 <p style={{color: 'rgba(255,255,255,0.6)', marginTop: '10px'}}>Use the sidebar to manage your website content, students, and media.</p>
