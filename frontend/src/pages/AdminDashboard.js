@@ -542,8 +542,9 @@ const AdminDashboard = () => {
         )}
         {activeTab === 'Overview' && (
           <div className="admin-content-main fade-in">
-             <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex' }}>
-               <h2>Admin Control Panel</h2>
+             <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex', justifyContent: 'space-between' }}>
+               <h2>Admin Control Panel <span style={{fontSize: '12px', opacity: 0.5}}>(v3.2)</span></h2>
+               <div style={{fontSize: '12px', color: 'var(--brand-pink)'}}>Cloud Storage Active</div>
              </header>
 
              <div className="stats-row-container" style={{ marginBottom: '30px' }}>
