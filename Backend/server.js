@@ -28,8 +28,12 @@ const path = require('path');
 app.use(express.json()); 
 app.use(cors({
   origin: "https://ruhdance.netlify.app",
-  credentials: true
-}));   
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+app.options('*', cors());  
 app.use('/uploads', express.static( 'uploads'));      
 
 // 5. Use the routes
