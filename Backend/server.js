@@ -25,34 +25,29 @@ const app = express();
 const path = require('path');
 
 // 4. Middleware
-app.use(express.json());
 
 const allowedOrigins = [
   "https://ruhdance.netlify.app",
-  "https://vercel.app"
+  "https://frontend-mu-flax-66.vercel.app",
+  "https://ruh-dance-project.vercel.app"
 ];
 
-app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin || allowedOrigins.some(o => origin.includes(o))) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
-app.use(cors(corsOptions));
-
-// Explicitly handle OPTIONS preflight for every route
+// Explicitly handle OPTIONS preflight for every route and dynamic CORS
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://ruhdance.netlify.app");
+  const origin = req.headers.origin;
+  
+  // Allow if it's explicitly in the list OR if it's any vercel.app domain
+  if (allowedOrigins.includes(origin) || (origin && origin.includes('vercel.app'))) {
+    res.header("Access-Control-Allow-Origin", origin);
+  } else {
+    // Fallback
+    res.header("Access-Control-Allow-Origin", "https://ruhdance.netlify.app");
+  }
+
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,PATCH,OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
