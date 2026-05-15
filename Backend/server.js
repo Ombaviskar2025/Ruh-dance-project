@@ -11,8 +11,7 @@ const cors = require('cors');
 const inquiryRoutes = require('./routes/inquiryRoutes');
 const authRoutes = require('./routes/authRoutes');
 const styleRoutes = require('./routes/styleRoutes');
-const productionRoutes = require('./routes/productionRoutes'); // Adjust path as needed
-
+const productionRoutes = require('./routes/productionRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const classRoutes = require('./routes/classRoutes');
 const financeRoutes = require('./routes/financeRoutes');
@@ -24,15 +23,20 @@ const signatureRoutes = require('./routes/signatureRoutes');
 // 3. Initialize the Express App
 const app = express();
 const path = require('path');
-// 4. Middleware
-app.use(express.json());
 
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));  
-app.use('/uploads', express.static( 'uploads'));      
+// 4. Middleware
+const corsOptions = {
+  origin: 'https://ruhdance.netlify.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
 // 5. Use the routes
 app.use('/api/inquiries', inquiryRoutes);
@@ -52,14 +56,11 @@ mongoose.connect(process.env.MONGO_URI)
   .then(async () => {
     console.log("✅ MongoDB Connected Successfully");
 
-    // --- ADMIN INITIALIZATION & SYNCHRONIZATION ---
     try {
-      const adminEmail = 'sneha.hosadodde2004@gmail.com'; // Matches your login attempt
+      const adminEmail = 'sneha.hosadodde2004@gmail.com';
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash('admin123', salt); // Your temporary password
+      const hashedPassword = await bcrypt.hash('admin123', salt);
 
-      // This logic will CREATE the admin if missing or UPDATE it if it exists
-      // This ensures the role is 'admin' and the account is approved
       await User.findOneAndUpdate(
         { role: 'admin' }, 
         { 
@@ -67,7 +68,7 @@ mongoose.connect(process.env.MONGO_URI)
           email: adminEmail,
           password: hashedPassword,
           role: 'admin',
-          isApproved: true // Fixes "Access Denied" if you have approval logic
+          isApproved: true
         },
         { upsert: true, new: true }
       );
@@ -83,9 +84,6 @@ mongoose.connect(process.env.MONGO_URI)
 app.get('/', (req, res) => {
     res.send("Ruh Dance Production API is running...");
 });
-// app.get('/api/productions', (req, res) => {
-//   // Ensure this route exists and returns your data array
-// });
 
 // 8. Define the Port and Start Server
 const PORT = process.env.PORT || 5000;
