@@ -11,8 +11,9 @@ const Home = () => {
     fullName: '', phone: '', gender: '', age: '', danceStyle: '', email:'', interest:'', message:''
   });
   
-  // Hardcoded gorgeous default video so it never breaks!
-  const homeVideoUrl = 'https://cdn.pixabay.com/video/2021/08/11/84687-587889617_tiny.mp4';
+  // Default fallback video URL
+  const defaultVideoUrl = 'https://cdn.pixabay.com/video/2021/08/11/84687-587889617_tiny.mp4';
+  const [homeVideoUrl, setHomeVideoUrl] = useState(defaultVideoUrl);
 
   const isYouTube = (url) => url && (url.includes('youtube.com') || url.includes('youtu.be'));
   const getYouTubeId = (url) => {
@@ -54,7 +55,18 @@ const Home = () => {
     const hiddenElements = document.querySelectorAll('.scroll-reveal');
     hiddenElements.forEach((el) => observerRef.current.observe(el));
 
-    // Removed backend video fetch so it stays permanently beautiful
+    // Fetch admin-configured background video URL
+    const fetchVideoSettings = async () => {
+      try {
+        const res = await axios.get('https://ruh-dance-project.onrender.com/api/settings');
+        if (res.data.success && res.data.data.homeVideoUrl) {
+          setHomeVideoUrl(res.data.data.homeVideoUrl);
+        }
+      } catch (err) {
+        console.log('Using default video URL');
+      }
+    };
+    fetchVideoSettings();
 
     // 4. Video Time Listeners
     const video = videoRef.current;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Gallery = require('../models/Gallery');
-const auth = require('../middleware/auth');
+const { protect } = require('../middleware/authMiddleware');
 
 // @route   GET /api/gallery
 // @desc    Get all gallery items
@@ -12,14 +12,14 @@ router.get('/', async (req, res) => {
     res.json({ success: true, data: galleryItems });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
 
 // @route   POST /api/gallery
 // @desc    Add a gallery item (URL ONLY)
 // @access  Private (Admin)
-router.post('/', auth, async (req, res) => {
+router.post('/', protect, async (req, res) => {
   try {
     const { title, description, type, mediaUrl } = req.body;
 
@@ -38,14 +38,14 @@ router.post('/', auth, async (req, res) => {
     res.json({ success: true, data: item });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
 
 // @route   PUT /api/gallery/:id
 // @desc    Update a gallery item
 // @access  Private (Admin)
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', protect, async (req, res) => {
   try {
     const { title, description, type, mediaUrl } = req.body;
 
@@ -61,14 +61,14 @@ router.put('/:id', auth, async (req, res) => {
     res.json({ success: true, data: item });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
 
 // @route   DELETE /api/gallery/:id
 // @desc    Delete a gallery item
 // @access  Private (Admin)
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', protect, async (req, res) => {
   try {
     const item = await Gallery.findById(req.params.id);
     if (!item) return res.status(404).json({ success: false, message: 'Item not found' });
@@ -80,7 +80,7 @@ router.delete('/:id', auth, async (req, res) => {
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ success: false, message: 'Item not found' });
     }
-    res.status(500).send('Server Error');
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
 

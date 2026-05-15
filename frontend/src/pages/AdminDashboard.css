@@ -736,46 +736,70 @@ input[type="file"]::file-selector-button:hover {
     flex-direction: column !important;
   }
   .sidebar {
-    width: 100% !important;
-    height: auto !important;
-    min-height: auto !important;
-    padding: 10px !important;
+    position: fixed !important;
+    top: 0;
+    left: -100% !important; /* Hidden by default */
+    width: 260px !important;
+    height: 100vh !important;
+    z-index: 2000 !important;
+    transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    flex-direction: column !important;
     display: flex !important;
-    flex-direction: row !important;
-    overflow-x: auto !important;
-    align-items: center !important;
-    border-right: none !important;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 20px !important;
+    border-right: 1px solid rgba(255,255,255,0.1) !important;
+  }
+  .sidebar.open {
+    left: 0 !important;
   }
   .sidebar-header {
-    margin-bottom: 0 !important;
-    margin-right: 20px !important;
-  }
-  .nav-menu {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 10px !important;
-    margin-top: 0 !important;
-  }
-  .nav-item {
-    margin: 0 !important;
-    padding: 8px 12px !important;
-    font-size: 12px !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 5px !important;
-    border-radius: 8px !important;
-  }
-  .nav-icon {
+    margin-bottom: 30px !important;
     margin-right: 0 !important;
   }
-  .nav-item span, .nav-item {
+  .nav-menu {
+    flex-direction: column !important;
     display: flex !important;
-    white-space: nowrap !important;
+    gap: 5px !important;
+    margin-top: 20px !important;
+  }
+  .nav-item {
+    padding: 15px 20px !important;
+    margin-bottom: 5px !important;
+    font-size: 1rem !important;
+    width: 100% !important;
+  }
+  .nav-item span {
+    display: inline !important;
+  }
+  .nav-icon {
+    margin-right: 15px !important;
   }
   .main-content {
     margin-left: 0 !important;
     width: 100% !important;
     padding: 10px !important;
+  }
+  
+  /* Mobile Admin Header Hamburger */
+  .admin-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(20, 10, 30, 0.9);
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .admin-mobile-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: white;
+  }
+  .admin-hamburger {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
   }
 }

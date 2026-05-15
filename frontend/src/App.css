@@ -1380,7 +1380,7 @@ input:-webkit-autofill:active {
 }
 
 @media (max-width: 768px) {
-  .header-container { flex-direction: column; gap: 15px; }
+  .header-container { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; }
   .nav-bar { flex-wrap: wrap; justify-content: center; width: 100%; gap: 10px; }
   .cinematic-main-title { font-size: 2.2rem; }
   .cinematic-sub-title { font-size: 1rem; }

@@ -56,6 +56,17 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+// Ensure uploads directory exists
+const fs = require('fs');
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Serve uploaded files as static assets
+app.use('/uploads', express.static(uploadsDir));
+
 // 5. Use the routes
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/auth', authRoutes);

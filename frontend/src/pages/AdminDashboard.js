@@ -18,6 +18,7 @@ const AdminDashboard = () => {
   
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Instructors');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [students, setStudents] = useState([]);
   const [instructors, setInstructors] = useState([]);
   const [productions, setProductions] = useState([]);
@@ -459,33 +460,48 @@ const AdminDashboard = () => {
       <div className="ambient-orb orb-3"></div>
 
       <div className="admin-container" style={{ position: 'relative', zIndex: 1 }}>
-        <aside className="sidebar">
-        <div className="sidebar-header">
-           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div className="ru-logo-placeholder">RU</div>
-            <div>
-              <h2 style={{ color: 'var(--brand-pink)', margin: 0, fontSize: '18px', fontWeight: '800' }}>RUH</h2>
-              <p style={{ margin: 0, fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,255,255,0.5)' }}>DANCE STUDIO</p>
+        <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+          <div className="sidebar-header" style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+             <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div className="ru-logo-placeholder">RU</div>
+              <div>
+                <h2 style={{ color: 'var(--brand-pink)', margin: 0, fontSize: '18px', fontWeight: '800' }}>RUH</h2>
+                <p style={{ margin: 0, fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,255,255,0.5)' }}>DANCE STUDIO</p>
+              </div>
             </div>
+            {/* Close button for mobile */}
+            <button className="admin-hamburger d-md-none" onClick={() => setIsSidebarOpen(false)} style={{ display: window.innerWidth <= 768 ? 'block' : 'none' }}>
+              <LuX size={28} />
+            </button>
           </div>
-        </div>
         <nav className="nav-menu">
-          <SidebarItem Icon={LuLayoutGrid} label="Overview" isActive={activeTab === 'Overview'} onClick={() => setActiveTab('Overview')} />
-          <SidebarItem Icon={LuHistory} label="Productions" isActive={activeTab === 'Productions'} onClick={() => setActiveTab('Productions')} />
-          <SidebarItem Icon={LuLayoutGrid} label="Dance Styles" isActive={activeTab === 'Dance Styles'} onClick={() => setActiveTab('Dance Styles')} />
-          <SidebarItem Icon={LuUsers} label="Students" isActive={activeTab === 'Students'} onClick={() => setActiveTab('Students')} />
-          <SidebarItem Icon={LuUser} label="Instructors" isActive={activeTab === 'Instructors'} onClick={() => setActiveTab('Instructors')} />
-          <SidebarItem Icon={LuUser} label="Gurus" isActive={activeTab === 'Gurus'} onClick={() => setActiveTab('Gurus')} />
-          <SidebarItem Icon={LuListTodo} label="Classes" isActive={activeTab === 'Classes'} onClick={() => setActiveTab('Classes')} />
-          <SidebarItem Icon={LuLayoutGrid} label="Gallery" isActive={activeTab === 'Gallery'} onClick={() => setActiveTab('Gallery')} />
-          <SidebarItem Icon={LuCalendarCheck} label="Events" isActive={activeTab === 'Events'} onClick={() => setActiveTab('Events')} />
-          <SidebarItem Icon={LuCreditCard} label="Finance" isActive={activeTab === 'Finance'} onClick={() => setActiveTab('Finance')} />
-          <SidebarItem Icon={LuSettings} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => setActiveTab('Background Photos & Video')} />
+          <SidebarItem Icon={LuLayoutGrid} label="Overview" isActive={activeTab === 'Overview'} onClick={() => { setActiveTab('Overview'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuHistory} label="Productions" isActive={activeTab === 'Productions'} onClick={() => { setActiveTab('Productions'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuLayoutGrid} label="Dance Styles" isActive={activeTab === 'Dance Styles'} onClick={() => { setActiveTab('Dance Styles'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuUsers} label="Students" isActive={activeTab === 'Students'} onClick={() => { setActiveTab('Students'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuUser} label="Instructors" isActive={activeTab === 'Instructors'} onClick={() => { setActiveTab('Instructors'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuUser} label="Gurus" isActive={activeTab === 'Gurus'} onClick={() => { setActiveTab('Gurus'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuListTodo} label="Classes" isActive={activeTab === 'Classes'} onClick={() => { setActiveTab('Classes'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuLayoutGrid} label="Gallery" isActive={activeTab === 'Gallery'} onClick={() => { setActiveTab('Gallery'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuCalendarCheck} label="Events" isActive={activeTab === 'Events'} onClick={() => { setActiveTab('Events'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuCreditCard} label="Finance" isActive={activeTab === 'Finance'} onClick={() => { setActiveTab('Finance'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuSettings} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => { setActiveTab('Background Photos & Video'); setIsSidebarOpen(false); }} />
         </nav>
       </aside>
 
       <main className="main-content">
-        <header className="dashboard-header">
+        {window.innerWidth <= 768 && (
+          <div className="admin-mobile-header d-md-none">
+             <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div className="ru-logo-placeholder" style={{width: 30, height: 30, fontSize: 14}}>RU</div>
+              <h2 style={{marginLeft: 10}}>Admin</h2>
+             </div>
+             <button className="admin-hamburger" onClick={() => setIsSidebarOpen(true)}>
+               <LuMenu size={28} />
+             </button>
+          </div>
+        )}
+        <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex' }}>
           <h2>Admin Control Panel</h2>
         </header>
 
@@ -1121,3 +1137,4 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
