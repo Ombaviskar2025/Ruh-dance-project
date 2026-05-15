@@ -422,9 +422,11 @@ const AdminDashboard = () => {
       formData.append('image', newSignatureImageFile);
     }
     
-    // Add video file if selected
+    // Add video file or URL
     if (newSignatureVideoFile) {
       formData.append('videoUrl', newSignatureVideoFile);
+    } else if (signatureFormData.videoUrl) {
+      formData.append('videoUrl', signatureFormData.videoUrl);
     }
 
     try {
@@ -516,18 +518,23 @@ const AdminDashboard = () => {
              </button>
           </div>
         )}
-        {activeTab === 'Overview' && (
-          <>
-            <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex' }}>
-              <h2>Admin Control Panel</h2>
-            </header>
+        <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex' }}>
+          <h2>Admin Control Panel</h2>
+        </header>
 
-            <div className="stats-row-container">
-                <div className="stat-card-item"><h3>TOTAL STUDENTS</h3><p>{students.length}</p></div>
-                <div className="stat-card-item"><h3>INSTRUCTORS</h3><p>{instructors.length}</p></div>
-                <div className="stat-card-item"><h3>PRODUCTIONS</h3><p>{productions.length}</p></div>
-            </div>
-          </>
+        <div className="stats-row-container">
+            <div className="stat-card-item"><h3>TOTAL STUDENTS</h3><p>{students.length}</p></div>
+            <div className="stat-card-item"><h3>INSTRUCTORS</h3><p>{instructors.length}</p></div>
+            <div className="stat-card-item"><h3>PRODUCTIONS</h3><p>{productions.length}</p></div>
+        </div>
+
+        {activeTab === 'Overview' && (
+          <div className="admin-content-main fade-in">
+             <section className="management-card-full" style={{padding: '40px', textAlign: 'center'}}>
+                <h2 style={{color: 'var(--brand-pink)'}}>Welcome to Ruh Dance Studio Admin</h2>
+                <p style={{color: 'rgba(255,255,255,0.6)', marginTop: '10px'}}>Use the sidebar to manage your website content, students, and media.</p>
+             </section>
+          </div>
         )}        {activeTab === 'Gallery' && (
           <div className="admin-content-main">
             <section className="management-card-full">
@@ -781,8 +788,7 @@ const AdminDashboard = () => {
                         Choose to either upload a video file or provide a direct video URL (MP4).
                       </p>
                       <div className="input-stack">
-                        <div className="input-field-wrapper">
-                          <label>Direct Video URL</label>
+                          <label>Direct Video URL (MP4 Only)</label>
                           <input 
                             type="text" 
                             className="modal-form-input" 
@@ -793,6 +799,9 @@ const AdminDashboard = () => {
                               setNewVideoFile(null);
                             }}
                           />
+                          <small style={{color: '#E491C9', fontSize: '10px', marginTop: '4px', display: 'block'}}>
+                            ⚠️ NOTE: YouTube/Vimeo links do NOT work here. Use direct .mp4 links.
+                          </small>
                         </div>
                         <div className="divider-or">
                           <span className="line"></span>
