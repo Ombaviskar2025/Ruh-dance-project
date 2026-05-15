@@ -11,3 +11,62 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* =========================================
+   GLOBAL RESPONSIVE OVERRIDES
+   ========================================= */
+
+/* Prevent horizontal scroll from 100vw */
+body, html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Ensure images and videos scale */
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Fix fixed-width containers globally */
+.login-box, .modal-content, .soul-form, .reg-form, .dmt-card, .password-reset-box {
+    width: 100% !important;
+    max-width: 500px !important;
+    box-sizing: border-box;
+}
+
+/* Make tables scrollable on mobile */
+@media (max-width: 768px) {
+    .admin-table, .management-table {
+        display: block !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        width: 100% !important;
+        border-collapse: collapse;
+    }
+    
+    /* Ensure padding doesn't break forms */
+    .admin-dashboard-container {
+        padding: 10px !important;
+        flex-direction: column !important;
+    }
+
+    .admin-sidebar {
+        width: 100% !important;
+        height: auto !important;
+        position: relative !important;
+        display: flex !important;
+        overflow-x: auto !important;
+        padding: 10px !important;
+    }
+    
+    .admin-main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 10px !important;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
