@@ -516,15 +516,19 @@ const AdminDashboard = () => {
              </button>
           </div>
         )}
-        <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex' }}>
-          <h2>Admin Control Panel</h2>
-        </header>
+        {activeTab === 'Overview' && (
+          <>
+            <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex' }}>
+              <h2>Admin Control Panel</h2>
+            </header>
 
-        <div className="stats-row-container">
-            <div className="stat-card-item"><h3>TOTAL STUDENTS</h3><p>{students.length}</p></div>
-            <div className="stat-card-item"><h3>INSTRUCTORS</h3><p>{instructors.length}</p></div>
-            <div className="stat-card-item"><h3>PRODUCTIONS</h3><p>{productions.length}</p></div>
-        </div>        {activeTab === 'Gallery' && (
+            <div className="stats-row-container">
+                <div className="stat-card-item"><h3>TOTAL STUDENTS</h3><p>{students.length}</p></div>
+                <div className="stat-card-item"><h3>INSTRUCTORS</h3><p>{instructors.length}</p></div>
+                <div className="stat-card-item"><h3>PRODUCTIONS</h3><p>{productions.length}</p></div>
+            </div>
+          </>
+        )}        {activeTab === 'Gallery' && (
           <div className="admin-content-main">
             <section className="management-card-full">
               <div className="section-header-flex" style={{ padding: '20px 25px' }}>
