@@ -329,7 +329,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     try {
       if (editingGalleryItem) {
-        await axios.put(https://ruh-dance-project.onrender.com/api/gallery/${editingGalleryItem._id}, galleryFormData, { headers: { ...config.headers } });
+        await axios.put(`https://ruh-dance-project.onrender.com/api/gallery/${editingGalleryItem._id}`, galleryFormData, { headers: { ...config.headers } });
         alert('Gallery Item Updated!');
       } else {
         await axios.post('https://ruh-dance-project.onrender.com/api/gallery', galleryFormData, { headers: { ...config.headers } });
@@ -345,7 +345,7 @@ const AdminDashboard = () => {
   const handleDeleteGalleryItem = async (id) => {
     if (window.confirm("Delete this gallery item?")) {
       try {
-        await axios.delete(https://ruh-dance-project.onrender.com/api/gallery/${id}, config);
+        await axios.delete(`https://ruh-dance-project.onrender.com/api/gallery/${id}`, config);
         fetchData();
       } catch (err) { alert("Delete failed"); }
     }
