@@ -843,7 +843,6 @@ const AdminDashboard = () => {
                           />
                         </div>
                       </div>
-                    </div>
                     {settings.homeVideoUrl && (
                       <div className="preview-video-container">
                         <label className="preview-label">Current Video Preview</label>
