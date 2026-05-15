@@ -12,7 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import StudentDashboard from './pages/StudentDashboard';
 import InstructorDashboard from './pages/InstructorDashboard';
 import './App.css';
-import { LuLayoutGrid, LuLogOut } from "react-icons/lu";
+import { LuLayoutGrid, LuLogOut, LuMenu, LuX } from "react-icons/lu";
 import ResetPassword from './pages/ResetPassword';
 import AdminLogin from './pages/AdminLogin';
 import PageLoader from './components/PageLoader';
@@ -24,6 +24,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null); // Store user data
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user'); // Get user info stored during login
@@ -84,7 +85,13 @@ function App() {
               </Link>
             </div>
 
-            <nav className="nav-bar">
+            {/* Mobile Hamburger Button */}
+            <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(true)}>
+              <LuMenu size={28} color="#fff" />
+            </button>
+
+            {/* Desktop Navigation */}
+            <nav className="nav-bar desktop-nav">
               <Link to="/" className="nav-tab">HOME</Link>
               <Link to="/about" className="nav-tab">ABOUT</Link>
               
@@ -145,6 +152,35 @@ function App() {
             </nav>
           </div>
         </header>
+
+        {/* Mobile Sidebar */}
+        <div className={`mobile-sidebar-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+        <div className={`mobile-sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
+          <div className="mobile-sidebar-header">
+            <button className="close-sidebar-btn" onClick={() => setIsMobileMenuOpen(false)}>
+              <LuX size={32} color="#333" />
+            </button>
+          </div>
+          <div className="mobile-sidebar-links">
+            <Link to="/" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+            <Link to="/about" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
+            <Link to="/styles" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Dance Styles</Link>
+            <Link to="/productions" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Productions</Link>
+            <Link to="/events" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Events</Link>
+            <Link to="/dmt" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>DMT</Link>
+            <Link to="/purpose" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Purpose & Vision</Link>
+            <Link to="/contact" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+            
+            {isLoggedIn ? (
+               <Link to={user?.role === 'admin' ? '/admin-dashboard' : user?.role === 'instructor' ? '/instructor-dashboard' : '/dashboard'} className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
+            ) : (
+               <span className="mobile-link" onClick={() => { setIsMobileMenuOpen(false); setIsLoginOpen(true); }}>Sign In</span>
+            )}
+            {isLoggedIn && (
+               <span className="mobile-link logout-mobile-link" onClick={() => { setIsMobileMenuOpen(false); handleLogout(); }}>Logout</span>
+            )}
+          </div>
+        </div>
 
         <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLoginSuccess={handleLoginSuccess} />
 
