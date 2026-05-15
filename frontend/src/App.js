@@ -18,6 +18,7 @@ import AdminLogin from './pages/AdminLogin';
 import PageLoader from './components/PageLoader';
 import Purpose from './pages/PurposeVision';
 import Contact from './pages/Contact';
+import Gallery from './pages/Gallery';
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -106,6 +107,7 @@ function App() {
               </div>
 
               <Link to="/purpose" className="nav-tab">PURPOSE & VISION</Link>
+              <Link to="/gallery" className="nav-tab">GALLERY</Link>
               <Link to="/contact" className="nav-tab">CONTACT</Link>
 
               {/* {isLoggedIn ? (
@@ -169,6 +171,7 @@ function App() {
             <Link to="/events" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Events</Link>
             <Link to="/dmt" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>DMT</Link>
             <Link to="/purpose" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Purpose & Vision</Link>
+            <Link to="/gallery" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
             <Link to="/contact" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
             
             {isLoggedIn ? (
@@ -192,6 +195,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/dmt" element={<Dmt />} />
           <Route path="/purpose" element={<Purpose />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin-dashboard" element={<ProtectedRoute allowedRole="admin"><AdminDashboard /></ProtectedRoute>} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />

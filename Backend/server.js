@@ -19,6 +19,7 @@ const dmtRoutes = require('./routes/dmtRoutes');
 const guruRoutes = require('./routes/guruRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const signatureRoutes = require('./routes/signatureRoutes');
+const galleryRoutes = require('./routes/galleryRoutes');
 
 // 3. Initialize the Express App
 const app = express();
@@ -67,6 +68,7 @@ app.use('/api/dmt-bookings', dmtRoutes);
 app.use('/api/gurus', guruRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/signatures', signatureRoutes);
+app.use('/api/gallery', galleryRoutes);
 
 // 6. Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)

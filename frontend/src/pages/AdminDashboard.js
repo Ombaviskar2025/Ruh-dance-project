@@ -60,6 +60,12 @@ const AdminDashboard = () => {
   const [newVideoFile, setNewVideoFile] = useState(null);
   const [isUpdatingSettings, setIsUpdatingSettings] = useState(false);
 
+    // Gallery State
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [showGalleryModal, setShowGalleryModal] = useState(false);
+  const [editingGalleryItem, setEditingGalleryItem] = useState(null);
+  const [galleryFormData, setGalleryFormData] = useState({ title: '', description: '', type: 'photo', mediaUrl: '' });
+
   // Signatures (Screen photo) State
   const [signatures, setSignatures] = useState([]);
   const [showSignatureModal, setShowSignatureModal] = useState(false);
@@ -110,6 +116,11 @@ const AdminDashboard = () => {
         setSettings(settingsRes.data.data);
         setVideoUrlInput(settingsRes.data.data.homeVideoUrl);
       }
+    } catch (err) {}
+
+    try {
+      const galleryRes = await axios.get('https://ruh-dance-project.onrender.com/api/gallery');
+      setGalleryItems(galleryRes.data.data || []);
     } catch (err) {}
 
     try {
@@ -302,6 +313,44 @@ const AdminDashboard = () => {
     }
   };
 
+  // --- GALLERY COMMANDS ---
+  const handleOpenGalleryModal = (item = null) => {
+    if (item) {
+      setEditingGalleryItem(item);
+      setGalleryFormData({ title: item.title, description: item.description || '', type: item.type || 'photo', mediaUrl: item.mediaUrl });
+    } else {
+      setEditingGalleryItem(null);
+      setGalleryFormData({ title: '', description: '', type: 'photo', mediaUrl: '' });
+    }
+    setShowGalleryModal(true);
+  };
+
+  const handleSaveGallery = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingGalleryItem) {
+        await axios.put(https://ruh-dance-project.onrender.com/api/gallery/${editingGalleryItem._id}, galleryFormData, { headers: { ...config.headers } });
+        alert('Gallery Item Updated!');
+      } else {
+        await axios.post('https://ruh-dance-project.onrender.com/api/gallery', galleryFormData, { headers: { ...config.headers } });
+        alert('Gallery Item Added!');
+      }
+      setShowGalleryModal(false);
+      fetchData();
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to save gallery item');
+    }
+  };
+
+  const handleDeleteGalleryItem = async (id) => {
+    if (window.confirm("Delete this gallery item?")) {
+      try {
+        await axios.delete(https://ruh-dance-project.onrender.com/api/gallery/${id}, config);
+        fetchData();
+      } catch (err) { alert("Delete failed"); }
+    }
+  };
+
   // --- SETTINGS COMMANDS ---
   const handleUpdateSettings = async (e) => {
     e.preventDefault();
@@ -428,8 +477,10 @@ const AdminDashboard = () => {
           <SidebarItem Icon={LuUser} label="Instructors" isActive={activeTab === 'Instructors'} onClick={() => setActiveTab('Instructors')} />
           <SidebarItem Icon={LuUser} label="Gurus" isActive={activeTab === 'Gurus'} onClick={() => setActiveTab('Gurus')} />
           <SidebarItem Icon={LuListTodo} label="Classes" isActive={activeTab === 'Classes'} onClick={() => setActiveTab('Classes')} />
+          <SidebarItem Icon={LuLayoutGrid} label="Gallery" isActive={activeTab === 'Gallery'} onClick={() => setActiveTab('Gallery')} />
           <SidebarItem Icon={LuCalendarCheck} label="Events" isActive={activeTab === 'Events'} onClick={() => setActiveTab('Events')} />
           <SidebarItem Icon={LuCreditCard} label="Finance" isActive={activeTab === 'Finance'} onClick={() => setActiveTab('Finance')} />
+          <SidebarItem Icon={LuSettings} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => setActiveTab('Background Photos & Video')} />
         </nav>
       </aside>
 
@@ -442,7 +493,42 @@ const AdminDashboard = () => {
             <div className="stat-card-item"><h3>TOTAL STUDENTS</h3><p>{students.length}</p></div>
             <div className="stat-card-item"><h3>INSTRUCTORS</h3><p>{instructors.length}</p></div>
             <div className="stat-card-item"><h3>PRODUCTIONS</h3><p>{productions.length}</p></div>
-        </div>
+        </div>        {activeTab === 'Gallery' && (
+          <div className="admin-content-main">
+            <section className="management-card-full">
+              <div className="section-header-flex" style={{ padding: '20px 25px' }}>
+                <h3>Gallery Management</h3>
+                <button className="add-btn" onClick={() => handleOpenGalleryModal(null)}><LuPlus /> Add Media</button>
+              </div>
+              <table className="management-table">
+                <thead>
+                  <tr><th>Type</th><th>Preview</th><th>Title</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                  {galleryItems.length > 0 ? galleryItems.map(item => (
+                    <tr key={item._id}>
+                      <td style={{ fontWeight: 'bold', textTransform: 'capitalize' }}>{item.type}</td>
+                      <td>
+                        {item.type === 'video' ? (
+                          <div style={{width: '60px', height: '40px', background:'#333', display:'flex', alignItems:'center', justifyContent:'center', borderRadius:'4px'}}>??</div>
+                        ) : (
+                          <img src={item.mediaUrl} alt={item.title} style={{width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px'}} />
+                        )}
+                      </td>
+                      <td>{item.title}</td>
+                      <td>
+                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                           <LuPencil style={{ cursor: 'pointer', color: '#722F37' }} onClick={() => handleOpenGalleryModal(item)} />
+                           <LuTrash2 className="trash-delete-btn" onClick={() => handleDeleteGalleryItem(item._id)} />
+                        </div>
+                      </td>
+                    </tr>
+                  )) : <tr><td colSpan="4" style={{textAlign:'center'}}>No gallery items found</td></tr>}
+                </tbody>
+              </table>
+            </section>
+          </div>
+        )}
 
         {activeTab === 'Events' && (
           <div className="admin-content-main fade-in">
@@ -773,7 +859,39 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
-      </main>
+      </main>      {/* --- GALLERY MODAL --- */}
+      <Modal isOpen={showGalleryModal} toggle={() => setShowGalleryModal(false)} centered className="dark-modal">
+        <ModalHeader toggle={() => setShowGalleryModal(false)}>
+          {editingGalleryItem ? 'Edit Gallery Item' : 'Add New Gallery Item'}
+        </ModalHeader>
+        <Form onSubmit={handleSaveGallery}>
+          <ModalBody>
+            <FormGroup>
+              <Label>Title</Label>
+              <Input className="modal-form-input" required value={galleryFormData.title} onChange={e => setGalleryFormData({...galleryFormData, title: e.target.value})} />
+            </FormGroup>
+            <FormGroup>
+              <Label>Description</Label>
+              <Input type="textarea" className="modal-form-input" value={galleryFormData.description} onChange={e => setGalleryFormData({...galleryFormData, description: e.target.value})} />
+            </FormGroup>
+            <FormGroup>
+              <Label>Media Type</Label>
+              <Input type="select" className="modal-form-input" value={galleryFormData.type} onChange={e => setGalleryFormData({...galleryFormData, type: e.target.value})}>
+                <option value="photo">Photo</option>
+                <option value="video">Video</option>
+              </Input>
+            </FormGroup>
+            <FormGroup>
+              <Label>Direct URL (Google Drive, Imgur, Pinterest, etc.)</Label>
+              <Input className="modal-form-input" required value={galleryFormData.mediaUrl} onChange={e => setGalleryFormData({...galleryFormData, mediaUrl: e.target.value})} placeholder="https://..." />
+              <small style={{color: '#aaa', marginTop: '5px', display: 'block'}}>Please provide a direct URL. File uploads are disabled for this section to prevent data loss on Render free tier.</small>
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button type="submit" className="save-btn-premium">Save Item</Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
 
       {/* --- SIGNATURE MODALS --- */}
       <Modal isOpen={showSignatureModal} toggle={() => setShowSignatureModal(false)} centered className="dark-modal">
