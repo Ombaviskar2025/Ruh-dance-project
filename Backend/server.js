@@ -24,11 +24,9 @@ const signatureRoutes = require('./routes/signatureRoutes');
 const app = express();
 const path = require('path');
 
-// 4. Middleware
-app.use(express.json());
-
+// 4. Middleware — CORS must be FIRST before anything else
 const corsOptions = {
-  origin: ["https://ruhdance.netlify.app"],
+  origin: "https://ruhdance.netlify.app",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -36,6 +34,20 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// Explicitly handle OPTIONS preflight for every route
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://ruhdance.netlify.app");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,PATCH,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  next();
+});
+
+app.use(express.json());
 // 5. Use the routes
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/auth', authRoutes);
