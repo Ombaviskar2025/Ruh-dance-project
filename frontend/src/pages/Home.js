@@ -153,7 +153,7 @@ const Home = () => {
             muted 
             playsInline
           >
-            <source src={homeVideoUrl} type="video/mp4" />
+            <source src={homeVideoUrl.startsWith('http') ? homeVideoUrl : `https://ruh-dance-project.onrender.com${homeVideoUrl}`} type="video/mp4" />
           </video>
         )}
         <div className="cinematic-video-overlay-gradient"></div>
@@ -233,7 +233,7 @@ const Home = () => {
             ></iframe>
           ) : (
             <video key={homeVideoUrl} autoPlay loop muted playsInline className="hero-bg-video">
-              <source src={homeVideoUrl} type="video/mp4" />
+              <source src={homeVideoUrl.startsWith('http') ? homeVideoUrl : `https://ruh-dance-project.onrender.com${homeVideoUrl}`} type="video/mp4" />
             </video>
           )}
           <div className="video-overlay"></div>

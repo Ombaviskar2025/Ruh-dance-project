@@ -141,8 +141,14 @@ const AdminDashboard = () => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      Object.entries(newInstructor).forEach(([key, val]) => formData.append(key, val));
-      if (newInstructorPhoto) formData.append('profilePhoto', newInstructorPhoto);
+      Object.entries(newInstructor).forEach(([key, val]) => {
+        if (key !== 'profilePhoto') formData.append(key, val);
+      });
+      if (newInstructorPhoto) {
+        formData.append('profilePhoto', newInstructorPhoto);
+      } else if (newInstructor.profilePhoto) {
+        formData.append('profilePhoto', newInstructor.profilePhoto);
+      }
       await axios.post('https://ruh-dance-project.onrender.com/api/auth/admin/add-instructor', formData, {
         headers: { ...config.headers, 'Content-Type': 'multipart/form-data' }
       });
@@ -180,7 +186,11 @@ const AdminDashboard = () => {
     formData.append('title', newProdFormData.title);
     formData.append('year', newProdFormData.year);
     formData.append('subtitle', newProdFormData.subtitle);
-    if (addProdImageFile) formData.append('image', addProdImageFile);
+    if (addProdImageFile) {
+      formData.append('image', addProdImageFile);
+    } else if (newProdFormData.image) {
+      formData.append('image', newProdFormData.image);
+    }
 
     try {
       await axios.post('https://ruh-dance-project.onrender.com/api/productions', formData, { headers: { ...config.headers } });
@@ -203,7 +213,11 @@ const AdminDashboard = () => {
     formData.append('title', editFormData.title);
     formData.append('year', editFormData.year);
     formData.append('subtitle', editFormData.subtitle);
-    if (newImageFile) formData.append('image', newImageFile);
+    if (newImageFile) {
+      formData.append('image', newImageFile);
+    } else if (editFormData.image) {
+      formData.append('image', editFormData.image);
+    }
 
     try {
         await axios.put(`https://ruh-dance-project.onrender.com/api/productions/${editingProd._id}`, formData, { headers: { ...config.headers } });
@@ -242,7 +256,11 @@ const AdminDashboard = () => {
     formData.append('description', styleFormData.description);
     formData.append('category', styleFormData.category);
     formData.append('videoUrl', styleFormData.videoUrl);
-    if (newStyleImageFile) formData.append('image', newStyleImageFile);
+    if (newStyleImageFile) {
+      formData.append('image', newStyleImageFile);
+    } else if (styleFormData.image) {
+      formData.append('image', styleFormData.image);
+    }
 
     try {
       if (editingStyle) {
@@ -288,7 +306,11 @@ const AdminDashboard = () => {
     formData.append('style', guruFormData.style);
     formData.append('description', guruFormData.description);
     formData.append('instagram', guruFormData.instagram);
-    if (newGuruImageFile) formData.append('image', newGuruImageFile);
+    if (newGuruImageFile) {
+      formData.append('image', newGuruImageFile);
+    } else if (guruFormData.image) {
+      formData.append('image', guruFormData.image);
+    }
 
     try {
       if (editingGuru) {
@@ -1023,8 +1045,12 @@ const AdminDashboard = () => {
               <input type="text" required value={editFormData.title} onChange={e => setEditFormData({...editFormData, title: e.target.value})} placeholder="Title" />
               <textarea value={editFormData.subtitle} onChange={e => setEditFormData({...editFormData, subtitle: e.target.value})} placeholder="Subtitle" />
               <div className="PROD-MODAL-UPLOAD">
-                <label>Change Image (Optional):</label>
+                <label>Change Image (Choose File):</label>
                 <input type="file" onChange={e => setNewImageFile(e.target.files[0])} />
+                <div style={{marginTop: '10px'}}>
+                  <label>Or Paste Image URL:</label>
+                  <input type="text" value={editFormData.image} onChange={e => setEditFormData({...editFormData, image: e.target.value})} placeholder="https://..." style={{width: '100%', padding: '8px', background: '#333', border: '1px solid #555', color: 'white'}} />
+                </div>
               </div>
               <div className="PROD-MODAL-ACTIONS">
                 <button type="submit" className="PROD-SAVE-BTN">Save</button>
@@ -1044,8 +1070,12 @@ const AdminDashboard = () => {
               <input type="text" required value={newProdFormData.title} onChange={e => setNewProdFormData({...newProdFormData, title: e.target.value})} placeholder="Title of Production" />
               <textarea required value={newProdFormData.subtitle} onChange={e => setNewProdFormData({...newProdFormData, subtitle: e.target.value})} placeholder="Brief subtitle or description" />
               <div className="PROD-MODAL-UPLOAD">
-                <label>Cover Image (Required):</label>
-                <input type="file" required onChange={e => setAddProdImageFile(e.target.files[0])} />
+                <label>Cover Image (Choose File):</label>
+                <input type="file" onChange={e => setAddProdImageFile(e.target.files[0])} />
+                <div style={{marginTop: '10px'}}>
+                  <label>Or Paste Image URL:</label>
+                  <input type="text" value={newProdFormData.image} onChange={e => setNewProdFormData({...newProdFormData, image: e.target.value})} placeholder="https://..." style={{width: '100%', padding: '8px', background: '#333', border: '1px solid #555', color: 'white'}} />
+                </div>
               </div>
               <div className="PROD-MODAL-ACTIONS">
                 <button type="submit" className="PROD-SAVE-BTN">Create</button>
@@ -1083,12 +1113,15 @@ const AdminDashboard = () => {
                 onChange={e => setStyleFormData({...styleFormData, videoUrl: e.target.value})} 
               />
               
-              <div style={{ gridColumn: '1 / -1', background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '5px' }}>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#E491C9', fontSize: '0.9rem' }}>Upload Image</label>
-                <input type="file" style={{ color: 'white' }} onChange={e => setNewStyleImageFile(e.target.files[0])} />
-                {editingStyle && styleFormData.image && !newStyleImageFile && (
-                   <p style={{ marginTop: '10px', fontSize: '0.8rem', color: '#d1d5db' }}>Current image: {styleFormData.image.split('/').pop()}</p>
-                )}
+              <div style={{ gridColumn: '1 / -1', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '8px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', color: '#E491C9', fontSize: '0.9rem', fontWeight: 'bold' }}>Style Image</label>
+                <input type="file" style={{ color: 'white', marginBottom: '10px' }} onChange={e => setNewStyleImageFile(e.target.files[0])} />
+                <input 
+                  className="modal-form-input" 
+                  placeholder="Or Paste Image URL (https://...)" 
+                  value={styleFormData.image} 
+                  onChange={e => setStyleFormData({...styleFormData, image: e.target.value})} 
+                />
               </div>
 
               <textarea className="modal-form-input" style={{ gridColumn: '1 / -1', minHeight: '100px', resize: 'vertical' }} placeholder="Detailed description of the style" required value={styleFormData.description} onChange={e => setStyleFormData({...styleFormData, description: e.target.value})}></textarea>
@@ -1124,6 +1157,17 @@ const AdminDashboard = () => {
               </div>
               <input className="modal-form-input" placeholder="Expertise (e.g. Kathak, Bharatanatyam)" required value={newInstructor.danceStyle} onChange={e => setNewInstructor({...newInstructor, danceStyle: e.target.value})} />
               <input className="modal-form-input" type="tel" placeholder="Phone Number" required value={newInstructor.phone} onChange={e => setNewInstructor({...newInstructor, phone: e.target.value})} />
+              
+              <div style={{ gridColumn: '1 / -1', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '8px', marginBottom: '10px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', color: '#E491C9', fontSize: '0.9rem', fontWeight: 'bold' }}>Profile Photo</label>
+                <input type="file" style={{ color: 'white', marginBottom: '10px' }} onChange={e => setNewInstructorPhoto(e.target.files[0])} />
+                <input 
+                  className="modal-form-input" 
+                  placeholder="Or Paste Photo URL (https://...)" 
+                  value={newInstructor.profilePhoto} 
+                  onChange={e => setNewInstructor({...newInstructor, profilePhoto: e.target.value})} 
+                />
+              </div>
               <div className="modal-buttons-grid" style={{ gridColumn: '1 / -1' }}>
                 <button type="submit" className="btn-modal save">Save Instructor</button>
                 <button type="button" className="btn-modal cancel" onClick={() => setShowAddModal(false)}>Cancel</button>
@@ -1146,12 +1190,15 @@ const AdminDashboard = () => {
               <input className="modal-form-input" style={{ gridColumn: '1 / -1' }} placeholder="Dance Style (e.g., Kathak)" required value={guruFormData.style} onChange={e => setGuruFormData({...guruFormData, style: e.target.value})} />
               <input className="modal-form-input" style={{ gridColumn: '1 / -1' }} placeholder="Instagram Link (Optional)" value={guruFormData.instagram} onChange={e => setGuruFormData({...guruFormData, instagram: e.target.value})} />
               
-              <div style={{ gridColumn: '1 / -1', background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '5px' }}>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#E491C9', fontSize: '0.9rem' }}>Upload Image</label>
-                <input type="file" style={{ color: 'white' }} onChange={e => setNewGuruImageFile(e.target.files[0])} />
-                {editingGuru && editingGuru.image && !newGuruImageFile && (
-                   <p style={{ marginTop: '10px', fontSize: '0.8rem', color: '#d1d5db' }}>Current image uploaded.</p>
-                )}
+              <div style={{ gridColumn: '1 / -1', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '8px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', color: '#E491C9', fontSize: '0.9rem', fontWeight: 'bold' }}>Guru Image</label>
+                <input type="file" style={{ color: 'white', marginBottom: '10px' }} onChange={e => setNewGuruImageFile(e.target.files[0])} />
+                <input 
+                  className="modal-form-input" 
+                  placeholder="Or Paste Image URL (https://...)" 
+                  value={guruFormData.image} 
+                  onChange={e => setGuruFormData({...guruFormData, image: e.target.value})} 
+                />
               </div>
 
               <textarea className="modal-form-input" style={{ gridColumn: '1 / -1', minHeight: '100px', resize: 'vertical' }} placeholder="Detailed description" required value={guruFormData.description} onChange={e => setGuruFormData({...guruFormData, description: e.target.value})}></textarea>
