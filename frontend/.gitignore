@@ -26,3 +26,4 @@ node_modules
 Backend/.env
 frontend/.env
 *.zip
+.vercel

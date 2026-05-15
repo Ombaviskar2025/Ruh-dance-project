@@ -2,3 +2,5 @@ node_modules
 .env
 Backend/.env
 frontend/.env
+# Local Netlify folder
+.netlify
