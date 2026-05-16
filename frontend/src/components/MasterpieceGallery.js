@@ -18,8 +18,11 @@ const MasterpieceGallery = () => {
     const fetchSignatures = async () => {
       try {
         const response = await axios.get('https://ruh-dance-project.onrender.com/api/signatures');
-        if (response.data && response.data.length > 0) {
-          setDisplayItems(response.data);
+        // Unpack the data correctly based on backend response format
+        const fetchedData = response.data.data || response.data;
+        
+        if (Array.isArray(fetchedData) && fetchedData.length > 0) {
+          setDisplayItems(fetchedData);
         } else {
           setDisplayItems(fallbackItems);
         }

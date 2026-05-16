@@ -21,6 +21,7 @@ exports.createSignature = async (req, res) => {
 
         const signatureData = { ...req.body };
         
+        // Handle files from multer
         if (req.files) {
             if (req.files.image) {
                 signatureData.image = req.files.image[0].path;
@@ -29,8 +30,16 @@ exports.createSignature = async (req, res) => {
                 signatureData.videoUrl = req.files.videoUrl[0].path;
             }
         }
+
+        // Fallback to URL strings from body if no files were uploaded
+        if (!signatureData.image && req.body.imageUrl) {
+            signatureData.image = req.body.imageUrl;
+        }
+        if (!signatureData.videoUrl && req.body.videoUrl) {
+            signatureData.videoUrl = req.body.videoUrl;
+        }
         
-        // Remove empty image/videoUrl so Mongoose doesn't validate them as empty strings
+        // Remove empty strings so Mongoose doesn't validate them
         if (!signatureData.image) delete signatureData.image;
         if (!signatureData.videoUrl) delete signatureData.videoUrl;
         
@@ -55,14 +64,19 @@ exports.updateSignature = async (req, res) => {
             if (req.files.image) {
                 updatedData.image = req.files.image[0].path;
             }
-        
-            if (!updatedData.image) delete updatedData.image;
-            if (!updatedData.videoUrl) delete updatedData.videoUrl;
-
             if (req.files.videoUrl) {
                 updatedData.videoUrl = req.files.videoUrl[0].path;
             }
         }
+
+        // Fallback to URL strings from body if no new files were uploaded
+        if (!updatedData.image && req.body.imageUrl) {
+            updatedData.image = req.body.imageUrl;
+        }
+
+        // Clean up empty fields
+        if (updatedData.image === '') delete updatedData.image;
+        if (updatedData.videoUrl === '') delete updatedData.videoUrl;
 
         const signature = await Signature.findByIdAndUpdate(req.params.id, updatedData, { new: true });
         if (!signature) {
