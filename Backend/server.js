@@ -113,7 +113,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // 7. Basic Test Route
 app.get('/', (req, res) => {
-    res.send("Ruh Dance Production API is running...");
+    res.send("Ruh Dance Production API v1.1 - Gallery Fix Live");
 });
 
 // 8. Define the Port and Start Server
