@@ -816,6 +816,10 @@ input[type="file"]::file-selector-button:hover {
 
 /* Mobile */
 @media (max-width: 768px) {
+  .main-content { margin-left: 0 !important; width: 100% !important; padding: 0 !important; }
+  .admin-mobile-header { display: flex; justify-content: space-between; align-items: center; background: rgba(20, 10, 30, 0.9); padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 1000; width: 100%; margin: 0; left: 0; }
+  .admin-mobile-header h2 { font-size: 1.2rem; margin: 0; color: white; }
+  .admin-hamburger { background: none; border: none; color: white; cursor: pointer; }
   .stats-row-container { flex-direction: column !important; gap: 12px !important; }
   .stat-card-item { padding: 20px 16px !important; }
   .stat-card-item p { font-size: 30px !important; }
@@ -844,7 +848,7 @@ input[type="file"]::file-selector-button:hover {
 
 /* Extra small */
 @media (max-width: 480px) {
-  .main-content { padding: 6px !important; }
+  .main-content { padding: 0 !important; }
   .management-table th, .management-table td { padding: 8px 10px !important; font-size: 0.78rem !important; }
   .stat-card-item p { font-size: 26px !important; }
   .add-btn { padding: 7px 12px !important; }
@@ -1073,3 +1077,18 @@ input[type="file"]::file-selector-button:hover {
     flex-direction: column;
   }
 }
+
+/* =========================================
+   MODAL Z-INDEX GUARANTEE
+   All modals must be above everything
+   ========================================= */
+.modal-overlay,
+.PROD-MODAL-OVERLAY,
+.modal-backdrop { z-index: 9998 !important; }
+
+.modal-content,
+.PROD-MODAL-CONTENT { z-index: 9999 !important; }
+
+/* Reactstrap modal */
+.modal { z-index: 9999 !important; }
+.modal-dialog { z-index: 10000 !important; }

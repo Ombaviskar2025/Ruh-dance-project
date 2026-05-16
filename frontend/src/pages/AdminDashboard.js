@@ -512,7 +512,7 @@ const AdminDashboard = () => {
       <div className="ambient-orb orb-2"></div>
       <div className="ambient-orb orb-3"></div>
 
-      <div className="admin-container" style={{ position: 'relative', zIndex: 1 }}>
+      <div className="admin-container" style={{ position: 'relative' }}>
         <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
           <div className="sidebar-header" style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
              <div style={{ display: 'flex', alignItems: 'center' }}>
