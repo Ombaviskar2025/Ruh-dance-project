@@ -803,3 +803,49 @@ input[type="file"]::file-selector-button:hover {
     cursor: pointer;
   }
 }
+
+/* =========================================
+   RESPONSIVE OVERRIDES - FULL MOBILE
+   ========================================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .media-settings-split-container { flex-direction: column !important; }
+  .video-config-card, .gallery-config-card { min-width: auto !important; flex: none !important; width: 100% !important; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .stats-row-container { flex-direction: column !important; gap: 12px !important; }
+  .stat-card-item { padding: 20px 16px !important; }
+  .stat-card-item p { font-size: 30px !important; }
+  .management-card-full { border-radius: 14px !important; overflow-x: auto !important; }
+  .management-header { padding: 15px 20px !important; flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+  .management-header h3 { font-size: 1.2rem !important; }
+  .section-header-flex { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+  .management-table { min-width: 520px; }
+  .management-table th, .management-table td { padding: 12px 14px !important; font-size: 0.82rem !important; }
+  .modern-table-compact { min-width: 420px; }
+  .data-table-wrapper-glass { overflow-x: auto !important; }
+  .media-settings-split-container { flex-direction: column !important; gap: 16px !important; }
+  .video-config-card, .gallery-config-card { flex: none !important; min-width: auto !important; width: 100% !important; }
+  .productions-grid-container { grid-template-columns: 1fr !important; }
+  .modal-content { max-width: 95vw !important; padding: 20px !important; margin: 10px !important; }
+  .modal-title { font-size: 1.4rem !important; margin-bottom: 16px !important; }
+  .modal-form-input { font-size: 0.85rem !important; padding: 10px 12px !important; }
+  .modal-buttons-grid { flex-direction: column !important; }
+  .PROD-MODAL-CONTENT { width: 95vw !important; padding: 20px !important; max-height: 90vh; overflow-y: auto; }
+  .form-row-split { flex-direction: column !important; gap: 8px !important; }
+  .add-btn { font-size: 0.75rem !important; padding: 8px 16px !important; }
+  .save-btn-premium { padding: 12px !important; font-size: 0.85rem !important; }
+  .admin-content-main { padding: 10px !important; }
+  .dashboard-header h2 { font-size: 1.5rem !important; }
+}
+
+/* Extra small */
+@media (max-width: 480px) {
+  .main-content { padding: 6px !important; }
+  .management-table th, .management-table td { padding: 8px 10px !important; font-size: 0.78rem !important; }
+  .stat-card-item p { font-size: 26px !important; }
+  .add-btn { padding: 7px 12px !important; }
+}

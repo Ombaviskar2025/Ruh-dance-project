@@ -1418,3 +1418,61 @@ input:-webkit-autofill:active {
 .mobile-link:last-child { border-bottom: none; }
 .logout-mobile-link { color: #ff4d4d; font-weight: bold; }
 @media (max-width: 992px) { .desktop-nav { display: none !important; } .mobile-menu-btn { display: block; } }
+
+/* =========================================
+   PUBLIC PAGES - FULL MOBILE RESPONSIVENESS
+   Added: 2026-05
+   ========================================= */
+
+/* ---- Nav/Header Mobile ---- */
+@media (max-width: 768px) {
+  .main-header { padding: 10px 15px !important; }
+  .header-container { padding: 0 !important; }
+  .logo-text { font-size: 1.3rem !important; }
+  .logo-subtext { font-size: 0.6rem !important; }
+
+  /* Hero sections */
+  .hero-title-modern { font-size: 2.2rem !important; }
+  .hero-desc-modern { font-size: 1rem !important; }
+  .modern-hero-wrapper { padding: 40px 15px !important; gap: 20px !important; }
+  .glass-hero-panel { padding: 30px 20px !important; }
+
+  /* Cinematic video hero */
+  .cinematic-hero-video-section { height: 60vh !important; min-height: 380px !important; }
+  .cinematic-main-title { font-size: 2rem !important; }
+  .cinematic-sub-title { font-size: 1rem !important; }
+  .cinematic-titles-overlay { left: 5%; right: 5%; bottom: 50px; text-align: left; }
+  .cinematic-buttons-row { flex-wrap: wrap; gap: 10px; }
+  .cinematic-btn { padding: 10px 20px !important; font-size: 0.9rem !important; }
+
+  /* Gallery page */
+  .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+
+  /* Grid containers */
+  .grid-container { grid-template-columns: 1fr !important; gap: 14px !important; }
+
+  /* User dropdown */
+  .user-dropdown { width: 180px !important; }
+  .user-name { font-size: 11px !important; }
+
+  /* Forms / Login box */
+  .login-box { width: 95% !important; padding: 25px 20px !important; }
+  .modern-modal-content { width: 95% !important; padding: 25px 20px !important; }
+  .modern-form-row { flex-direction: column !important; }
+
+  /* Social icons */
+  .floating-social-icons { right: 12px; bottom: 20px; gap: 10px; }
+  .social-icon { width: 42px; height: 42px; }
+
+  /* Nav dropdown menu */
+  .nav-dropdown-menu { left: 0; transform: none; min-width: 160px; }
+}
+
+@media (max-width: 480px) {
+  .hero-title-modern { font-size: 1.7rem !important; }
+  .cinematic-main-title { font-size: 1.6rem !important; }
+  .cinematic-sub-title { font-size: 0.9rem !important; }
+  .marquee-item { font-size: 1.1rem !important; margin: 0 20px !important; }
+  .gallery-grid { grid-template-columns: 1fr !important; }
+  .user-profile-container { padding: 4px 8px !important; }
+}

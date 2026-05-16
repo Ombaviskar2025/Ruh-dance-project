@@ -352,30 +352,41 @@ const AdminDashboard = () => {
 
   const handleSaveGallery = async (e) => {
     e.preventDefault();
+
+    // Validate: must have either a file or a URL
+    if (!galleryFile && !galleryFormData.mediaUrl.trim()) {
+      return alert('Please either upload a file OR provide a direct media URL.');
+    }
+
     const formData = new FormData();
     formData.append('title', galleryFormData.title);
     formData.append('description', galleryFormData.description);
     formData.append('type', galleryFormData.type);
-    formData.append('mediaUrl', galleryFormData.mediaUrl);
+
     if (galleryFile) {
+      // File takes priority — upload it, backend will set the Cloudinary URL
       formData.append('media', galleryFile);
+    } else {
+      // No file — send the URL directly
+      formData.append('mediaUrl', galleryFormData.mediaUrl.trim());
     }
 
     try {
       if (editingGalleryItem) {
         await axios.put(`https://ruh-dance-project.onrender.com/api/gallery/${editingGalleryItem._id}`, formData, { 
-          headers: { ...config.headers, 'Content-Type': 'multipart/form-data' } 
+          headers: { ...config.headers }
         });
         alert('Gallery Item Updated!');
       } else {
         await axios.post('https://ruh-dance-project.onrender.com/api/gallery', formData, { 
-          headers: { ...config.headers, 'Content-Type': 'multipart/form-data' } 
+          headers: { ...config.headers }
         });
         alert('Gallery Item Added!');
       }
       setShowGalleryModal(false);
       fetchData();
     } catch (err) {
+      console.error('Gallery save error:', err.response?.data || err.message);
       alert(err.response?.data?.message || 'Failed to save gallery item');
     }
   };
@@ -423,10 +434,10 @@ const AdminDashboard = () => {
   const handleOpenSignatureModal = (sig = null) => {
     if (sig) {
       setEditingSignature(sig);
-      setSignatureFormData({ title: sig.title, description: sig.description, videoUrl: sig.videoUrl || '' });
+      setSignatureFormData({ title: sig.title, description: sig.description, videoUrl: sig.videoUrl || '', imageUrl: sig.image || '' });
     } else {
       setEditingSignature(null);
-      setSignatureFormData({ title: '', description: '', videoUrl: '' });
+      setSignatureFormData({ title: '', description: '', videoUrl: '', imageUrl: '' });
     }
     setNewSignatureImageFile(null);
     setNewSignatureVideoFile(null);
@@ -439,12 +450,14 @@ const AdminDashboard = () => {
     formData.append('title', signatureFormData.title);
     formData.append('description', signatureFormData.description);
     
-    // Add image if selected
+    // Image: prefer file, fallback to URL
     if (newSignatureImageFile) {
       formData.append('image', newSignatureImageFile);
+    } else if (signatureFormData.imageUrl) {
+      formData.append('image', signatureFormData.imageUrl);
     }
     
-    // Add video file or URL
+    // Video: prefer file, fallback to URL
     if (newSignatureVideoFile) {
       formData.append('videoUrl', newSignatureVideoFile);
     } else if (signatureFormData.videoUrl) {
@@ -454,16 +467,17 @@ const AdminDashboard = () => {
     try {
       if (editingSignature) {
         await axios.put(`https://ruh-dance-project.onrender.com/api/signatures/${editingSignature._id}`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data', ...config.headers }
+          headers: { ...config.headers }
         });
         alert('Performance Updated!');
       } else {
-        // Image is optional now if video is present or if editing
-        if (!newSignatureImageFile && !editingSignature && !newSignatureVideoFile) {
-          return alert('Please upload at least an image or a video for the new performance.');
+        const hasImage = newSignatureImageFile || signatureFormData.imageUrl;
+        const hasVideo = newSignatureVideoFile || signatureFormData.videoUrl;
+        if (!hasImage && !hasVideo) {
+          return alert('Please upload at least an image or a video (file or URL) for the new performance.');
         }
         await axios.post('https://ruh-dance-project.onrender.com/api/signatures', formData, {
-          headers: { 'Content-Type': 'multipart/form-data', ...config.headers }
+          headers: { ...config.headers }
         });
         alert('Performance Added!');
       }
@@ -926,7 +940,9 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
-      </main>      {/* --- GALLERY MODAL --- */}
+      </main>
+
+      {/* --- GALLERY MODAL --- */}
       <Modal isOpen={showGalleryModal} toggle={() => setShowGalleryModal(false)} centered className="dark-modal">
         <ModalHeader toggle={() => setShowGalleryModal(false)}>
           {editingGalleryItem ? 'Edit Gallery Item' : 'Add New Gallery Item'}
@@ -934,29 +950,54 @@ const AdminDashboard = () => {
         <Form onSubmit={handleSaveGallery}>
           <ModalBody>
             <FormGroup>
-              <Label>Title</Label>
-              <Input className="modal-form-input" required value={galleryFormData.title} onChange={e => setGalleryFormData({...galleryFormData, title: e.target.value})} />
+              <Label>Title *</Label>
+              <Input className="modal-form-input" required value={galleryFormData.title} onChange={e => setGalleryFormData({...galleryFormData, title: e.target.value})} placeholder="e.g. Kathak Performance" />
             </FormGroup>
             <FormGroup>
               <Label>Description</Label>
-              <Input type="textarea" className="modal-form-input" value={galleryFormData.description} onChange={e => setGalleryFormData({...galleryFormData, description: e.target.value})} />
+              <Input type="textarea" className="modal-form-input" value={galleryFormData.description} onChange={e => setGalleryFormData({...galleryFormData, description: e.target.value})} placeholder="Brief caption..." />
             </FormGroup>
             <FormGroup>
               <Label>Media Type</Label>
               <Input type="select" className="modal-form-input" value={galleryFormData.type} onChange={e => setGalleryFormData({...galleryFormData, type: e.target.value})}>
-                <option value="photo">Photo</option>
-                <option value="video">Video</option>
+                <option value="photo">📸 Photo</option>
+                <option value="video">🎬 Video</option>
               </Input>
             </FormGroup>
-            <FormGroup>
-              <Label>Or Upload File (Persistent)</Label>
-              <Input type="file" onChange={e => setGalleryFile(e.target.files[0])} />
-            </FormGroup>
-            <FormGroup>
-              <Label>Direct URL (Bypass Upload)</Label>
-              <Input className="modal-form-input" value={galleryFormData.mediaUrl} onChange={e => setGalleryFormData({...galleryFormData, mediaUrl: e.target.value})} placeholder="https://..." />
-              <small style={{color: '#aaa', marginTop: '5px', display: 'block'}}>Providing a URL will bypass the file upload if both are present.</small>
-            </FormGroup>
+
+            {/* Dual upload option */}
+            <div style={{ background: 'rgba(0,0,0,0.2)', borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+              <Label style={{ color: '#E491C9', fontWeight: 'bold', display: 'block', marginBottom: '10px' }}>📁 Upload File</Label>
+              <Input
+                type="file"
+                accept={galleryFormData.type === 'video' ? 'video/*' : 'image/*'}
+                onChange={e => {
+                  setGalleryFile(e.target.files[0]);
+                  setGalleryFormData({...galleryFormData, mediaUrl: ''});
+                }}
+              />
+              {galleryFile && <small style={{ color: '#aaa', display: 'block', marginTop: '6px' }}>✅ File selected: {galleryFile.name}</small>}
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '10px 0', color: 'rgba(255,255,255,0.3)' }}>
+              <span style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+              <span style={{ fontSize: '0.75rem', fontWeight: 700 }}>OR</span>
+              <span style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+            </div>
+
+            <div style={{ background: 'rgba(0,0,0,0.2)', borderRadius: '12px', padding: '16px' }}>
+              <Label style={{ color: '#E491C9', fontWeight: 'bold', display: 'block', marginBottom: '8px' }}>🔗 Direct URL</Label>
+              <Input
+                className="modal-form-input"
+                value={galleryFormData.mediaUrl}
+                onChange={e => {
+                  setGalleryFormData({...galleryFormData, mediaUrl: e.target.value});
+                  if (e.target.value) setGalleryFile(null);
+                }}
+                placeholder="https://res.cloudinary.com/... or any direct media URL"
+              />
+              <small style={{ color: '#aaa', marginTop: '5px', display: 'block' }}>Paste a Cloudinary, CDN, or direct image/video link.</small>
+            </div>
           </ModalBody>
           <ModalFooter>
             <Button type="submit" className="save-btn-premium">Save Item</Button>
@@ -989,38 +1030,69 @@ const AdminDashboard = () => {
               />
             </FormGroup>
             
-            <FormGroup className="mt-3">
-              <Label className="fw-bold">Upload Performance Video</Label>
+            {/* Performance Video — File OR URL */}
+            <div style={{ background: 'rgba(0,0,0,0.2)', borderRadius: '12px', padding: '15px', marginBottom: '12px' }}>
+              <Label style={{ color: '#E491C9', fontWeight: 'bold', display: 'block', marginBottom: '10px' }}>🎬 Performance Video</Label>
               <Input 
                 type="file" 
                 accept="video/*"
-                onChange={e => setNewSignatureVideoFile(e.target.files[0])} 
+                onChange={e => {
+                  setNewSignatureVideoFile(e.target.files[0]);
+                  setSignatureFormData({...signatureFormData, videoUrl: ''});
+                }} 
               />
-              <small className="text-muted">Direct video file upload (MP4/WebM)</small>
+              <small style={{ color: 'rgba(255,255,255,0.5)', display: 'block', marginTop: '4px', marginBottom: '10px' }}>Upload MP4/WebM file</small>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '10px 0', color: 'rgba(255,255,255,0.3)' }}>
+                <span style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+                <span style={{ fontSize: '0.75rem', fontWeight: 700 }}>OR PASTE URL</span>
+                <span style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+              </div>
+              
+              <Input
+                className="modal-form-input"
+                placeholder="https://res.cloudinary.com/... (direct .mp4 URL)"
+                value={signatureFormData.videoUrl}
+                onChange={e => {
+                  setSignatureFormData({...signatureFormData, videoUrl: e.target.value});
+                  if (e.target.value) setNewSignatureVideoFile(null);
+                }}
+              />
 
               {(newSignatureVideoFile || signatureFormData.videoUrl) && (
                 <div className="mt-2 p-2" style={{ background: '#000', borderRadius: '8px', textAlign: 'center' }}>
                   <video 
-                    autoPlay 
-                    loop 
-                    muted 
-                    controls 
+                    autoPlay loop muted controls 
                     style={{ maxHeight: '150px', maxWidth: '100%' }}
                     src={newSignatureVideoFile ? URL.createObjectURL(newSignatureVideoFile) : (signatureFormData.videoUrl?.startsWith('http') ? signatureFormData.videoUrl : `https://ruh-dance-project.onrender.com${signatureFormData.videoUrl}`)}
                   />
                 </div>
               )}
-            </FormGroup>
+            </div>
 
-            <FormGroup className="mt-4" style={{ padding: '15px', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
-              <Label className="fw-bold d-block mb-2">Upload Preview Image</Label>
+            {/* Preview Image — File OR URL */}
+            <div style={{ background: 'rgba(0,0,0,0.2)', borderRadius: '12px', padding: '15px' }}>
+              <Label style={{ color: '#E491C9', fontWeight: 'bold', display: 'block', marginBottom: '10px' }}>📸 Preview Image</Label>
               <Input 
                 type="file" 
                 accept="image/*"
-                required={false} 
                 onChange={e => setNewSignatureImageFile(e.target.files[0])} 
               />
-            </FormGroup>
+              <small style={{ color: 'rgba(255,255,255,0.5)', display: 'block', marginTop: '4px', marginBottom: '10px' }}>Upload image file</small>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '10px 0', color: 'rgba(255,255,255,0.3)' }}>
+                <span style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+                <span style={{ fontSize: '0.75rem', fontWeight: 700 }}>OR PASTE URL</span>
+                <span style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+              </div>
+
+              <Input
+                className="modal-form-input"
+                placeholder="https://res.cloudinary.com/... (direct image URL)"
+                value={signatureFormData.imageUrl || ''}
+                onChange={e => setSignatureFormData({...signatureFormData, imageUrl: e.target.value})}
+              />
+            </div>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" type="submit" className="modal-btn">Save</Button>
