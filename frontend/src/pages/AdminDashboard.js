@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   LuLayoutGrid, LuHistory, LuUsers, LuUser, 
   LuListTodo, LuCalendarCheck, LuCreditCard, 
-  LuSettings, LuPencil, LuX, LuTrash2, LuUserPlus, LuPlus, LuPlay 
+  LuSettings, LuPencil, LuX, LuTrash2, LuUserPlus, LuPlus, LuPlay, LuMenu 
 } from "react-icons/lu";
 import './AdminDashboard.css';
 
