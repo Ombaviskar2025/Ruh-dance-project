@@ -386,8 +386,9 @@ const AdminDashboard = () => {
       setShowGalleryModal(false);
       fetchData();
     } catch (err) {
-      console.error('Gallery save error:', err.response?.data || err.message);
-      alert(err.response?.data?.message || 'Failed to save gallery item');
+      console.error('Gallery save error details:', err.response?.data || err);
+      const errorMsg = err.response?.data?.message || err.message || 'Unknown error';
+      alert(`Failed to save gallery item: ${errorMsg}`);
     }
   };
 
