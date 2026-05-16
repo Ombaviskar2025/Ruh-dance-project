@@ -1092,3 +1092,139 @@ input[type="file"]::file-selector-button:hover {
 /* Reactstrap modal */
 .modal { z-index: 9999 !important; }
 .modal-dialog { z-index: 10000 !important; }
+
+/* =========================================
+   UNIFIED PREMIUM FORM STYLES
+   Overrides for all inputs, textareas, selects
+   ========================================= */
+
+/* Base Input Styles */
+.modal-form-input,
+.modal-select {
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  color: white !important;
+  font-family: inherit !important;
+  font-size: 0.9rem !important;
+  transition: all 0.3s ease !important;
+  box-sizing: border-box !important;
+  margin-bottom: 12px !important;
+}
+
+.modal-form-input::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Focus State */
+.modal-form-input:focus,
+.modal-select:focus {
+  outline: none !important;
+  border-color: #E491C9 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 12px rgba(228, 145, 201, 0.2) !important;
+}
+
+/* Textareas */
+textarea.modal-form-input {
+  min-height: 80px !important;
+  resize: vertical !important;
+}
+
+/* Select Dropdowns */
+select.modal-form-input,
+select.modal-select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  cursor: pointer !important;
+  background-color: #1a1c4a !important; 
+}
+
+select.modal-form-input option,
+select.modal-select option {
+  background-color: #1a1c4a !important;
+  color: white !important;
+}
+
+/* Labels */
+.modal-body label {
+  display: block !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color: #E491C9 !important;
+  margin-bottom: 8px !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* File Uploads */
+input[type="file"].modal-form-input,
+.modal-body input[type="file"] {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border: 1px dashed rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  width: 100% !important;
+  margin-bottom: 12px !important;
+}
+
+input[type="file"]::file-selector-button {
+  background: linear-gradient(135deg, #982598 0%, #E491C9 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  margin-right: 15px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+}
+
+input[type="file"]::file-selector-button:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 12px rgba(152, 37, 152, 0.4) !important;
+}
+
+/* Premium Buttons */
+.save-btn-premium,
+.btn-modal.save {
+  background: linear-gradient(135deg, #982598 0%, #E491C9 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 14px 20px !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 5px 15px rgba(152, 37, 152, 0.35) !important;
+  width: 100% !important;
+}
+
+.save-btn-premium:hover,
+.btn-modal.save:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 8px 25px rgba(152, 37, 152, 0.5) !important;
+}
+
+.btn-modal.cancel {
+  background: rgba(255, 255, 255, 0.07) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  padding: 14px 20px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-modal.cancel:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: white !important;
+}

@@ -1476,3 +1476,140 @@ input:-webkit-autofill:active {
   .gallery-grid { grid-template-columns: 1fr !important; }
   .user-profile-container { padding: 4px 8px !important; }
 }
+
+/* =========================================
+   UNIFIED PREMIUM FORM STYLES (APP.CSS)
+   Overrides for public and student/instructor forms
+   ========================================= */
+
+/* Base Input Styles */
+.modern-form-input,
+.soul-form input,
+.soul-form select,
+.soul-form textarea,
+.inquiry-form input,
+.inquiry-form select,
+.inquiry-form textarea,
+.reg-form input,
+.reg-form select,
+.reg-form textarea {
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  color: white !important;
+  font-family: inherit !important;
+  font-size: 0.9rem !important;
+  transition: all 0.3s ease !important;
+  box-sizing: border-box !important;
+  margin-bottom: 12px !important;
+}
+
+.modern-form-input::placeholder,
+.soul-form input::placeholder,
+.soul-form textarea::placeholder,
+.inquiry-form input::placeholder,
+.inquiry-form textarea::placeholder,
+.reg-form input::placeholder,
+.reg-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Focus State */
+.modern-form-input:focus,
+.soul-form input:focus,
+.soul-form select:focus,
+.soul-form textarea:focus,
+.inquiry-form input:focus,
+.inquiry-form select:focus,
+.inquiry-form textarea:focus,
+.reg-form input:focus,
+.reg-form select:focus,
+.reg-form textarea:focus {
+  outline: none !important;
+  border-color: #E491C9 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 12px rgba(228, 145, 201, 0.2) !important;
+}
+
+/* Textareas */
+.modern-form-input[type="textarea"],
+.soul-form textarea,
+.inquiry-form textarea,
+.reg-form textarea {
+  min-height: 80px !important;
+  resize: vertical !important;
+}
+
+/* Select Dropdowns */
+.modern-form-input[type="select"],
+.soul-form select,
+.inquiry-form select,
+.reg-form select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  cursor: pointer !important;
+  background-color: #1a1c4a !important; 
+}
+
+.modern-form-input option,
+.soul-form select option,
+.inquiry-form select option,
+.reg-form select option {
+  background-color: #1a1c4a !important;
+  color: white !important;
+}
+
+/* Labels for Forms */
+.soul-form label,
+.inquiry-form label,
+.reg-form label,
+.form-group label {
+  display: block !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color: #E491C9 !important;
+  margin-bottom: 8px !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* File Uploads */
+input[type="file"].modern-form-input,
+.reg-form input[type="file"],
+.soul-form input[type="file"] {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border: 1px dashed rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  width: 100% !important;
+  margin-bottom: 12px !important;
+}
+
+/* Premium Buttons */
+.soulful-btn,
+.modern-btn,
+.reg-form button[type="submit"] {
+  background: linear-gradient(135deg, #982598 0%, #E491C9 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 14px 20px !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 5px 15px rgba(152, 37, 152, 0.35) !important;
+  width: 100% !important;
+  margin-top: 10px !important;
+}
+
+.soulful-btn:hover,
+.modern-btn:hover,
+.reg-form button[type="submit"]:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 8px 25px rgba(152, 37, 152, 0.5) !important;
+}
