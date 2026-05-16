@@ -4,12 +4,34 @@ import { LuPlay } from 'react-icons/lu';
 import './MasterpieceGallery.css';
 
 const MasterpieceGallery = () => {
-  // Hardcoded beautiful default images to permanently fix broken uploads
-  const displayItems = [
+  const [displayItems, setDisplayItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fallback images in case the database is empty or API fails
+  const fallbackItems = [
     { title: "Divine Expression", description: "Classical Bharatanatyam mudras", image: "https://images.unsplash.com/photo-1542614471-001ccf2bb6e1?q=80&w=800&auto=format&fit=crop" },
-    { title: "Rhythmic Grace", description: "The beautiful art of storytelling through dance", image: "https://images.unsplash.com/photo-1516478177764-9b2f349edb54?q=80&w=800&auto=format&fit=crop" },
     { title: "Cultural Heritage", description: "Preserving traditions in motion", image: "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?q=80&w=800&auto=format&fit=crop" },
+    { title: "Artistic Elegance", description: "The beautiful art of storytelling through dance", image: "https://images.unsplash.com/photo-1533147670608-2a2f9775d3a4?q=80&w=800&auto=format&fit=crop" },
   ];
+
+  useEffect(() => {
+    const fetchSignatures = async () => {
+      try {
+        const response = await axios.get('https://ruh-dance-project.onrender.com/api/signatures');
+        if (response.data && response.data.length > 0) {
+          setDisplayItems(response.data);
+        } else {
+          setDisplayItems(fallbackItems);
+        }
+      } catch (error) {
+        console.error('Failed to fetch signatures:', error);
+        setDisplayItems(fallbackItems);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchSignatures();
+  }, []);
 
   const handleCardClick = (sig) => {
     if (sig.videoUrl) {
