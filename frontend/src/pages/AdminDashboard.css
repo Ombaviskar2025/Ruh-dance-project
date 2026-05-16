@@ -849,3 +849,227 @@ input[type="file"]::file-selector-button:hover {
   .stat-card-item p { font-size: 26px !important; }
   .add-btn { padding: 7px 12px !important; }
 }
+
+/* =========================================
+   PRODUCTION MODALS - FULLY STYLED
+   ========================================= */
+
+/* Full-screen dark overlay */
+.PROD-MODAL-OVERLAY {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 11, 30, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Centered modal box */
+.PROD-MODAL-CONTENT {
+  background: #15173D;
+  border: 1px solid rgba(152, 37, 152, 0.5);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 520px;
+  padding: 36px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+  animation: modalPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: white;
+  position: relative;
+}
+
+.PROD-MODAL-TITLE {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #E491C9;
+  margin: 0 0 24px 0;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* Image preview in edit modal */
+.PROD-MODAL-PREVIEW {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.PROD-MODAL-PREVIEW img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Form layout */
+.PROD-MODAL-FORM {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.PROD-MODAL-FORM input,
+.PROD-MODAL-FORM textarea,
+.PROD-MODAL-FORM select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.PROD-MODAL-FORM input::placeholder,
+.PROD-MODAL-FORM textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.PROD-MODAL-FORM input:focus,
+.PROD-MODAL-FORM textarea:focus {
+  outline: none;
+  border-color: #E491C9;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 12px rgba(228, 145, 201, 0.2);
+}
+
+.PROD-MODAL-FORM textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Upload section inside form */
+.PROD-MODAL-UPLOAD {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.PROD-MODAL-UPLOAD label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #E491C9;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.PROD-MODAL-UPLOAD input[type="file"] {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.PROD-MODAL-UPLOAD input[type="text"] {
+  margin-top: 10px;
+  width: 100% !important;
+  padding: 10px 14px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 10px !important;
+  color: white !important;
+  box-sizing: border-box;
+}
+
+/* OR divider */
+.PROD-MODAL-UPLOAD::after {
+  content: '';
+}
+
+/* Action buttons row */
+.PROD-MODAL-ACTIONS {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.PROD-SAVE-BTN {
+  flex: 1;
+  background: linear-gradient(135deg, #982598 0%, #E491C9 100%);
+  color: white;
+  border: none;
+  padding: 13px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(152, 37, 152, 0.35);
+}
+
+.PROD-SAVE-BTN:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(152, 37, 152, 0.5);
+}
+
+.PROD-CANCEL-BTN {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 13px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.PROD-CANCEL-BTN:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+/* Edit overlay button on production card images */
+.pencil-edit-overlay {
+  background: rgba(114, 47, 55, 0.9) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.pencil-edit-overlay:hover {
+  transform: scale(1.1);
+  background: #E491C9 !important;
+}
+
+/* Mobile overrides for prod modal */
+@media (max-width: 768px) {
+  .PROD-MODAL-CONTENT {
+    padding: 22px 18px;
+    max-width: 95vw;
+    border-radius: 16px;
+  }
+  .PROD-MODAL-TITLE {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+  }
+  .PROD-MODAL-ACTIONS {
+    flex-direction: column;
+  }
+}
