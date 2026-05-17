@@ -69,7 +69,13 @@ const Home = () => {
     };
     fetchVideoSettings();
 
-    // 4. Video Time Listeners
+    return () => {
+      if (observerRef.current) observerRef.current.disconnect();
+    };
+  }, []);
+
+  // 4. Video Time Listeners (Re-attached on video URL/key changes)
+  useEffect(() => {
     const video = videoRef.current;
     if (video) {
       const handleTimeUpdate = () => {
@@ -78,19 +84,23 @@ const Home = () => {
       const handleMetaData = () => {
         setDuration(formatTime(video.duration));
       };
+      
+      // If metadata is already loaded (e.g. from cache or slow effect run)
+      if (video.readyState >= 1) {
+        setDuration(formatTime(video.duration));
+      }
+
       video.addEventListener('timeupdate', handleTimeUpdate);
       video.addEventListener('loadedmetadata', handleMetaData);
+      video.addEventListener('durationchange', handleMetaData);
+      
       return () => {
         video.removeEventListener('timeupdate', handleTimeUpdate);
         video.removeEventListener('loadedmetadata', handleMetaData);
-        if (observerRef.current) observerRef.current.disconnect();
+        video.removeEventListener('durationchange', handleMetaData);
       };
     }
-
-    return () => {
-      if (observerRef.current) observerRef.current.disconnect();
-    };
-  }, []);
+  }, [homeVideoUrl]);
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
