@@ -13,6 +13,7 @@ import './AdminDashboard.css';
 import Events from './Events'; 
 import ClassesAdmin from '../components/ClassesAdmin';
 import FinanceAdmin from '../components/FinanceAdmin';
+import { resolveMediaUrl } from '../utils/media';
 
 const AdminDashboard = () => {
   
@@ -290,10 +291,16 @@ const AdminDashboard = () => {
   const handleOpenGuruModal = (guruToEdit = null) => {
     if (guruToEdit) {
       setEditingGuru(guruToEdit);
-      setGuruFormData({ name: guruToEdit.name, style: guruToEdit.style, description: guruToEdit.description, instagram: guruToEdit.instagram || '' });
+      setGuruFormData({ 
+        name: guruToEdit.name, 
+        style: guruToEdit.style, 
+        description: guruToEdit.description, 
+        instagram: guruToEdit.instagram || '',
+        image: guruToEdit.image || ''
+      });
     } else {
       setEditingGuru(null);
-      setGuruFormData({ name: '', style: '', description: '', instagram: '' });
+      setGuruFormData({ name: '', style: '', description: '', instagram: '', image: '' });
     }
     setNewGuruImageFile(null);
     setShowGuruModal(true);
@@ -771,7 +778,7 @@ const AdminDashboard = () => {
                 }}>
                   <div style={{ overflow: 'hidden', borderRadius: '10px 10px 0 0', position: 'relative' }}>
                     <img 
-                      src={prod.image?.startsWith('http') ? prod.image : `https://ruh-dance-project.onrender.com${prod.image}`}
+                      src={resolveMediaUrl(prod.image)}
                       alt={prod.title} 
                       style={{ width: '100%', height: '250px', objectFit: 'cover', display: 'block' }} 
                     />
@@ -863,7 +870,7 @@ const AdminDashboard = () => {
                       <div className="preview-video-container">
                         <label className="preview-label">Current Video Preview</label>
                         <video 
-                          src={settings.homeVideoUrl.startsWith('http') ? settings.homeVideoUrl : `https://ruh-dance-project.onrender.com${settings.homeVideoUrl}`} 
+                          src={resolveMediaUrl(settings.homeVideoUrl)} 
                           controls 
                           muted 
                         />
@@ -904,7 +911,7 @@ const AdminDashboard = () => {
                             <div className="table-img-wrapper" style={{ position: 'relative' }}>
                               {sig.image ? (
                                 <img 
-                                  src={sig.image.startsWith('http') ? sig.image : `https://ruh-dance-project.onrender.com${sig.image}`} 
+                                  src={resolveMediaUrl(sig.image)} 
                                   alt=""
                                 />
                               ) : (
@@ -1065,7 +1072,7 @@ const AdminDashboard = () => {
                   <video 
                     autoPlay loop muted controls 
                     style={{ maxHeight: '150px', maxWidth: '100%' }}
-                    src={newSignatureVideoFile ? URL.createObjectURL(newSignatureVideoFile) : (signatureFormData.videoUrl?.startsWith('http') ? signatureFormData.videoUrl : `https://ruh-dance-project.onrender.com${signatureFormData.videoUrl}`)}
+                    src={newSignatureVideoFile ? URL.createObjectURL(newSignatureVideoFile) : resolveMediaUrl(signatureFormData.videoUrl)}
                   />
                 </div>
               )}
@@ -1109,7 +1116,7 @@ const AdminDashboard = () => {
             <h2 className="PROD-MODAL-TITLE">Edit Production</h2>
             <div className="PROD-MODAL-PREVIEW">
               <img 
-                src={editFormData.image?.startsWith('http') ? editFormData.image : `https://ruh-dance-project.onrender.com${editFormData.image}`} 
+                src={resolveMediaUrl(editFormData.image)} 
                 alt="Preview" 
                 style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', borderRadius: '8px' }}
               />

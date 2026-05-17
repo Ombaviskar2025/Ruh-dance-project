@@ -4,6 +4,7 @@ import { LuPause, LuPlay, LuVolumeX, LuVolume2 } from 'react-icons/lu';
 import '../App.css';
 import MasterpieceGallery from '../components/MasterpieceGallery';
 import GurusSection from '../components/GurusSection';
+import { resolveMediaUrl } from '../utils/media';
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -153,7 +154,7 @@ const Home = () => {
             muted 
             playsInline
           >
-            <source src={homeVideoUrl.startsWith('http') ? homeVideoUrl : `https://ruh-dance-project.onrender.com${homeVideoUrl}`} />
+            <source src={resolveMediaUrl(homeVideoUrl)} />
           </video>
         )}
         <div className="cinematic-video-overlay-gradient"></div>
@@ -233,7 +234,7 @@ const Home = () => {
             ></iframe>
           ) : (
             <video key={homeVideoUrl} autoPlay loop muted playsInline className="hero-bg-video">
-              <source src={homeVideoUrl.startsWith('http') ? homeVideoUrl : `https://ruh-dance-project.onrender.com${homeVideoUrl}`} />
+              <source src={resolveMediaUrl(homeVideoUrl)} />
             </video>
           )}
           <div className="video-overlay"></div>

@@ -20,6 +20,8 @@ exports.createGuru = async (req, res) => {
     
     if (req.file) {
       imageUrl = req.file.path;
+    } else if (req.body.image) {
+      imageUrl = req.body.image;
     }
 
     const guru = await Guru.create({
@@ -54,6 +56,8 @@ exports.updateGuru = async (req, res) => {
 
     if (req.file) {
       guru.image = req.file.path;
+    } else if (req.body.image) {
+      guru.image = req.body.image;
     }
 
     await guru.save();

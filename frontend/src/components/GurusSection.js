@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LuInstagram } from 'react-icons/lu';
 import './GurusSection.css';
+import { resolveMediaUrl } from '../utils/media';
 
 const GurusSection = () => {
   const [gurus, setGurus] = useState([]);
@@ -37,7 +38,7 @@ const GurusSection = () => {
             >
               <div className="guru-image-wrapper" onClick={() => setSelectedGuru(guru)}>
                 <img 
-                  src={guru.image?.startsWith('http') ? guru.image : `https://ruh-dance-project.onrender.com${guru.image}`} 
+                  src={resolveMediaUrl(guru.image)} 
                   alt={guru.name} 
                   className="guru-image" 
                 />
@@ -63,7 +64,7 @@ const GurusSection = () => {
             <button className="guru-close-btn" onClick={() => setSelectedGuru(null)}>&times;</button>
             <div className="guru-modal-layout">
               <img 
-                 src={selectedGuru.image?.startsWith('http') ? selectedGuru.image : `https://ruh-dance-project.onrender.com${selectedGuru.image}`} 
+                 src={resolveMediaUrl(selectedGuru.image)} 
                  alt={selectedGuru.name} 
                  className="guru-modal-img" 
               />

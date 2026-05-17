@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LuPencil, LuX } from 'react-icons/lu';
 import '../App.css';
+import { resolveMediaUrl } from '../utils/media';
 
 const defaultProductions = [
   {
@@ -106,7 +107,7 @@ const Productions = () => {
           <div key={prod._id} className="prod-card glass-hero-panel" style={{ padding: '0', overflow: 'hidden', position: 'relative' }}>
             <div style={{ overflow: 'hidden', borderRadius: '10px 10px 0 0' }}>
               <img 
-                src={prod.image?.startsWith('http') ? prod.image : (prod.image ? `https://ruh-dance-project.onrender.com${prod.image}` : 'https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=800&q=80')} 
+                src={resolveMediaUrl(prod.image) || 'https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=800&q=80'} 
                 alt={prod.title} 
                 style={{ width: '100%', height: '250px', objectFit: 'cover', display: 'block' }} 
               />

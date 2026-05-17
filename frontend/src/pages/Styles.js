@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LuPencil, LuX } from 'react-icons/lu';
 import '../App.css';
+import { resolveMediaUrl } from '../utils/media';
 
 const defaultStyles = [
   {
@@ -121,7 +122,7 @@ const Styles = () => {
         {styles.map((s) => (
           <div key={s._id} className="glass-hero-panel" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column', position: 'relative' }}>
             <img 
-               src={s.image?.startsWith('http') ? s.image : (s.image ? `https://ruh-dance-project.onrender.com${s.image}` : 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?auto=format&fit=crop&w=800&q=80')} 
+               src={resolveMediaUrl(s.image) || 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?auto=format&fit=crop&w=800&q=80'} 
                alt={s.name} 
                style={{ width: '100%', height: '250px', objectFit: 'cover' }} 
                onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?auto=format&fit=crop&w=800&q=80'; }} 

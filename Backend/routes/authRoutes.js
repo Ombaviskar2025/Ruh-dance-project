@@ -107,7 +107,7 @@ router.post('/admin/add-instructor', upload.single('profilePhoto'), async (req, 
             age, danceStyle, gender, phone,
             role: 'instructor',
             isApproved: true,
-            profilePhoto: req.file ? req.file.path : '',
+            profilePhoto: req.file ? req.file.path : (req.body.profilePhoto || ''),
             resetPasswordToken: resetToken,
             resetPasswordExpires: Date.now() + 3600000 
         });

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LuPlay } from 'react-icons/lu';
 import './Gallery.css';
+import { resolveMediaUrl } from '../utils/media';
 
 const Gallery = () => {
   const [galleryItems, setGalleryItems] = useState([]);
@@ -53,12 +54,16 @@ const Gallery = () => {
               >
                 <div className="media-wrapper">
                   {item.type === 'video' ? (
-                     <div className="video-placeholder">
-                        <LuPlay className="play-icon" />
-                        <span className="click-to-watch">Click to Watch</span>
-                     </div>
+                    <video 
+                      src={resolveMediaUrl(item.mediaUrl)} 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    />
                   ) : (
-                    <img src={item.mediaUrl} alt={item.title} loading="lazy" />
+                    <img src={resolveMediaUrl(item.mediaUrl)} alt={item.title} loading="lazy" />
                   )}
                   
                   <div className="overlay-content">

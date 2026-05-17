@@ -44,6 +44,8 @@ router.put('/:id', upload.single('image'), async (req, res) => {    try {
         // If a new image was uploaded, update the path
         if (req.file) {
             updatedData.image = req.file.path;
+        } else if (req.body.image) {
+            updatedData.image = req.body.image;
         }
 
         const production = await Production.findByIdAndUpdate(req.params.id, updatedData, { new: true });
