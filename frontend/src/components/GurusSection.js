@@ -38,7 +38,7 @@ const GurusSection = () => {
             >
               <div className="guru-image-wrapper" onClick={() => setSelectedGuru(guru)}>
                 <img 
-                  src={resolveMediaUrl(guru.image)} 
+                  src={resolveMediaUrl(guru.image) || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop'} 
                   alt={guru.name} 
                   className="guru-image" 
                 />
@@ -64,7 +64,7 @@ const GurusSection = () => {
             <button className="guru-close-btn" onClick={() => setSelectedGuru(null)}>&times;</button>
             <div className="guru-modal-layout">
               <img 
-                 src={resolveMediaUrl(selectedGuru.image)} 
+                 src={resolveMediaUrl(selectedGuru.image) || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop'} 
                  alt={selectedGuru.name} 
                  className="guru-modal-img" 
               />
