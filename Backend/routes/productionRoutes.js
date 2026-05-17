@@ -21,7 +21,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     year: req.body.year,
     title: req.body.title,
     subtitle: req.body.subtitle,
-    image: req.file ? req.file.path : req.body.image
+    image: req.file ? req.file.path : (req.body.imageUrl || req.body.image)
   });
 
   try {
@@ -44,6 +44,8 @@ router.put('/:id', upload.single('image'), async (req, res) => {    try {
         // If a new image was uploaded, update the path
         if (req.file) {
             updatedData.image = req.file.path;
+        } else if (req.body.imageUrl) {
+            updatedData.image = req.body.imageUrl;
         } else if (req.body.image) {
             updatedData.image = req.body.image;
         }

@@ -148,7 +148,7 @@ const AdminDashboard = () => {
       if (newInstructorPhoto) {
         formData.append('profilePhoto', newInstructorPhoto);
       } else if (newInstructor.profilePhoto) {
-        formData.append('profilePhoto', newInstructor.profilePhoto);
+        formData.append('profilePhotoUrl', newInstructor.profilePhoto);
       }
       await axios.post('https://ruh-dance-project.onrender.com/api/auth/admin/add-instructor', formData, {
         headers: { ...config.headers, 'Content-Type': 'multipart/form-data' }
@@ -190,7 +190,7 @@ const AdminDashboard = () => {
     if (addProdImageFile) {
       formData.append('image', addProdImageFile);
     } else if (newProdFormData.image) {
-      formData.append('image', newProdFormData.image);
+      formData.append('imageUrl', newProdFormData.image);
     }
 
     try {
@@ -217,7 +217,7 @@ const AdminDashboard = () => {
     if (newImageFile) {
       formData.append('image', newImageFile);
     } else if (editFormData.image) {
-      formData.append('image', editFormData.image);
+      formData.append('imageUrl', editFormData.image);
     }
 
     try {
@@ -260,7 +260,7 @@ const AdminDashboard = () => {
     if (newStyleImageFile) {
       formData.append('image', newStyleImageFile);
     } else if (styleFormData.image) {
-      formData.append('image', styleFormData.image);
+      formData.append('imageUrl', styleFormData.image);
     }
 
     try {
@@ -316,7 +316,7 @@ const AdminDashboard = () => {
     if (newGuruImageFile) {
       formData.append('image', newGuruImageFile);
     } else if (guruFormData.image) {
-      formData.append('image', guruFormData.image);
+      formData.append('imageUrl', guruFormData.image);
     }
 
     try {
@@ -462,7 +462,7 @@ const AdminDashboard = () => {
     if (newSignatureImageFile) {
       formData.append('image', newSignatureImageFile);
     } else if (signatureFormData.imageUrl) {
-      formData.append('image', signatureFormData.imageUrl);
+      formData.append('imageUrl', signatureFormData.imageUrl);
     }
     
     // Video: prefer file, fallback to URL

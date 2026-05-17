@@ -20,6 +20,8 @@ exports.createGuru = async (req, res) => {
     
     if (req.file) {
       imageUrl = req.file.path;
+    } else if (req.body.imageUrl) {
+      imageUrl = req.body.imageUrl;
     } else if (req.body.image) {
       imageUrl = req.body.image;
     }
@@ -56,6 +58,8 @@ exports.updateGuru = async (req, res) => {
 
     if (req.file) {
       guru.image = req.file.path;
+    } else if (req.body.imageUrl) {
+      guru.image = req.body.imageUrl;
     } else if (req.body.image) {
       guru.image = req.body.image;
     }
