@@ -738,7 +738,7 @@ input[type="file"]::file-selector-button:hover {
   .sidebar {
     position: fixed !important;
     top: 0;
-    left: -100% !important; /* Hidden by default */
+    left: -100% !important;
     width: 260px !important;
     height: 100vh !important;
     z-index: 2000 !important;
@@ -747,24 +747,30 @@ input[type="file"]::file-selector-button:hover {
     display: flex !important;
     padding: 20px !important;
     border-right: 1px solid rgba(255,255,255,0.1) !important;
+    overflow: hidden !important;
   }
   .sidebar.open {
     left: 0 !important;
   }
   .sidebar-header {
-    margin-bottom: 30px !important;
+    margin-bottom: 15px !important;
     margin-right: 0 !important;
+    flex-shrink: 0 !important;
   }
   .nav-menu {
     flex-direction: column !important;
     display: flex !important;
-    gap: 5px !important;
-    margin-top: 20px !important;
+    gap: 2px !important;
+    margin-top: 10px !important;
+    overflow-y: auto !important;
+    flex: 1 !important;
+    padding-bottom: 30px !important;
+    -webkit-overflow-scrolling: touch !important;
   }
   .nav-item {
-    padding: 15px 20px !important;
-    margin-bottom: 5px !important;
-    font-size: 1rem !important;
+    padding: 12px 16px !important;
+    margin-bottom: 2px !important;
+    font-size: 0.92rem !important;
     width: 100% !important;
   }
   .nav-item span {
