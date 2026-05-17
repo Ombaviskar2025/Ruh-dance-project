@@ -805,53 +805,208 @@ input[type="file"]::file-selector-button:hover {
 }
 
 /* =========================================
-   RESPONSIVE OVERRIDES - FULL MOBILE
+   MOBILE OVERRIDES — max-width: 768px
+   ALL changes below are mobile-only
    ========================================= */
-
-/* Tablet */
-@media (max-width: 1024px) {
-  .media-settings-split-container { flex-direction: column !important; }
-  .video-config-card, .gallery-config-card { min-width: auto !important; flex: none !important; width: 100% !important; }
-}
-
-/* Mobile */
 @media (max-width: 768px) {
-  .main-content { margin-left: 0 !important; width: 100% !important; padding: 0 !important; }
-  .admin-mobile-header { display: flex; justify-content: space-between; align-items: center; background: rgba(20, 10, 30, 0.9); padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 1000; width: 100%; margin: 0; left: 0; }
-  .admin-mobile-header h2 { font-size: 1.2rem; margin: 0; color: white; }
-  .admin-hamburger { background: none; border: none; color: white; cursor: pointer; }
-  .stats-row-container { flex-direction: column !important; gap: 12px !important; }
-  .stat-card-item { padding: 20px 16px !important; }
+  /* === Page-level containment === */
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
+  /* === Admin layout === */
+  .admin-container {
+    flex-direction: column !important;
+  }
+  .sidebar {
+    position: fixed !important;
+    top: 0;
+    left: -100% !important;
+    width: 260px !important;
+    height: 100vh !important;
+    z-index: 2000 !important;
+    transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    flex-direction: column !important;
+    display: flex !important;
+    padding: 20px !important;
+    border-right: 1px solid rgba(255,255,255,0.1) !important;
+  }
+  .sidebar.open {
+    left: 0 !important;
+  }
+  .sidebar-header {
+    margin-bottom: 30px !important;
+    margin-right: 0 !important;
+  }
+  .nav-menu {
+    flex-direction: column !important;
+    display: flex !important;
+    gap: 5px !important;
+    margin-top: 20px !important;
+  }
+  .nav-item {
+    padding: 15px 20px !important;
+    margin-bottom: 5px !important;
+    font-size: 1rem !important;
+    width: 100% !important;
+  }
+  .nav-item span { display: inline !important; }
+  .nav-icon { margin-right: 15px !important; }
+
+  /* === Main content area === */
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+  .admin-content-main {
+    padding: 10px !important;
+    overflow-x: hidden !important;
+  }
+
+  /* === Mobile sticky header === */
+  .admin-mobile-header {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 10px !important;
+    background: rgba(20, 10, 30, 0.95) !important;
+    padding: 12px 16px !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .admin-mobile-header h2 {
+    font-size: 1.2rem !important;
+    margin: 0 !important;
+    color: white !important;
+  }
+  .admin-hamburger {
+    background: none !important;
+    border: none !important;
+    color: white !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* === Stats cards === */
+  .stats-row-container {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .stat-card-item {
+    padding: 20px 16px !important;
+  }
   .stat-card-item p { font-size: 30px !important; }
-  .management-card-full { border-radius: 14px !important; overflow-x: auto !important; }
-  .management-header { padding: 15px 20px !important; flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+  .dashboard-header h2 { font-size: 1.5rem !important; }
+
+  /* === Management cards === */
+  .management-card-full {
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .management-header {
+    padding: 15px 16px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
   .management-header h3 { font-size: 1.2rem !important; }
-  .section-header-flex { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
-  .management-table { min-width: 520px; }
-  .management-table th, .management-table td { padding: 12px 14px !important; font-size: 0.82rem !important; }
-  .modern-table-compact { min-width: 420px; }
-  .data-table-wrapper-glass { overflow-x: auto !important; }
-  .media-settings-split-container { flex-direction: column !important; gap: 16px !important; }
-  .video-config-card, .gallery-config-card { flex: none !important; min-width: auto !important; width: 100% !important; }
-  .productions-grid-container { grid-template-columns: 1fr !important; }
-  .modal-content { max-width: 95vw !important; padding: 20px !important; margin: 10px !important; }
+  .section-header-flex {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+
+  /* === KEY FIX: All tables get a scrollable wrapper === */
+  /* The management-card-full already clips, so we need
+     the table wrapper itself to scroll horizontally */
+  .data-table-wrapper-glass {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    width: 100% !important;
+  }
+  /* Direct table inside management card (like ClassesAdmin, Students, etc.) */
+  .management-card-full > .management-table,
+  .management-card-full > div > .management-table {
+    min-width: 520px !important;
+  }
+  /* Wrap any bare table inside a card with scroll */
+  .management-card-full {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .management-table {
+    min-width: 520px !important;
+    width: 100% !important;
+  }
+  .management-table th,
+  .management-table td {
+    padding: 10px 12px !important;
+    font-size: 0.82rem !important;
+    white-space: nowrap !important;
+  }
+  .modern-table-compact {
+    min-width: 420px !important;
+  }
+
+  /* === Media / settings cards === */
+  .media-settings-split-container {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .video-config-card,
+  .gallery-config-card {
+    flex: none !important;
+    min-width: auto !important;
+    width: 100% !important;
+  }
+
+  /* === Productions grid === */
+  .productions-grid-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* === Modals === */
+  .modal-content {
+    max-width: 95vw !important;
+    padding: 20px !important;
+    margin: 10px !important;
+  }
   .modal-title { font-size: 1.4rem !important; margin-bottom: 16px !important; }
   .modal-form-input { font-size: 0.85rem !important; padding: 10px 12px !important; }
   .modal-buttons-grid { flex-direction: column !important; }
-  .PROD-MODAL-CONTENT { width: 95vw !important; padding: 20px !important; max-height: 90vh; overflow-y: auto; }
+  .PROD-MODAL-CONTENT {
+    width: 95vw !important;
+    padding: 20px !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+  }
   .form-row-split { flex-direction: column !important; gap: 8px !important; }
+
+  /* === Buttons === */
   .add-btn { font-size: 0.75rem !important; padding: 8px 16px !important; }
   .save-btn-premium { padding: 12px !important; font-size: 0.85rem !important; }
-  .admin-content-main { padding: 10px !important; }
-  .dashboard-header h2 { font-size: 1.5rem !important; }
 }
 
-/* Extra small */
+/* === Extra small phones === */
 @media (max-width: 480px) {
   .main-content { padding: 0 !important; }
-  .management-table th, .management-table td { padding: 8px 10px !important; font-size: 0.78rem !important; }
+  .management-table th,
+  .management-table td { padding: 8px 10px !important; font-size: 0.78rem !important; }
   .stat-card-item p { font-size: 26px !important; }
   .add-btn { padding: 7px 12px !important; }
+  .admin-content-main { padding: 6px !important; }
 }
 
 /* =========================================

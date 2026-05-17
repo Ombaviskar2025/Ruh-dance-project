@@ -12,7 +12,7 @@ const PurposeVision = () => {
         </p>
       </header>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '40px', maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', maxWidth: '1200px', margin: '0 auto' }}>
         {/* Purpose Section */}
         <section className="glass-hero-panel" style={{ padding: '50px', textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '20px' }}>

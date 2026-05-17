@@ -72,27 +72,29 @@ const ClassesAdmin = () => {
         )}
       </div>
 
-      <table className="management-table">
-        <thead>
-          <tr><th>Class Name</th><th>Instructor</th><th>Schedule</th><th>Capacity / Enrolled</th><th>Action</th></tr>
-        </thead>
-        <tbody>
-          {classes.length > 0 ? classes.map(c => (
-            <tr key={c._id}>
-              <td style={{ fontWeight: 'bold' }}>{c.className}</td>
-              <td>{c.instructorName}</td>
-              <td>{c.scheduleTime}</td>
-              <td>{c.enrolled} / {c.capacity}</td>
-              <td>
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                  <LuPencil className="icon-btn edit" onClick={() => { setEditingClass(c); setFormData(c); setIsModalOpen(true); }} />
-                  <LuTrash2 className="icon-btn delete" onClick={() => handleDelete(c._id)} />
-                </div>
-              </td>
-            </tr>
-          )) : <tr><td colSpan="5" style={{ textAlign: 'center', padding: '20px' }}>No Classes Scheduled</td></tr>}
-        </tbody>
-      </table>
+      <div style={{ overflowX: 'auto', width: '100%' }}>
+        <table className="management-table">
+          <thead>
+            <tr><th>Class Name</th><th>Instructor</th><th>Schedule</th><th>Capacity / Enrolled</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            {classes.length > 0 ? classes.map(c => (
+              <tr key={c._id}>
+                <td style={{ fontWeight: 'bold' }}>{c.className}</td>
+                <td>{c.instructorName}</td>
+                <td>{c.scheduleTime}</td>
+                <td>{c.enrolled} / {c.capacity}</td>
+                <td>
+                  <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                    <LuPencil className="icon-btn edit" onClick={() => { setEditingClass(c); setFormData(c); setIsModalOpen(true); }} />
+                    <LuTrash2 className="icon-btn delete" onClick={() => handleDelete(c._id)} />
+                  </div>
+                </td>
+              </tr>
+            )) : <tr><td colSpan="5" style={{ textAlign: 'center', padding: '20px' }}>No Classes Scheduled</td></tr>}
+          </tbody>
+        </table>
+      </div>
 
       <Modal isOpen={isModalOpen} toggle={toggleModal} centered className="dark-modal">
         <ModalHeader toggle={toggleModal} className="modal-header">
