@@ -553,13 +553,13 @@ const AdminDashboard = () => {
       <main className="main-content">
         {window.innerWidth <= 768 && (
           <div className="admin-mobile-header d-md-none">
-             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div className="ru-logo-placeholder" style={{width: 30, height: 30, fontSize: 14}}>RU</div>
-              <h2 style={{marginLeft: 10}}>Admin</h2>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+               <button className="admin-hamburger" onClick={() => setIsSidebarOpen(true)} style={{ marginRight: '4px' }}>
+                 <LuMenu size={28} />
+               </button>
+               <div className="ru-logo-placeholder" style={{width: 30, height: 30, fontSize: 14}}>RU</div>
+               <h2 style={{margin: 0}}>Admin</h2>
              </div>
-             <button className="admin-hamburger" onClick={() => setIsSidebarOpen(true)}>
-               <LuMenu size={28} />
-             </button>
           </div>
         )}
         {activeTab === 'Overview' && (
