@@ -45,7 +45,8 @@ router.post('/forgot-password', async (req, res) => {
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
         await user.save();
 
-        const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+        const frontendUrl = process.env.FRONTEND_URL || 'https://ruhdance.vercel.app';
+        const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
         
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -121,7 +122,8 @@ router.post('/admin/add-instructor', upload.single('profilePhoto'), async (req, 
                 auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
             });
 
-            const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+            const frontendUrl = process.env.FRONTEND_URL || 'https://ruhdance.vercel.app';
+            const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
             await transporter.sendMail({
                 from: process.env.EMAIL_USER,
                 to: email,

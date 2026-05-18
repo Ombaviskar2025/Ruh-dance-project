@@ -114,26 +114,26 @@ const StudentDashboard = () => {
       <div className="ambient-orb orb-3"></div>
 
       <div className="fade-in modern-page-content" style={{ position: 'relative', zIndex: 1 }}>
-      <header style={{ marginBottom: '50px' }}>
-        <h1 className="hero-title-modern" style={{ fontSize: '2.5rem', textAlign: 'left', margin: 0 }}>
+      <header className="dashboard-header">
+        <h1 className="hero-title-modern">
           Welcome back, {user.fullName || user.username}!
         </h1>
-        <p className="hero-desc-modern" style={{ textAlign: 'left', marginTop: '10px' }}>
+        <p className="hero-desc-modern">
           Your personal portal to the Ruh Dance community.
         </p>
       </header>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: '30px' }}>
+      <div className="dashboard-grid">
         
         {/* LEFT COLUMN: Profile & Quick Links */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+        <div className="dashboard-left-col">
           
           {/* Profile Card */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
+            <div className="profile-card-header">
               <h3 style={{ color: '#E491C9', margin: 0 }}>My Profile</h3>
               {!isEditingProfile && (
-                <button onClick={() => { setEditFormData(user); setIsEditingProfile(true); }} style={{ background: 'transparent', color: '#E491C9', border: '1px solid #E491C9', borderRadius: '5px', padding: '5px 15px', cursor: 'pointer' }}>
+                <button onClick={() => { setEditFormData(user); setIsEditingProfile(true); }} style={{ background: 'transparent', color: '#E491C9', border: '1px solid #E491C9', borderRadius: '5px', padding: '5px 15px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
                   Edit Profile
                 </button>
               )}
@@ -149,8 +149,8 @@ const StudentDashboard = () => {
                   <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Phone</label>
                   <input type="text" value={editFormData.phone || ''} onChange={(e) => setEditFormData({...editFormData, phone: e.target.value})} style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '5px', marginTop: '5px' }} required />
                 </div>
-                <div style={{ display: 'flex', gap: '15px' }}>
-                  <div style={{ flex: 1 }}>
+                <div className="dashboard-form-row">
+                  <div>
                     <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Gender</label>
                     <select value={editFormData.gender || ''} onChange={(e) => setEditFormData({...editFormData, gender: e.target.value})} style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '5px', marginTop: '5px' }}>
                       <option value="Male">Male</option>
@@ -158,7 +158,7 @@ const StudentDashboard = () => {
                       <option value="Other">Other</option>
                     </select>
                   </div>
-                  <div style={{ flex: 1 }}>
+                  <div>
                     <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Age</label>
                     <input type="number" value={editFormData.age || ''} onChange={(e) => setEditFormData({...editFormData, age: e.target.value})} style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '5px', marginTop: '5px' }} required />
                   </div>
@@ -167,7 +167,7 @@ const StudentDashboard = () => {
                   <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Discipline</label>
                   <input type="text" value={editFormData.danceStyle || ''} onChange={(e) => setEditFormData({...editFormData, danceStyle: e.target.value})} style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '5px', marginTop: '5px' }} required />
                 </div>
-                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                <div className="dashboard-btn-row">
                   <button type="submit" className="modern-btn" style={{ flex: 1, padding: '10px' }}>Save Changes</button>
                   <button type="button" onClick={() => setIsEditingProfile(false)} style={{ flex: 1, padding: '10px', background: 'transparent', border: '1px solid #666', color: '#ccc', borderRadius: '8px', cursor: 'pointer' }}>Cancel</button>
                 </div>
@@ -236,7 +236,7 @@ const StudentDashboard = () => {
         </div>
 
         {/* RIGHT COLUMN: Studio Feeds */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+        <div className="dashboard-right-col">
           
           {/* Studio Announcements (Real Events) */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left' }}>
