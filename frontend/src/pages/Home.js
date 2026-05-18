@@ -15,6 +15,15 @@ const Home = () => {
   // Default fallback video URL
   const defaultVideoUrl = 'https://cdn.pixabay.com/video/2021/08/11/84687-587889617_tiny.mp4';
   const [homeVideoUrl, setHomeVideoUrl] = useState(defaultVideoUrl);
+  const [videoOrientation, setVideoOrientation] = useState('horizontal');
+
+  const handleLoadedMetadata = (e) => {
+    const video = e.target;
+    if (video) {
+      const isVertical = video.videoHeight > video.videoWidth;
+      setVideoOrientation(isVertical ? 'vertical' : 'horizontal');
+    }
+  };
 
   const isYouTube = (url) => url && (url.includes('youtube.com') || url.includes('youtu.be'));
   const getYouTubeId = (url) => {
@@ -146,8 +155,8 @@ const Home = () => {
         className="cursor-glow" 
       ></div>
 
-      {/* 4. Cinematic Fullscreen Video Header */}
-      <div className="cinematic-hero-video-section fade-in">
+      {/* 4. Cinematic Fullscreen Video Header - Orientation Aware */}
+      <div className={`cinematic-hero-video-section fade-in orientation-${videoOrientation}`}>
         {isYouTube(homeVideoUrl) ? (
           <iframe
             className="cinematic-bg-video"
@@ -166,6 +175,7 @@ const Home = () => {
             loop 
             muted 
             playsInline
+            onLoadedMetadata={handleLoadedMetadata}
           >
             <source src={resolveMediaUrl(homeVideoUrl)} />
           </video>
