@@ -202,6 +202,11 @@ const Home = () => {
         </div>
       </div>
 
+      {/* MOBILE ONLY: Join Now Button Below Video */}
+      <div className="mobile-join-below-video">
+        <button className="cinematic-btn primary-pink" onClick={() => setShowModal(true)}>Join Now</button>
+      </div>
+
       {/* Masterpieces Graphic Section */}
       <div className="scroll-reveal" style={{ marginTop: '40px' }}>
         <MasterpieceGallery />
