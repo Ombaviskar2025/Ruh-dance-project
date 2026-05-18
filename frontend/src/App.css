@@ -629,7 +629,7 @@
   /* Dark Navy */
   color: #F1E9E9;
   /* Light Gray */
-  overflow: hidden;
+  overflow-x: hidden;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
