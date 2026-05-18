@@ -214,7 +214,7 @@ const Admin = () => {
 };
 
 const modalOverlayStyle = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 };
-const modalContentStyle = { background: 'white', padding: '30px', borderRadius: '15px', width: '450px', maxHeight: '90vh', overflowY: 'auto' };
+const modalContentStyle = { background: 'white', padding: '30px', borderRadius: '15px', width: '450px', maxHeight: '90vh', overflowY: 'auto', WebkitOverflowScrolling: 'touch' };
 const inputStyle = { width: '100%', padding: '10px', margin: '10px 0', display: 'block', borderRadius: '5px', border: '1px solid #ddd' };
 
 export default Admin;

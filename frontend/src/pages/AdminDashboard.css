@@ -744,99 +744,25 @@ input[type="file"]::file-selector-button:hover {
 }
 
 @media (max-width: 768px) {
-  .admin-container {
-    flex-direction: column !important;
-  }
-  .sidebar {
-    position: fixed !important;
-    top: 0;
-    left: -100% !important;
-    width: 260px !important;
-    height: 100vh !important;
-    z-index: 2000 !important;
-    transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-    flex-direction: column !important;
-    display: flex !important;
-    padding: 20px !important;
-    border-right: 1px solid rgba(255,255,255,0.1) !important;
-    overflow: hidden !important;
-  }
-  .sidebar.open {
-    left: 0 !important;
-  }
-  .sidebar-header {
-    margin-bottom: 15px !important;
-    margin-right: 0 !important;
-    flex-shrink: 0 !important;
-  }
-  .nav-menu {
-    flex-direction: column !important;
-    display: flex !important;
-    gap: 2px !important;
-    margin-top: 10px !important;
-    overflow-y: auto !important;
-    flex: 1 !important;
-    padding-bottom: 30px !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-  .nav-item {
-    padding: 12px 16px !important;
-    margin-bottom: 2px !important;
-    font-size: 0.92rem !important;
-    width: 100% !important;
-  }
-  .nav-item span {
-    display: inline !important;
-  }
-  .nav-icon {
-    margin-right: 15px !important;
-  }
-  .main-content {
-    margin-left: 0 !important;
-    width: 100% !important;
-    padding: 10px !important;
-  }
-  
-  /* Mobile Admin Header Hamburger */
-  .admin-mobile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(20, 10, 30, 0.9);
-    padding: 15px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  .admin-mobile-header h2 {
-    font-size: 1.2rem;
-    margin: 0;
-    color: white;
-  }
-  .admin-hamburger {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-}
-
-/* =========================================
-   MOBILE OVERRIDES — max-width: 768px
-   ALL changes below are mobile-only
-   ========================================= */
-@media (max-width: 768px) {
   /* === Page-level containment === */
   html, body {
     overflow-x: hidden !important;
+    overflow-y: auto !important; /* Ensure vertical scrolling remains responsive */
     max-width: 100vw !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-behavior: smooth !important;
+    touch-action: manipulation !important;
+    will-change: scroll-position !important;
   }
 
   /* === Admin layout === */
   .admin-container {
     flex-direction: column !important;
+    overflow: visible !important;
+    min-height: 100vh !important;
   }
+
+  /* === Mobile sidebar (Drawer mode) === */
   .sidebar {
     position: fixed !important;
     top: 0;
@@ -849,45 +775,61 @@ input[type="file"]::file-selector-button:hover {
     display: flex !important;
     padding: 20px !important;
     border-right: 1px solid rgba(255,255,255,0.1) !important;
+    overflow-y: auto !important; /* Sidebar scrolls itself if menu exceeds screen height */
+    background: rgba(20, 10, 30, 0.98) !important; /* Premium dark background for drawer */
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5) !important;
   }
+
   .sidebar.open {
     left: 0 !important;
   }
+
   .sidebar-header {
-    margin-bottom: 30px !important;
+    margin-bottom: 25px !important;
     margin-right: 0 !important;
+    flex-shrink: 0 !important;
   }
+
   .nav-menu {
     flex-direction: column !important;
     display: flex !important;
-    gap: 5px !important;
-    margin-top: 20px !important;
+    gap: 4px !important;
+    margin-top: 15px !important;
+    overflow: visible !important;
+    flex: 1 !important;
+    padding-bottom: 30px !important;
   }
+
   .nav-item {
-    padding: 15px 20px !important;
-    margin-bottom: 5px !important;
-    font-size: 1rem !important;
+    padding: 12px 18px !important;
+    margin-bottom: 4px !important;
+    font-size: 0.95rem !important;
     width: 100% !important;
   }
-  .nav-item span { display: inline !important; }
-  .nav-icon { margin-right: 15px !important; }
 
-  /* === Main content area === */
+  .nav-item span {
+    display: inline !important;
+  }
+
+  .nav-icon {
+    margin-right: 15px !important;
+  }
+
+  /* === Main content area (No scroll container) === */
   .main-content {
     margin-left: 0 !important;
     width: 100% !important;
     max-width: 100vw !important;
     padding: 0 !important;
-    overflow-x: hidden !important;
-    /* On mobile: let the window/page scroll, not the element itself */
+    overflow: visible !important;
+    box-sizing: border-box !important;
     height: auto !important;
-    overflow-y: visible !important;
     min-height: 100vh !important;
   }
+
   .admin-content-main {
     padding: 10px !important;
-    overflow-x: hidden !important;
-    overflow-y: visible !important;
+    overflow: visible !important;
   }
 
   /* === Mobile sticky header === */
@@ -905,11 +847,13 @@ input[type="file"]::file-selector-button:hover {
     width: 100% !important;
     box-sizing: border-box !important;
   }
+
   .admin-mobile-header h2 {
     font-size: 1.2rem !important;
     margin: 0 !important;
     color: white !important;
   }
+
   .admin-hamburger {
     background: none !important;
     border: none !important;

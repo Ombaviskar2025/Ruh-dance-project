@@ -196,7 +196,7 @@ const StudentDashboard = () => {
                  No upcoming therapy sessions booked. Schedule one to explore mindfulness through movement.
                </p>
             ) : (
-              <div style={{ marginBottom: '15px', maxHeight: '200px', overflowY: 'auto', paddingRight: '5px' }}>
+              <div className="dashboard-scroll-box" style={{ marginBottom: '15px', maxHeight: '200px' }}>
                 {dmtBookings.map(b => (
                   <div key={b._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '8px', marginBottom: '10px', borderLeft: `3px solid ${b.status === 'Confirmed' ? '#25D366' : '#E491C9'}` }}>
                     <p style={{ margin: '0 0 5px 0', fontSize: '0.9rem', color: '#F1E9E9' }}><strong>{new Date(b.date).toLocaleDateString()}</strong> at {b.time}</p>
@@ -219,7 +219,7 @@ const StudentDashboard = () => {
                  No payment records found. Your fee receipts will appear here once recorded by the admin.
                </p>
             ) : (
-              <div style={{ maxHeight: '250px', overflowY: 'auto', paddingRight: '5px' }}>
+              <div className="dashboard-scroll-box">
                 {payments.map(p => (
                   <div key={p._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '10px', marginBottom: '10px', borderLeft: '3px solid #2ecc71' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>

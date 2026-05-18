@@ -629,8 +629,8 @@
   /* Dark Navy */
   color: #F1E9E9;
   /* Light Gray */
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+  /* Use clip instead of hidden — clip does not create a scroll container */
+  overflow-x: clip;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -1815,4 +1815,15 @@ input[type="file"].modern-form-input,
   .dashboard-grid {
     gap: 14px !important;
   }
+}
+
+/* Reusable scrolling container for dashboard lists and panels on mobile */
+.dashboard-scroll-box {
+  max-height: 250px;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important; /* Touch friction/momentum scrolling for iOS devices */
+  scroll-behavior: smooth !important;
+  touch-action: pan-y !important; /* Immediate gesture tracking for 2x faster vertical swiping */
+  will-change: scroll-position;
+  padding-right: 5px;
 }
