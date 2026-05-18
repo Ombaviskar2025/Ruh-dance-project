@@ -1439,7 +1439,7 @@ input:-webkit-autofill:active {
 
   /* Cinematic video hero */
   .cinematic-hero-video-section { height: 60vh !important; min-height: 380px !important; }
-  .cinematic-bg-video { object-fit: contain !important; background: #000; }
+  .cinematic-bg-video { object-fit: cover !important; }
   .cinematic-main-title { font-size: 2rem !important; }
   .cinematic-sub-title { font-size: 1rem !important; }
   .cinematic-titles-overlay { left: 5%; right: 5%; bottom: 50px; text-align: left; }
