@@ -49,21 +49,30 @@ router.post('/forgot-password', async (req, res) => {
         const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
         
         try {
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+            const proxyUrl = `${frontendUrl}/api/send-email`;
+            
+            // Native Node 18+ fetch to send the email via Vercel Proxy
+            const emailResponse = await fetch(proxyUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.INTERNAL_API_KEY || 'default_ruh_secret_key'}`
+                },
+                body: JSON.stringify({
+                    to: user.email,
+                    subject: 'RUH Dance - Password Reset Request',
+                    html: `<h3>Reset your password</h3><p>Click below to set a new password:</p><a href="${resetUrl}">${resetUrl}</a>`
+                })
             });
 
-            await transporter.sendMail({
-                from: process.env.EMAIL_USER,
-                to: user.email,
-                subject: 'RUH Dance - Password Reset Request',
-                html: `<h3>Reset your password</h3><p>Click below to set a new password:</p><a href="${resetUrl}">${resetUrl}</a>`
-            });
-            console.log("Password reset email sent to:", user.email);
+            if (!emailResponse.ok) {
+                throw new Error(`Proxy responded with status ${emailResponse.status}`);
+            }
+
+            console.log("Password reset email proxy sent to:", user.email);
             res.status(200).json({ message: "Success! Please check your Gmail inbox." });
         } catch (mailErr) {
-            console.error("Failed to send reset password email:", mailErr);
+            console.error("Failed to send reset password email via proxy:", mailErr);
             // Revert token if email fails so they can try again
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
