@@ -1317,11 +1317,7 @@ input:-webkit-autofill:active {
 .cinematic-titles-overlay {
   position: absolute;
   bottom: 80px;
-  left: 50% !important;
-  right: auto !important;
-  transform: translateX(-50%) !important;
-  display: flex !important;
-  justify-content: center !important;
+  left: 5%;
   z-index: 2;
   color: white;
   max-width: 800px;
@@ -1486,10 +1482,18 @@ input:-webkit-autofill:active {
   /* Cinematic video hero */
   .cinematic-hero-video-section { height: 60vh !important; min-height: 380px !important; }
   .cinematic-bg-video { object-fit: cover !important; }
-  .cinematic-main-title { font-size: 2rem !important; }
-  .cinematic-sub-title { font-size: 1rem !important; }
-  .cinematic-titles-overlay { left: 5%; right: 5%; bottom: 50px; text-align: left; }
-  .cinematic-buttons-row { flex-wrap: wrap; gap: 10px; }
+  .cinematic-main-title { display: none !important; }
+  .cinematic-sub-title { display: none !important; }
+  .cinematic-titles-overlay { 
+    left: 50% !important; 
+    right: auto !important; 
+    bottom: 40px !important; 
+    transform: translateX(-50%) !important; 
+    text-align: center !important; 
+    display: flex !important; 
+    justify-content: center !important; 
+  }
+  .cinematic-buttons-row { justify-content: center !important; flex-wrap: wrap; gap: 10px; }
   .cinematic-btn { padding: 10px 20px !important; font-size: 0.9rem !important; }
 
   /* Gallery page */
