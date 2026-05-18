@@ -75,6 +75,7 @@ const MasterpieceGallery = () => {
                     <img 
                       src={sig.image?.startsWith('http') ? sig.image : `https://ruh-dance-project.onrender.com${sig.image}`} 
                       alt={sig.title} 
+                      loading="lazy"
                     />
                   ) : (
                     <div className="placeholder-image">

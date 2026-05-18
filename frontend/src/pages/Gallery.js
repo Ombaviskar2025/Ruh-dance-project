@@ -56,10 +56,12 @@ const Gallery = () => {
                   {item.type === 'video' ? (
                     <video 
                       src={resolveMediaUrl(item.mediaUrl)} 
-                      autoPlay 
                       loop 
                       muted 
                       playsInline 
+                      preload="metadata"
+                      onMouseEnter={(e) => e.target.play().catch(() => {})}
+                      onMouseLeave={(e) => e.target.pause()}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                     />
                   ) : (

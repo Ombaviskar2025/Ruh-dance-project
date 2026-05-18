@@ -41,6 +41,7 @@ const GurusSection = () => {
                   src={resolveMediaUrl(guru.image) || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop'} 
                   alt={guru.name} 
                   className="guru-image" 
+                  loading="lazy"
                 />
                 {guru.instagram && (
                   <a href={guru.instagram} target="_blank" rel="noreferrer" className="guru-insta-float" onClick={(e) => e.stopPropagation()}>

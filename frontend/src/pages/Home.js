@@ -30,12 +30,15 @@ const Home = () => {
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('0:00');
 
-  // 1. Cursor Glow State
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  // 1. Cursor Glow Ref (Direct DOM manipulation to prevent re-renders on mousemove)
+  const glowRef = useRef(null);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
+      if (glowRef.current) {
+        glowRef.current.style.left = `${e.clientX}px`;
+        glowRef.current.style.top = `${e.clientY}px`;
+      }
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
@@ -137,10 +140,10 @@ const Home = () => {
 
   return (
     <div className="home-content-wrapper">
-      {/* 3. Cursor Glow Element */}
+      {/* 3. Cursor Glow Element - Ref Bound */}
       <div 
+        ref={glowRef}
         className="cursor-glow" 
-        style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}
       ></div>
 
       {/* 4. Cinematic Fullscreen Video Header */}
