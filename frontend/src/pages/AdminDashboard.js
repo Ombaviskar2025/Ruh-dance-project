@@ -14,6 +14,7 @@ import Events from './Events';
 import ClassesAdmin from '../components/ClassesAdmin';
 import FinanceAdmin from '../components/FinanceAdmin';
 import { resolveMediaUrl } from '../utils/media';
+import ReportAdmin from '../components/ReportAdmin';
 
 const AdminDashboard = () => {
   
@@ -544,6 +545,7 @@ const AdminDashboard = () => {
           <SidebarItem Icon={LuUser} label="Gurus" isActive={activeTab === 'Gurus'} onClick={() => { setActiveTab('Gurus'); setIsSidebarOpen(false); }} />
           <SidebarItem Icon={LuListTodo} label="Classes" isActive={activeTab === 'Classes'} onClick={() => { setActiveTab('Classes'); setIsSidebarOpen(false); }} />
           <SidebarItem Icon={LuLayoutGrid} label="Gallery" isActive={activeTab === 'Gallery'} onClick={() => { setActiveTab('Gallery'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuListTodo} label="Report" isActive={activeTab === 'Report'} onClick={() => { setActiveTab('Report'); setIsSidebarOpen(false); }} />
           <SidebarItem Icon={LuCalendarCheck} label="Events" isActive={activeTab === 'Events'} onClick={() => { setActiveTab('Events'); setIsSidebarOpen(false); }} />
           <SidebarItem Icon={LuCreditCard} label="Finance" isActive={activeTab === 'Finance'} onClick={() => { setActiveTab('Finance'); setIsSidebarOpen(false); }} />
           <SidebarItem Icon={LuSettings} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => { setActiveTab('Background Photos & Video'); setIsSidebarOpen(false); }} />
@@ -614,6 +616,12 @@ const AdminDashboard = () => {
                 </tbody>
               </table>
             </section>
+          </div>
+        )}
+
+        {activeTab === 'Report' && (
+          <div className="admin-content-main fade-in">
+            <ReportAdmin />
           </div>
         )}
 
