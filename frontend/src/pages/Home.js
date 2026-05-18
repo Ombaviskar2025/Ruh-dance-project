@@ -183,9 +183,6 @@ const Home = () => {
         <div className="cinematic-video-overlay-gradient"></div>
         
         <div className="cinematic-titles-overlay">
-          <h1 className="cinematic-main-title">RUH</h1>
-          <h3 className="cinematic-sub-title">DANCE PRODUCTION</h3>
-          
           <div className="cinematic-buttons-row">
             <button className="cinematic-btn primary-pink" onClick={() => setShowModal(true)}>Join Now</button>
           </div>

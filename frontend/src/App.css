@@ -1317,7 +1317,11 @@ input:-webkit-autofill:active {
 .cinematic-titles-overlay {
   position: absolute;
   bottom: 80px;
-  left: 5%;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  justify-content: center !important;
   z-index: 2;
   color: white;
   max-width: 800px;
