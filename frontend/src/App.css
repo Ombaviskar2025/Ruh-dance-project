@@ -1819,11 +1819,6 @@ input[type="file"].modern-form-input,
 
 /* Reusable scrolling container for dashboard lists and panels on mobile */
 .dashboard-scroll-box {
-  max-height: 250px;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important; /* Touch friction/momentum scrolling for iOS devices */
-  scroll-behavior: smooth !important;
-  touch-action: pan-y !important; /* Immediate gesture tracking for 2x faster vertical swiping */
-  will-change: scroll-position;
+  /* Removed max-height and overflow per user request to avoid nested scrollbars */
   padding-right: 5px;
 }

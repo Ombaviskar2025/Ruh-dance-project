@@ -45,23 +45,33 @@ router.post('/forgot-password', async (req, res) => {
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
         await user.save();
 
-        const frontendUrl = process.env.FRONTEND_URL || 'https://ruhdance.vercel.app';
+        const frontendUrl = req.headers.origin || process.env.FRONTEND_URL || 'https://ruhdance.vercel.app';
         const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
         
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
-        });
+        try {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+            });
 
-        await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: user.email,
-            subject: 'RUH Dance - Password Reset Request',
-            html: `<h3>Reset your password</h3><p>Click below to set a new password:</p><a href="${resetUrl}">${resetUrl}</a>`
-        });
-
-        res.status(200).json({ message: "Success! Please check your Gmail inbox." });
+            await transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: user.email,
+                subject: 'RUH Dance - Password Reset Request',
+                html: `<h3>Reset your password</h3><p>Click below to set a new password:</p><a href="${resetUrl}">${resetUrl}</a>`
+            });
+            console.log("Password reset email sent to:", user.email);
+            res.status(200).json({ message: "Success! Please check your Gmail inbox." });
+        } catch (mailErr) {
+            console.error("Failed to send reset password email:", mailErr);
+            // Revert token if email fails so they can try again
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+            await user.save();
+            return res.status(500).json({ message: "Failed to send email. Please ensure the server email configuration is correct." });
+        }
     } catch (err) {
+        console.error("Forgot Password Error:", err);
         res.status(500).json({ message: "Server error, try again later." });
     }
 });

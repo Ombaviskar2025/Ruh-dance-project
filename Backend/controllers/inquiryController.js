@@ -31,14 +31,17 @@ exports.createInquiry = async (req, res) => {
             text: `You have received a new inquiry from the Join the Journey form!\n\nDetails:\nFull Name: ${newInquiry.fullName}\nPhone: ${newInquiry.phone}\nGender: ${newInquiry.gender}\nAge: ${newInquiry.age}\nDance Style: ${newInquiry.danceStyle}\nEmail: ${newInquiry.email}\nInterest: ${newInquiry.interest}\nMessage: ${newInquiry.message}`
         };
 
-        await transporter.sendMail(mailOptions);
-        console.log('Inquiry notification email sent successfully.');
-    } catch (emailError) {
-        console.error('Failed to send inquiry notification email:', emailError);
+        // Send email in the background without awaiting it to speed up the API response
+        transporter.sendMail(mailOptions)
+            .then(() => console.log('Inquiry notification email sent successfully.'))
+            .catch(emailError => console.error('CRITICAL: Failed to send inquiry notification email. Please check your EMAIL_PASS and EMAIL_USER env variables.', emailError));
+    } catch (emailConfigError) {
+        console.error('Failed to configure email transporter:', emailConfigError);
     }
 
     res.status(201).json(newInquiry);
   } catch (err) {
+    console.error('Inquiry Submission Error:', err);
     res.status(400).json({ message: err.message });
   }
 };

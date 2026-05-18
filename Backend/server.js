@@ -31,7 +31,8 @@ const allowedOrigins = [
   "https://ruhdance.netlify.app",
   "https://frontend-mu-flax-66.vercel.app",
   "https://ruh-dance-project.vercel.app",
-  "https://ruhdance.vercel.app"
+  "https://ruhdance.vercel.app",
+  "http://localhost:3000"
 ];
 
 // Explicitly handle OPTIONS preflight for every route and dynamic CORS

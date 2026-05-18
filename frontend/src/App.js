@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Styles from './pages/Styles';
-import Productions from './pages/Productions';
-import Events from './pages/Events';
-import Dmt from './pages/Dmt';
-import AdminDashboard from './pages/AdminDashboard';
 import LoginModal from './components/LoginModal';
 import ProtectedRoute from './components/ProtectedRoute';
-import StudentDashboard from './pages/StudentDashboard';
-import InstructorDashboard from './pages/InstructorDashboard';
 import './App.css';
 import { LuLayoutGrid, LuLogOut, LuMenu, LuX } from "react-icons/lu";
-import ResetPassword from './pages/ResetPassword';
-import AdminLogin from './pages/AdminLogin';
 import PageLoader from './components/PageLoader';
-import Purpose from './pages/PurposeVision';
-import Contact from './pages/Contact';
-import Gallery from './pages/Gallery';
+
+// Lazy load all heavy page components for massive performance boost
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Styles = lazy(() => import('./pages/Styles'));
+const Productions = lazy(() => import('./pages/Productions'));
+const Events = lazy(() => import('./pages/Events'));
+const Dmt = lazy(() => import('./pages/Dmt'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
+const InstructorDashboard = lazy(() => import('./pages/InstructorDashboard'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const Purpose = lazy(() => import('./pages/PurposeVision'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Gallery = lazy(() => import('./pages/Gallery'));
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -187,22 +189,24 @@ function App() {
 
         <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLoginSuccess={handleLoginSuccess} />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/styles" element={<Styles />} />
-          <Route path="/productions" element={<Productions />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/dmt" element={<Dmt />} />
-          <Route path="/purpose" element={<Purpose />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/admin-dashboard" element={<ProtectedRoute allowedRole="admin"><AdminDashboard /></ProtectedRoute>} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/ruh-admin-portal-login" element={<AdminLogin />} />
-          <Route path="/dashboard" element={<ProtectedRoute allowedRole="student"><StudentDashboard /></ProtectedRoute>} />
-          <Route path="/instructor-dashboard" element={<ProtectedRoute allowedRole="instructor"><InstructorDashboard /></ProtectedRoute>} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/styles" element={<Styles />} />
+            <Route path="/productions" element={<Productions />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/dmt" element={<Dmt />} />
+            <Route path="/purpose" element={<Purpose />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin-dashboard" element={<ProtectedRoute allowedRole="admin"><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/ruh-admin-portal-login" element={<AdminLogin />} />
+            <Route path="/dashboard" element={<ProtectedRoute allowedRole="student"><StudentDashboard /></ProtectedRoute>} />
+            <Route path="/instructor-dashboard" element={<ProtectedRoute allowedRole="instructor"><InstructorDashboard /></ProtectedRoute>} />
+          </Routes>
+        </Suspense>
       </Router>
     </div>
   );

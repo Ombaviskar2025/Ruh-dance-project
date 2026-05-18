@@ -71,7 +71,8 @@ const Home = () => {
     // Fetch admin-configured background video URL
     const fetchVideoSettings = async () => {
       try {
-        const res = await axios.get('https://ruh-dance-project.onrender.com/api/settings');
+        const API_BASE = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://ruh-dance-project.onrender.com';
+        const res = await axios.get(`${API_BASE}/api/settings`);
         if (res.data.success && res.data.data.homeVideoUrl) {
           setHomeVideoUrl(res.data.data.homeVideoUrl);
         }
@@ -135,16 +136,25 @@ const Home = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.post('https://ruh-dance-project.onrender.com/api/inquiries', formData);
-      alert('Your soul has spoken, inquiry sent successfully !!');
-      setFormData({ fullName: '', phone: '', gender: '', age: '', danceStyle: '' , email: '', interest: '',message: '' });
-      setShowModal(false);
-    } catch (err) {
-      alert('Submission failed. Please try again.');
-    }
+    
+    // Optimistic UI: Immediately show success and close modal for 0ms wait time
+    alert('Your soul has spoken, inquiry sent successfully !!');
+    
+    // Save data reference before clearing state
+    const dataToSubmit = { ...formData };
+    
+    // Clear form and close modal instantly
+    setFormData({ fullName: '', phone: '', gender: '', age: '', danceStyle: '' , email: '', interest: '', message: '' });
+    setShowModal(false);
+
+    // Process network request in the background
+    const API_BASE = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://ruh-dance-project.onrender.com';
+    axios.post(`${API_BASE}/api/inquiries`, dataToSubmit)
+      .catch((err) => {
+        console.error('Background submission failed:', err);
+      });
   };
 
   return (
