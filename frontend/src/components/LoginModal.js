@@ -84,7 +84,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="login-modal-content">
         <button className="close-btn" onClick={onClose}>&times;</button>
         
         <div className="modal-tabs">
