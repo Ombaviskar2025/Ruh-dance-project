@@ -3,6 +3,7 @@ import axios from 'axios';
 import { LuPause, LuPlay, LuVolumeX, LuVolume2 } from 'react-icons/lu';
 import '../App.css';
 import MasterpieceGallery from '../components/MasterpieceGallery';
+import WhatsAppSuccessPopup from '../components/WhatsAppSuccessPopup';
 import GurusSection from '../components/GurusSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import ComparisonSection from '../components/ComparisonSection';
@@ -18,6 +19,12 @@ const Home = () => {
   const [otherDanceStyle, setOtherDanceStyle] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  // WhatsApp Success Popup states
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [successPopupConfig, setSuccessPopupConfig] = useState({
+    title: '', subtitle: '', details: {}, whatsappMessage: ''
+  });
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -175,21 +182,41 @@ const Home = () => {
       danceStyle: danceStyleString
     };
     
-    // Optimistic UI: Immediately show success and close modal for 0ms wait time
-    alert('Your soul has spoken, inquiry sent successfully !!');
+    const inquiryMessage = `Hey Team Ruh 💃✨\nI just submitted an inquiry on your website!\n\nHere are my details:\n- Name: ${formData.fullName}\n- Phone: ${formData.phone}\n- Gender: ${formData.gender}\n- Age: ${formData.age}\n- Preferred Dance Style(s): ${danceStyleString}\n- Interest: ${formData.interest || 'General Dance'}\n- Message: ${formData.message || 'N/A'}\n\nI would love to know more about the classes, batch timings, and registration fees! Please guide me. 💃🔥`;
     
-    // Clear form and close modal instantly
-    setFormData({ fullName: '', phone: '', gender: '', age: '', danceStyle: '' , email: '', interest: '', message: '' });
-    setSelectedDanceStyles([]);
-    setOtherDanceStyle('');
-    setShowModal(false);
-
+    setSuccessPopupConfig({
+      title: 'Inquiry Submitted!',
+      subtitle: `Thank you, ${formData.fullName}! Your soul has spoken. Please click below to send your inquiry details directly to us on WhatsApp!`,
+      details: {
+        'Name': formData.fullName,
+        'Phone': formData.phone,
+        'Gender': formData.gender,
+        'Age': formData.age,
+        'Dance Styles': danceStyleString
+      },
+      whatsappMessage: inquiryMessage
+    });
+    
     // Process network request in the background
     const API_BASE = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://ruh-dance-project.onrender.com';
     axios.post(`${API_BASE}/api/inquiries`, dataToSubmit)
       .catch((err) => {
         console.error('Background submission failed:', err);
       });
+
+    // Clear form and close modal instantly
+    setFormData({ fullName: '', phone: '', gender: '', age: '', danceStyle: '' , email: '', interest: '', message: '' });
+    setSelectedDanceStyles([]);
+    setOtherDanceStyle('');
+    setShowModal(false);
+
+    // Automatically open WhatsApp redirect in a new tab
+    const cleanPhone = '9822202239';
+    const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(inquiryMessage)}`;
+    window.open(waUrl, '_blank');
+
+    // Show premium success popup
+    setShowSuccessPopup(true);
   };
 
   return (
@@ -468,6 +495,17 @@ const Home = () => {
           </div>
         </div>
       )}
+
+      {/* WhatsApp Success Popup */}
+      <WhatsAppSuccessPopup 
+        isOpen={showSuccessPopup}
+        onClose={() => setShowSuccessPopup(false)}
+        title={successPopupConfig.title}
+        subtitle={successPopupConfig.subtitle}
+        details={successPopupConfig.details}
+        whatsappMessage={successPopupConfig.whatsappMessage}
+        buttonText="Send Details on WhatsApp"
+      />
     </div>
   );
 };

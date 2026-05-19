@@ -2074,3 +2074,39 @@ input[type="file"].modern-form-input,
 .custom-dropdown-list::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+
+/* Precise Checkbox Stretching & Row Alignment Fix for all screens */
+.inquiry-form input[type="checkbox"].custom-dropdown-checkbox,
+.modal-form input[type="checkbox"].custom-dropdown-checkbox,
+.reg-form input[type="checkbox"].custom-dropdown-checkbox,
+.custom-dropdown-checkbox {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  max-width: 18px !important;
+  min-height: 18px !important;
+  max-height: 18px !important;
+  padding: 0 !important;
+  margin: 0 12px 0 0 !important;
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 4px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+
+.custom-dropdown-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  padding: 10px 15px !important;
+  box-sizing: border-box !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
