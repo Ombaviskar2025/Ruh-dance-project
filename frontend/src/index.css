@@ -27,8 +27,6 @@ html {
 }
 
 body {
-    overflow-x: hidden;
-    overflow-y: auto;
     width: 100%;
     margin: 0;
     scroll-behavior: smooth;
