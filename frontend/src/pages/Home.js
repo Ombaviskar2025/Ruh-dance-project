@@ -16,6 +16,18 @@ const Home = () => {
   });
   const [selectedDanceStyles, setSelectedDanceStyles] = useState([]);
   const [otherDanceStyle, setOtherDanceStyle] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
   
   // Default fallback video URL
   const defaultVideoUrl = 'https://cdn.pixabay.com/video/2021/08/11/84687-587889617_tiny.mp4';
@@ -366,29 +378,51 @@ const Home = () => {
 
             <div className="dance-style-selection-wrapper">
               <label className="form-label-modern">Select Dance Style(s) <span style={{ color: '#ff477e' }}>*</span></label>
-              <div className="dance-style-grid">
-                {['Semi-Classical', 'Ballet', 'Bollywood', 'Hip-Hop', 'Contemporary', 'Other'].map((style) => {
-                  const isActive = selectedDanceStyles.includes(style);
-                  return (
-                    <button
-                      key={style}
-                      type="button"
-                      className={`dance-style-pill ${isActive ? 'active' : ''}`}
-                      onClick={() => {
-                        if (selectedDanceStyles.includes(style)) {
-                          setSelectedDanceStyles(selectedDanceStyles.filter(s => s !== style));
-                        } else {
-                          setSelectedDanceStyles([...selectedDanceStyles, style]);
-                        }
-                      }}
-                    >
-                      {style}
-                    </button>
-                  );
-                })}
+              
+              <div className="custom-dropdown-container" ref={dropdownRef}>
+                <div 
+                  className={`custom-dropdown-header ${isDropdownOpen ? 'active' : ''}`}
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  <span className="dropdown-selected-text">
+                    {selectedDanceStyles.length > 0 
+                      ? selectedDanceStyles.map(style => style === 'Other' ? (otherDanceStyle ? `Other: ${otherDanceStyle}` : 'Other') : style).join(', ') 
+                      : 'Select Dance Style(s)'}
+                  </span>
+                  <span className="dropdown-arrow">{isDropdownOpen ? '▲' : '▼'}</span>
+                </div>
+                
+                {isDropdownOpen && (
+                  <div className="custom-dropdown-list">
+                    {['Semi-Classical', 'Ballet', 'Bollywood', 'Hip-Hop', 'Contemporary', 'Other'].map((style) => {
+                      const isChecked = selectedDanceStyles.includes(style);
+                      return (
+                        <div 
+                          key={style} 
+                          className={`custom-dropdown-item ${isChecked ? 'selected' : ''}`}
+                          onClick={() => {
+                            if (selectedDanceStyles.includes(style)) {
+                              setSelectedDanceStyles(selectedDanceStyles.filter(s => s !== style));
+                            } else {
+                              setSelectedDanceStyles([...selectedDanceStyles, style]);
+                            }
+                          }}
+                        >
+                          <input 
+                            type="checkbox" 
+                            checked={isChecked} 
+                            readOnly 
+                            className="custom-dropdown-checkbox"
+                          />
+                          <span className="custom-dropdown-item-text">{style}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
-              <div className={`other-specify-container ${selectedDanceStyles.includes('Other') ? 'show' : ''}`}>
+              <div className={`other-specify-container ${selectedDanceStyles.includes('Other') ? 'show' : ''}`} style={{ marginTop: '15px' }}>
                 <input
                   type="text"
                   placeholder="Please specify your dance style..."
