@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { 
   LuLayoutGrid, LuHistory, LuUsers, LuUser, 
   LuListTodo, LuCalendarCheck, LuCreditCard, 
-  LuSettings, LuPencil, LuX, LuTrash2, LuUserPlus, LuPlus, LuPlay, LuMenu 
+  LuSettings, LuPencil, LuX, LuTrash2, LuUserPlus, LuPlus, LuPlay, LuMenu,
+  LuPalette, LuImage
 } from "react-icons/lu";
 import './AdminDashboard.css';
 
@@ -656,8 +657,8 @@ const AdminDashboard = () => {
           <SidebarItem Icon={LuListTodo} label="Report" isActive={activeTab === 'Report'} onClick={() => { setActiveTab('Report'); setIsSidebarOpen(false); }} />
           <SidebarItem Icon={LuCalendarCheck} label="Events" isActive={activeTab === 'Events'} onClick={() => { setActiveTab('Events'); setIsSidebarOpen(false); }} />
           <SidebarItem Icon={LuCreditCard} label="Finance" isActive={activeTab === 'Finance'} onClick={() => { setActiveTab('Finance'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuSettings} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => { setActiveTab('Background Photos & Video'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuSettings} label="Theme" isActive={activeTab === 'Theme'} onClick={() => { setActiveTab('Theme'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuImage} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => { setActiveTab('Background Photos & Video'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuPalette} label="Theme" isActive={activeTab === 'Theme'} onClick={() => { setActiveTab('Theme'); setIsSidebarOpen(false); }} />
         </nav>
       </aside>
 
