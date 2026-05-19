@@ -18,6 +18,10 @@ const StudentDashboard = () => {
   // Payment History State
   const [payments, setPayments] = useState([]);
 
+  // Testimonial State
+  const [testimonialData, setTestimonialData] = useState({ rating: 5, text: '' });
+  const [testimonialSubmitted, setTestimonialSubmitted] = useState(false);
+
   useEffect(() => {
     // 1. Load User
     const storedUser = localStorage.getItem('user');
@@ -101,6 +105,26 @@ const StudentDashboard = () => {
       setDmtFormData({ date: '', time: '', notes: '' });
     } catch (err) {
       alert("Booking failed: " + (err.response?.data?.message || "Server Error"));
+    }
+  };
+
+  const handleTestimonialSubmit = async (e) => {
+    e.preventDefault();
+    if (!testimonialData.text.trim()) {
+      alert("Please write a review.");
+      return;
+    }
+    try {
+      const payload = {
+        studentId: user.id || user._id,
+        rating: testimonialData.rating,
+        text: testimonialData.text
+      };
+      await axios.post('https://ruh-dance-project.onrender.com/api/testimonials', payload);
+      setTestimonialSubmitted(true);
+      setTestimonialData({ rating: 5, text: '' });
+    } catch (err) {
+      alert("Failed to submit review: " + (err.response?.data?.message || "Server Error"));
     }
   };
 
@@ -274,6 +298,48 @@ const StudentDashboard = () => {
               <p style={{ color: '#d1d5db' }}>Your class schedule integration is currently under construction.</p>
               <p style={{ color: '#d1d5db', fontSize: '0.9rem' }}>Please consult your instructor for direct timings.</p>
             </div>
+          </div>
+
+          {/* Testimonial / Review Form */}
+          <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left', background: 'rgba(216, 191, 216, 0.05)' }}>
+            <h3 style={{ color: '#D8BFD8', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
+              Write a Review
+            </h3>
+            {testimonialSubmitted ? (
+              <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                <div style={{ color: '#2ecc71', fontSize: '3rem', marginBottom: '10px' }}>✓</div>
+                <p style={{ color: '#d1d5db' }}>Thank you for your review! It will be featured on our site.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleTestimonialSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <div>
+                  <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Rating (1-5)</label>
+                  <select 
+                    value={testimonialData.rating} 
+                    onChange={(e) => setTestimonialData({...testimonialData, rating: Number(e.target.value)})}
+                    style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '5px', marginTop: '5px' }}
+                  >
+                    <option value={5}>5 - Excellent</option>
+                    <option value={4}>4 - Very Good</option>
+                    <option value={3}>3 - Average</option>
+                    <option value={2}>2 - Poor</option>
+                    <option value={1}>1 - Terrible</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Your Experience</label>
+                  <textarea 
+                    rows="4" 
+                    placeholder="Share your dance journey with us..."
+                    value={testimonialData.text} 
+                    onChange={(e) => setTestimonialData({...testimonialData, text: e.target.value})}
+                    style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '5px', marginTop: '5px', resize: 'vertical' }}
+                    required
+                  ></textarea>
+                </div>
+                <button type="submit" className="modern-btn" style={{ width: '100%' }}>Submit Review</button>
+              </form>
+            )}
           </div>
         </div>
 

@@ -20,6 +20,7 @@ const guruRoutes = require('./routes/guruRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const signatureRoutes = require('./routes/signatureRoutes');
 const galleryRoutes = require('./routes/galleryRoutes');
+const testimonialRoutes = require('./routes/testimonialRoutes');
 
 // 3. Initialize the Express App
 const app = express();
@@ -82,6 +83,7 @@ app.use('/api/gurus', guruRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/signatures', signatureRoutes);
 app.use('/api/gallery', galleryRoutes);
+app.use('/api/testimonials', testimonialRoutes);
 
 // 6. Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)

@@ -4,6 +4,7 @@ import { LuPause, LuPlay, LuVolumeX, LuVolume2 } from 'react-icons/lu';
 import '../App.css';
 import MasterpieceGallery from '../components/MasterpieceGallery';
 import GurusSection from '../components/GurusSection';
+import TestimonialsSection from '../components/TestimonialsSection';
 import { resolveMediaUrl } from '../utils/media';
 
 const Home = () => {
@@ -224,6 +225,10 @@ const Home = () => {
 
       <div className="scroll-reveal">
         <GurusSection />
+      </div>
+
+      <div className="scroll-reveal">
+        <TestimonialsSection />
       </div>
 
       {/* Infinite Scrolling Marquee */}
