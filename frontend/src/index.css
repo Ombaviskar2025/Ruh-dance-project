@@ -24,6 +24,7 @@ html {
     /* Eliminate touch delay on taps and scrolls, making interaction feel twice as fast (2x) */
     touch-action: manipulation;
     will-change: scroll-position;
+    background-color: #15173D;
 }
 
 body {
@@ -33,6 +34,8 @@ body {
     -webkit-overflow-scrolling: touch; /* Momentum scrolling on iOS Safari */
     touch-action: manipulation;
     will-change: scroll-position;
+    background-color: #15173D;
+    color: #F1E9E9;
 }
 
 /* Ensure images and videos scale */
