@@ -70,3 +70,31 @@ img, video, iframe {
         grid-template-columns: 1fr !important;
     }
 }
+
+/* =========================================
+   CUSTOM SCROLLBAR (GLOBAL)
+   ========================================= */
+::-webkit-scrollbar {
+    width: 8px; /* Slightly thinner for a modern look */
+    height: 8px; /* For horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+    background: #15173D; /* Match the dark navy background */
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #722F37; /* RUH Wine Red */
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #E491C9; /* Soft Pink on hover */
+}
+
+/* Firefox support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #722F37 #15173D;
+}
