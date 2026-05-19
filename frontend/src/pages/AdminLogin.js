@@ -30,12 +30,12 @@ const AdminLogin = () => {
     return (
         <div className="home-aesthetic-container fade-in" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <form onSubmit={handleLogin} className="glass-hero-panel" style={{ padding: '40px', width: '350px' }}>
-                <h2 style={{ textAlign: 'center', color: '#E491C9', marginBottom: '30px', fontSize: '1.8rem', fontFamily: "'Playfair Display', serif" }}>RUH ADMIN PORTAL</h2>
+                <h2 style={{ textAlign: 'center', color: 'var(--brand-pink)', marginBottom: '30px', fontSize: '1.8rem', fontFamily: "'Playfair Display', serif" }}>RUH ADMIN PORTAL</h2>
                 <input 
                     type="email" 
                     placeholder="Admin Email" 
                     required 
-                    style={{ background: 'rgba(0,0,0,0.2)', color: '#F1E9E9', width: '100%', padding: '15px', marginBottom: '15px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px' }}
+                    style={{ background: 'rgba(0,0,0,0.2)', color: 'var(--light-gray)', width: '100%', padding: '15px', marginBottom: '15px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px' }}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <div style={{ position: 'relative', width: '100%', marginBottom: '25px' }}>
@@ -43,10 +43,10 @@ const AdminLogin = () => {
                       type={showPassword ? "text" : "password"} 
                       placeholder="Password" 
                       required 
-                      style={{ background: 'rgba(0,0,0,0.2)', color: '#F1E9E9', width: '100%', padding: '15px', paddingRight: '45px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px' }}
+                      style={{ background: 'rgba(0,0,0,0.2)', color: 'var(--light-gray)', width: '100%', padding: '15px', paddingRight: '45px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px' }}
                       onChange={(e) => setPassword(e.target.value)}
                   />
-                  <span onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: '#E491C9', display: 'flex', alignItems: 'center' }}>
+                  <span onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: 'var(--brand-pink)', display: 'flex', alignItems: 'center' }}>
                     {showPassword ? <LuEyeOff size={20} /> : <LuEye size={20} />}
                   </span>
                 </div>

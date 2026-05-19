@@ -1,5 +1,5 @@
 .masterpiece-wrapper {
-  background-color: #15173D;
+  background-color: var(--dark-navy);
   width: 100%;
   overflow: hidden;
 }
@@ -17,7 +17,7 @@
   font-family: 'Playfair Display', serif;
   font-size: 5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #E491C9 0%, #F1E9E9 100%);
+  background: linear-gradient(135deg, var(--brand-pink) 0%, var(--light-gray) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 60px;
@@ -86,7 +86,7 @@
   content: '';
   position: absolute;
   top: -2px; left: -2px; right: -2px; bottom: -2px;
-  background: linear-gradient(45deg, transparent, #E491C9, transparent, #982598, transparent);
+  background: linear-gradient(45deg, transparent, var(--brand-pink), transparent, var(--brand-purple), transparent);
   background-size: 400% 400%;
   z-index: -1;
   animation: borderFlow 10s linear infinite;
@@ -102,7 +102,7 @@
 
 .gallery-card:hover .card-content {
   transform: translateY(-20px) scale(1.05);
-  border-color: #E491C9;
+  border-color: var(--brand-pink);
   box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 30px rgba(228, 145, 201, 0.4);
 }
 
@@ -135,7 +135,7 @@
 }
 
 .card-info-overlay h4 {
-  color: #E491C9;
+  color: var(--brand-pink);
   font-size: 1.2rem;
   margin-bottom: 5px;
   font-family: 'Playfair Display', serif;

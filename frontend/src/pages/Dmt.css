@@ -6,7 +6,7 @@
 /* ── Page wrapper ─────────────────────────────────────── */
 .dmt-page {
   min-height: 100vh;
-  color: #F1E9E9;
+  color: var(--light-gray);
   font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
@@ -51,7 +51,7 @@
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #E491C9;
+  color: var(--brand-pink);
   background: rgba(228, 145, 201, 0.1);
   border: 1px solid rgba(228, 145, 201, 0.25);
   padding: 6px 18px;
@@ -65,7 +65,7 @@
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 20px;
-  background: linear-gradient(135deg, #ffffff 30%, #E491C9 100%);
+  background: linear-gradient(135deg, #ffffff 30%, var(--brand-pink) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -87,7 +87,7 @@
 
 /* ── BUTTONS ──────────────────────────────────────────── */
 .dmt-cta-btn {
-  background: linear-gradient(135deg, #982598, #E491C9);
+  background: linear-gradient(135deg, var(--brand-purple), var(--brand-pink));
   color: white;
   border: none;
   padding: 14px 32px;
@@ -113,7 +113,7 @@
 
 .dmt-outline-btn {
   background: transparent;
-  color: #E491C9;
+  color: var(--brand-pink);
   border: 1.5px solid rgba(228, 145, 201, 0.4);
   padding: 13px 30px;
   border-radius: 50px;
@@ -125,7 +125,7 @@
 
 .dmt-outline-btn:hover {
   background: rgba(228, 145, 201, 0.1);
-  border-color: #E491C9;
+  border-color: var(--brand-pink);
   transform: translateY(-2px);
 }
 
@@ -190,7 +190,7 @@
 .dmt-stat-num {
   font-size: 2.2rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #E491C9, #982598);
+  background: linear-gradient(135deg, var(--brand-pink), var(--brand-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -241,7 +241,7 @@
 .dmt-benefit-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #E491C9;
+  color: var(--brand-pink);
   margin-bottom: 10px;
 }
 
@@ -309,7 +309,7 @@
 
 .dmt-booking-type {
   background: rgba(228, 145, 201, 0.15);
-  color: #E491C9;
+  color: var(--brand-pink);
   padding: 4px 14px;
   border-radius: 20px;
   font-size: 0.78rem;
@@ -431,7 +431,7 @@
   transition: color 0.3s;
 }
 
-.dmt-step.active { color: #E491C9; }
+.dmt-step.active { color: var(--brand-pink); }
 
 .dmt-step-sep {
   color: rgba(255,255,255,0.2);
@@ -516,13 +516,13 @@
 
 .dmt-pill:hover {
   border-color: rgba(228,145,201,0.4);
-  color: #E491C9;
+  color: var(--brand-pink);
 }
 
 .dmt-pill.active {
   background: linear-gradient(135deg, rgba(152,37,152,0.25), rgba(228,145,201,0.2));
-  border-color: #E491C9;
-  color: #E491C9;
+  border-color: var(--brand-pink);
+  color: var(--brand-pink);
 }
 
 /* ── TIME SLOTS ───────────────────────────────────────── */
@@ -547,13 +547,13 @@
 
 .dmt-timeslot:hover {
   border-color: rgba(228,145,201,0.35);
-  color: #E491C9;
+  color: var(--brand-pink);
   background: rgba(228,145,201,0.05);
 }
 
 .dmt-timeslot.active {
   background: linear-gradient(135deg, rgba(152,37,152,0.3), rgba(228,145,201,0.2));
-  border-color: #E491C9;
+  border-color: var(--brand-pink);
   color: white;
   font-weight: 700;
 }
@@ -567,7 +567,7 @@
 }
 
 .dmt-summary-card h5 {
-  color: #E491C9;
+  color: var(--brand-pink);
   font-size: 0.85rem;
   margin: 0 0 14px;
   font-weight: 700;
@@ -640,7 +640,7 @@
   border-radius: 30px;
   padding: 8px 18px;
   font-size: 0.85rem;
-  color: #E491C9;
+  color: var(--brand-pink);
 }
 
 /* ── RESPONSIVE ───────────────────────────────────────── */

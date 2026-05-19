@@ -1,14 +1,14 @@
 /* 
   RUH DANCE PRODUCTION - ADMIN DASHBOARD REFACTORED CSS
   Theme: Premium Dark Glassmorphism 
-  Colors: Dark Navy (#15173D), Purple (#982598), Soft Pink (#E491C9), Light Gray (#F1E9E9)
+  Colors: Dark Navy (var(--dark-navy)), Purple (var(--brand-purple)), Soft Pink (var(--brand-pink)), Light Gray (var(--light-gray))
 */
 
 :root {
-  --dark-navy: #15173D;
-  --brand-purple: #982598;
-  --brand-pink: #E491C9;
-  --light-gray: #F1E9E9;
+  --dark-navy: var(--dark-navy);
+  --brand-purple: var(--brand-purple);
+  --brand-pink: var(--brand-pink);
+  --light-gray: var(--light-gray);
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.1);
   --sidebar-glass: rgba(21, 23, 61, 0.4);
@@ -47,7 +47,7 @@
 }
 
 .ru-logo-placeholder {
-  background: linear-gradient(135deg, #722F37, var(--brand-purple));
+  background: linear-gradient(135deg, var(--wine), var(--brand-purple));
   color: white;
   width: 45px;
   height: 45px;
@@ -218,7 +218,7 @@
 }
 
 .management-table th {
-  background: linear-gradient(90deg, #722F37, var(--brand-purple));
+  background: linear-gradient(90deg, var(--wine), var(--brand-purple));
   color: white;
   text-align: left;
   padding: 16px 25px;
@@ -991,7 +991,7 @@ input[type="file"]::file-selector-button:hover {
 
 /* Centered modal box */
 .PROD-MODAL-CONTENT {
-  background: #15173D;
+  background: var(--dark-navy);
   border: 1px solid rgba(152, 37, 152, 0.5);
   border-radius: 24px;
   width: 100%;
@@ -1007,7 +1007,7 @@ input[type="file"]::file-selector-button:hover {
   font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
   font-weight: 700;
-  color: #E491C9;
+  color: var(--brand-pink);
   margin: 0 0 24px 0;
   text-align: center;
   letter-spacing: 1px;
@@ -1058,7 +1058,7 @@ input[type="file"]::file-selector-button:hover {
 .PROD-MODAL-FORM input:focus,
 .PROD-MODAL-FORM textarea:focus {
   outline: none;
-  border-color: #E491C9;
+  border-color: var(--brand-pink);
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 12px rgba(228, 145, 201, 0.2);
 }
@@ -1080,7 +1080,7 @@ input[type="file"]::file-selector-button:hover {
   display: block;
   font-size: 0.82rem;
   font-weight: 700;
-  color: #E491C9;
+  color: var(--brand-pink);
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -1118,7 +1118,7 @@ input[type="file"]::file-selector-button:hover {
 
 .PROD-SAVE-BTN {
   flex: 1;
-  background: linear-gradient(135deg, #982598 0%, #E491C9 100%);
+  background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-pink) 100%);
   color: white;
   border: none;
   padding: 13px;
@@ -1175,7 +1175,7 @@ input[type="file"]::file-selector-button:hover {
 
 .pencil-edit-overlay:hover {
   transform: scale(1.1);
-  background: #E491C9 !important;
+  background: var(--brand-pink) !important;
 }
 
 /* Mobile overrides for prod modal */
@@ -1238,7 +1238,7 @@ input[type="file"]::file-selector-button:hover {
 .modal-form-input:focus,
 .modal-select:focus {
   outline: none !important;
-  border-color: #E491C9 !important;
+  border-color: var(--brand-pink) !important;
   background: rgba(255, 255, 255, 0.08) !important;
   box-shadow: 0 0 12px rgba(228, 145, 201, 0.2) !important;
 }
@@ -1269,7 +1269,7 @@ select.modal-select option {
   display: block !important;
   font-size: 0.85rem !important;
   font-weight: 700 !important;
-  color: #E491C9 !important;
+  color: var(--brand-pink) !important;
   margin-bottom: 8px !important;
   letter-spacing: 0.5px !important;
 }
@@ -1287,7 +1287,7 @@ input[type="file"].modal-form-input,
 }
 
 input[type="file"]::file-selector-button {
-  background: linear-gradient(135deg, #982598 0%, #E491C9 100%) !important;
+  background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-pink) 100%) !important;
   color: white !important;
   border: none !important;
   border-radius: 8px !important;
@@ -1307,7 +1307,7 @@ input[type="file"]::file-selector-button:hover {
 /* Premium Buttons */
 .save-btn-premium,
 .btn-modal.save {
-  background: linear-gradient(135deg, #982598 0%, #E491C9 100%) !important;
+  background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-pink) 100%) !important;
   color: white !important;
   border: none !important;
   padding: 14px 20px !important;

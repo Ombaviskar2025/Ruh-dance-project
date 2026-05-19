@@ -118,7 +118,7 @@ const Productions = () => {
                <button 
                   onClick={() => handleEditClick(prod)}
                   style={{
-                    position: 'absolute', top: '15px', right: '15px', backgroundColor: '#982598',
+                    position: 'absolute', top: '15px', right: '15px', backgroundColor: 'var(--brand-purple)',
                     color: 'white', border: '2px solid white', borderRadius: '50%', padding: '10px',
                     cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10,
                     boxShadow: '0 4px 15px rgba(0,0,0,0.4)', transition: 'transform 0.2s'
@@ -131,8 +131,8 @@ const Productions = () => {
             )}
 
             <div style={{ padding: '20px', textAlign: 'center' }}>
-              <span style={{ fontSize: '0.8rem', color: '#E491C9' }}>{prod.year}</span>
-              <h3 style={{ margin: '5px 0', color: '#F1E9E9' }}>{prod.title}</h3>
+              <span style={{ fontSize: '0.8rem', color: 'var(--brand-pink)' }}>{prod.year}</span>
+              <h3 style={{ margin: '5px 0', color: 'var(--light-gray)' }}>{prod.title}</h3>
               <p style={{ fontStyle: 'italic', fontSize: '0.9rem', color: '#d1d5db' }}>{prod.subtitle}</p>
             </div>
           </div>
@@ -142,9 +142,9 @@ const Productions = () => {
       {/* EDIT MODAL FOR PUBLIC PAGE */}
       {editingProd && (
         <div className="modern-modal-overlay" style={{ zIndex: 9999 }}>
-          <div className="modern-modal-content" style={{ background: '#15173D', border: '1px solid #E491C9', maxWidth: '500px' }}>
+          <div className="modern-modal-content" style={{ background: 'var(--dark-navy)', border: '1px solid var(--brand-pink)', maxWidth: '500px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h2 style={{ color: '#E491C9', margin: 0, fontFamily: "'Playfair Display', serif" }}>Edit Production</h2>
+              <h2 style={{ color: 'var(--brand-pink)', margin: 0, fontFamily: "'Playfair Display', serif" }}>Edit Production</h2>
               <LuX size={24} style={{ cursor: 'pointer', color: '#d1d5db' }} onClick={() => setEditingProd(null)} />
             </div>
             
@@ -160,7 +160,7 @@ const Productions = () => {
               </div>
 
               <div style={{ background: 'rgba(0,0,0,0.3)', padding: '15px', borderRadius: '8px' }}>
-                <label style={{ display: 'block', marginBottom: '10px', color: '#E491C9', fontSize: '0.9rem' }}>Upload New Image Cover</label>
+                <label style={{ display: 'block', marginBottom: '10px', color: 'var(--brand-pink)', fontSize: '0.9rem' }}>Upload New Image Cover</label>
                 <input type="file" style={{ color: 'white' }} onChange={e => setNewImageFile(e.target.files[0])} />
                 {prodFormData.image && !newImageFile && (
                    <p style={{ marginTop: '10px', fontSize: '0.8rem', color: '#888' }}>Current image: {prodFormData.image.split('/').pop()}</p>

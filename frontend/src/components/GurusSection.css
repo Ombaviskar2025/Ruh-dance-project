@@ -18,7 +18,7 @@
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 20px;
-  background: linear-gradient(to right, #E491C9, #F1E9E9, #982598, #E491C9);
+  background: linear-gradient(to right, var(--brand-pink), var(--light-gray), var(--brand-purple), var(--brand-pink));
   background-size: 300% auto;
   color: #fff;
   -webkit-background-clip: text;
@@ -122,12 +122,12 @@
 }
 
 .guru-card:hover .guru-name {
-  color: #E491C9; /* Soft pink glow on hover */
+  color: var(--brand-pink); /* Soft pink glow on hover */
 }
 
 .guru-style {
   font-size: 0.9rem;
-  color: #E491C9;
+  color: var(--brand-pink);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   opacity: 0.8;
@@ -168,7 +168,7 @@
   font-size: 30px;
   background: none;
   border: none;
-  color: #E491C9;
+  color: var(--brand-pink);
   cursor: pointer;
   transition: transform 0.3s ease, color 0.3s;
 }
@@ -203,7 +203,7 @@
 
 .guru-modal-info h4 {
   font-size: 1.1rem;
-  color: #E491C9;
+  color: var(--brand-pink);
   margin: 0 0 20px 0;
   text-transform: uppercase;
   letter-spacing: 2px;

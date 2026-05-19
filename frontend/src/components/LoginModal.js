@@ -177,7 +177,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 onChange={(e) => setLoginData({...loginData, password: e.target.value})} 
                 style={{ paddingRight: '45px' }}
               />
-              <span onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: '#E491C9', display: 'flex', alignItems: 'center' }}>
+              <span onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: 'var(--brand-pink)', display: 'flex', alignItems: 'center' }}>
                 {showPassword ? <LuEyeOff size={20} /> : <LuEye size={20} />}
               </span>
             </div>
@@ -185,13 +185,13 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
             <button type="submit" className="submit-btn">LOGIN</button>
             
             {role !== 'admin' && (
-              <p className="forgot-password-link" onClick={handleForgotPassword} style={{cursor: 'pointer', color: '#E491C9', marginTop: '10px', textAlign: 'center'}}>
+              <p className="forgot-password-link" onClick={handleForgotPassword} style={{cursor: 'pointer', color: 'var(--brand-pink)', marginTop: '10px', textAlign: 'center'}}>
                 Forgot Password?
               </p>
             )}
 
             <p className="toggle-text">
-              New user? <span onClick={() => setIsLogin(false)} style={{cursor: 'pointer', color: '#E491C9', fontWeight: 'bold'}}>Create an account</span>
+              New user? <span onClick={() => setIsLogin(false)} style={{cursor: 'pointer', color: 'var(--brand-pink)', fontWeight: 'bold'}}>Create an account</span>
             </p>
           </form>
         ) : (
@@ -217,7 +217,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 onChange={(e) => setRegData({...regData, password: e.target.value})} 
                 style={{ paddingRight: '45px' }}
               />
-              <span onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: '#E491C9', display: 'flex', alignItems: 'center' }}>
+              <span onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: 'var(--brand-pink)', display: 'flex', alignItems: 'center' }}>
                 {showPassword ? <LuEyeOff size={20} /> : <LuEye size={20} />}
               </span>
             </div>
@@ -254,7 +254,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
               />
             ) : (
               <div className="dance-style-selection-wrapper" style={{ marginTop: '10px' }}>
-                <label className="form-label-modern">Select Preferred Dance Style(s) <span style={{ color: '#ff477e' }}>*</span></label>
+                <label className="form-label-modern">Select Preferred Dance Style(s) <span style={{ color: 'var(--brand-pink)' }}>*</span></label>
                 
                 <div className="custom-dropdown-container" ref={dropdownRef}>
                   <div 
@@ -314,7 +314,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
             )}
             <button type="submit" className="submit-btn">CREATE ACCOUNT</button>
             <p className="toggle-text">
-              Already have an account? <span onClick={() => setIsLogin(true)} style={{cursor: 'pointer', color: '#E491C9', fontWeight: 'bold'}}>Login here</span>
+              Already have an account? <span onClick={() => setIsLogin(true)} style={{cursor: 'pointer', color: 'var(--brand-pink)', fontWeight: 'bold'}}>Login here</span>
             </p>
           </form>
         )}

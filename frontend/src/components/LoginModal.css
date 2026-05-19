@@ -24,7 +24,7 @@
   position: relative;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
   animation: modalFadeIn 0.4s ease-out;
-  color: #F1E9E9;
+  color: var(--light-gray);
 }
 
 @keyframes modalFadeIn {
@@ -39,12 +39,12 @@
   font-size: 28px;
   background: none;
   border: none;
-  color: #F1E9E9;
+  color: var(--light-gray);
   cursor: pointer;
   transition: 0.3s;
 }
 
-.close-btn:hover { color: #E491C9; transform: rotate(90deg); }
+.close-btn:hover { color: var(--brand-pink); transform: rotate(90deg); }
 
 /* Navigation Tabs */
 .modal-tabs {
@@ -68,13 +68,13 @@
 }
 
 .modal-tabs button.active {
-  color: #E491C9;
-  border-bottom: 3px solid #E491C9;
+  color: var(--brand-pink);
+  border-bottom: 3px solid var(--brand-pink);
 }
 
 /* Forms and Inputs */
 .modal-form h2 {
-  color: #E491C9;
+  color: var(--brand-pink);
   font-family: 'Playfair Display', serif;
   margin-bottom: 25px;
   letter-spacing: 1px;
@@ -88,20 +88,20 @@
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 10px;
   background: rgba(0,0,0,0.2) !important;
-  color: #F1E9E9 !important;
+  color: var(--light-gray) !important;
   transition: 0.3s;
   box-sizing: border-box;
 }
 
 .modal-form select option {
-  background-color: #15173D;
-  color: #F1E9E9;
+  background-color: var(--dark-navy);
+  color: var(--light-gray);
 }
 
 .modal-form input::placeholder { color: rgba(241,233,233,0.5); }
 
 .modal-form input:focus, .modal-form select:focus {
-  border-color: #E491C9;
+  border-color: var(--brand-pink);
   box-shadow: 0 0 10px rgba(228,145,201,0.3);
   outline: none;
 }
@@ -109,7 +109,7 @@
 .submit-btn {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(90deg, #982598, #E491C9);
+  background: linear-gradient(90deg, var(--brand-purple), var(--brand-pink));
   color: white;
   border: none;
   border-radius: 30px; /* Modern pill */
@@ -134,7 +134,7 @@
 }
 
 .toggle-text span {
-  color: #E491C9;
+  color: var(--brand-pink);
   font-weight: bold;
   cursor: pointer;
   text-decoration: underline;
@@ -148,7 +148,7 @@
 .checkmark-circle {
   width: 70px;
   height: 70px;
-  background: #982598;
+  background: var(--brand-purple);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -158,7 +158,7 @@
   font-size: 35px;
 }
 .forgot-password-link {
-  color: #E491C9; 
+  color: var(--brand-pink); 
   font-size: 12px;
   text-align: right;
   margin-top: -10px;
@@ -177,6 +177,6 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px #15173D inset !important;
-    -webkit-text-fill-color: #F1E9E9 !important;
+    -webkit-box-shadow: 0 0 0 30px var(--dark-navy) inset !important;
+    -webkit-text-fill-color: var(--light-gray) !important;
 }

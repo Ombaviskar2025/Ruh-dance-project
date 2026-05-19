@@ -178,7 +178,7 @@ const StudentDashboard = () => {
     }
   };
 
-  if (!user) return <div className="modern-page-content" style={{ color: '#F1E9E9', textAlign: 'center' }}>Loading Dashboard...</div>;
+  if (!user) return <div className="modern-page-content" style={{ color: 'var(--light-gray)', textAlign: 'center' }}>Loading Dashboard...</div>;
 
   return (
     <div className="home-aesthetic-container" style={{ minHeight: '100vh' }}>
@@ -247,7 +247,7 @@ const StudentDashboard = () => {
                 </div>
               </form>
             ) : (
-              <ul style={{ listStyleType: 'none', padding: 0, color: '#F1E9E9', lineHeight: '2' }}>
+              <ul style={{ listStyleType: 'none', padding: 0, color: 'var(--light-gray)', lineHeight: '2' }}>
                 <li><strong>Email:</strong> <span style={{ color: '#d1d5db' }}>{user.email} (Locked)</span></li>
                 <li><strong>Phone:</strong> {user.phone}</li>
                 <li><strong>Gender:</strong> {user.gender}</li>
@@ -273,7 +273,7 @@ const StudentDashboard = () => {
               <div className="dashboard-scroll-box" style={{ marginBottom: '15px', maxHeight: '200px' }}>
                 {dmtBookings.map(b => (
                   <div key={b._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '8px', marginBottom: '10px', borderLeft: `3px solid ${b.status === 'Confirmed' ? '#25D366' : 'var(--brand-pink)'}` }}>
-                    <p style={{ margin: '0 0 5px 0', fontSize: '0.9rem', color: '#F1E9E9' }}><strong>{new Date(b.date).toLocaleDateString()}</strong> at {b.time}</p>
+                    <p style={{ margin: '0 0 5px 0', fontSize: '0.9rem', color: 'var(--light-gray)' }}><strong>{new Date(b.date).toLocaleDateString()}</strong> at {b.time}</p>
                     <p style={{ margin: 0, fontSize: '0.8rem', color: '#d1d5db' }}>Status: <span style={{ color: b.status === 'Confirmed' ? '#25D366' : '#d1d5db' }}>{b.status}</span></p>
                   </div>
                 ))}
@@ -299,7 +299,7 @@ const StudentDashboard = () => {
                         <span style={{ fontSize: '0.8rem', color: '#aaa' }}>{new Date(p.date).toLocaleDateString()}</span>
                         <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#2ecc71' }}>₹{p.amount.toLocaleString()}</span>
                     </div>
-                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#F1E9E9' }}>{p.category}</p>
+                    <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--light-gray)' }}>{p.category}</p>
                     <p style={{ margin: '5px 0 0 0', fontSize: '0.75rem', color: '#888' }}>via {p.paymentMethod}</p>
                   </div>
                 ))}
@@ -327,8 +327,8 @@ const StudentDashboard = () => {
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {events.map((evt) => (
-                  <div key={evt._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', borderLeft: '4px solid #982598' }}>
-                    <h4 style={{ margin: '0 0 5px 0', color: '#F1E9E9' }}>{evt.title}</h4>
+                  <div key={evt._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', borderLeft: '4px solid var(--brand-purple)' }}>
+                    <h4 style={{ margin: '0 0 5px 0', color: 'var(--light-gray)' }}>{evt.title}</h4>
                     <span style={{ fontSize: '0.8rem', color: 'var(--brand-pink)', fontWeight: 'bold' }}>
                       {new Date(evt.date).toLocaleDateString()} | {evt.category}
                     </span>

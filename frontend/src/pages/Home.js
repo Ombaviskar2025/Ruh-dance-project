@@ -404,7 +404,7 @@ const Home = () => {
             </div>
 
             <div className="dance-style-selection-wrapper">
-              <label className="form-label-modern">Select Dance Style(s) <span style={{ color: '#ff477e' }}>*</span></label>
+              <label className="form-label-modern">Select Dance Style(s) <span style={{ color: 'var(--brand-pink)' }}>*</span></label>
               
               <div className="custom-dropdown-container" ref={dropdownRef}>
                 <div 

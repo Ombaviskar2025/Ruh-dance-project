@@ -17,7 +17,7 @@
 }
 
 .comparison-title span {
-  color: #E491C9;
+  color: var(--brand-pink);
 }
 
 .comparison-subtitle {
@@ -60,8 +60,8 @@
 
 .comparison-header .col-ruh {
   background: rgba(228, 145, 201, 0.1);
-  color: #E491C9;
-  border-top: 3px solid #E491C9;
+  color: var(--brand-pink);
+  border-top: 3px solid var(--brand-pink);
 }
 
 .comparison-cell {
@@ -70,7 +70,7 @@
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  color: #F1E9E9;
+  color: var(--light-gray);
 }
 
 .col-feature {
@@ -121,7 +121,7 @@
     border-bottom: 1px dashed rgba(255,255,255,0.1);
     padding: 10px;
     font-size: 1.1rem;
-    color: #E491C9;
+    color: var(--brand-pink);
   }
 
   .col-other {
@@ -150,7 +150,7 @@
     content: "Ruh Dance";
     font-size: 0.7rem;
     text-transform: uppercase;
-    color: #E491C9;
+    color: var(--brand-pink);
     margin-bottom: 5px;
   }
 }

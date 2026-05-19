@@ -68,7 +68,7 @@ const InstructorDashboard = () => {
     }
   };
 
-  if (!user) return <div className="modern-page-content" style={{ color: '#F1E9E9', textAlign: 'center' }}>Loading Instructor Portal...</div>;
+  if (!user) return <div className="modern-page-content" style={{ color: 'var(--light-gray)', textAlign: 'center' }}>Loading Instructor Portal...</div>;
 
   return (
     <div className="home-aesthetic-container" style={{ minHeight: '100vh' }}>
@@ -137,7 +137,7 @@ const InstructorDashboard = () => {
                 </div>
               </form>
             ) : (
-              <ul style={{ listStyleType: 'none', padding: 0, color: '#F1E9E9', lineHeight: '2' }}>
+              <ul style={{ listStyleType: 'none', padding: 0, color: 'var(--light-gray)', lineHeight: '2' }}>
                 <li><strong>Email:</strong> <span style={{ color: '#d1d5db' }}>{user.email} (Locked)</span></li>
                 <li><strong>Phone:</strong> {user.phone}</li>
                 <li><strong>Gender:</strong> {user.gender}</li>
@@ -167,7 +167,7 @@ const InstructorDashboard = () => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px' }}>
                 {myClasses.map(c => (
                   <div key={c._id} style={{ background: 'rgba(0,0,0,0.3)', padding: '20px', borderRadius: '10px', borderTop: '4px solid var(--brand-pink)' }}>
-                    <h4 style={{ margin: '0 0 10px 0', color: '#F1E9E9', fontSize: '1.2rem' }}>{c.className}</h4>
+                    <h4 style={{ margin: '0 0 10px 0', color: 'var(--light-gray)', fontSize: '1.2rem' }}>{c.className}</h4>
                     <p style={{ margin: '5px 0', color: 'var(--brand-pink)', fontSize: '0.9rem', fontWeight: 'bold' }}>
                       🕒 {c.scheduleTime}
                     </p>
@@ -191,8 +191,8 @@ const InstructorDashboard = () => {
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {events.map((evt) => (
-                  <div key={evt._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', borderLeft: '4px solid #982598' }}>
-                    <h4 style={{ margin: '0 0 5px 0', color: '#F1E9E9' }}>{evt.title}</h4>
+                  <div key={evt._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', borderLeft: '4px solid var(--brand-purple)' }}>
+                    <h4 style={{ margin: '0 0 5px 0', color: 'var(--light-gray)' }}>{evt.title}</h4>
                     <span style={{ fontSize: '0.8rem', color: 'var(--brand-pink)', fontWeight: 'bold' }}>
                       {new Date(evt.date).toLocaleDateString()} | {evt.category}
                     </span>

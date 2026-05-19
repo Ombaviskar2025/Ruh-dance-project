@@ -36,7 +36,7 @@
 .soul-form select,
 .soul-form textarea {
   padding: 12px;
-  border: 1px solid #722F37;
+  border: 1px solid var(--wine);
   border-radius: 8px;
   font-family: inherit;
 }
@@ -77,10 +77,10 @@
 }
 
 :root {
-  --wine: #722F37;
-  --light-purple: #D8BFD8;
+  --wine: var(--wine);
+  --light-purple: var(--light-purple);
   /* Thistle/Light Purple */
-  --deep-purple: #4B0082;
+  --deep-purple: var(--deep-purple);
   --white: #ffffff;
 }
 
@@ -113,7 +113,7 @@
   /* Adds space above/below and balances left/right */
   font-family: 'Playfair Display', serif;
   /* An elegant, artistic font */
-  color: #722F37;
+  color: var(--wine);
   /* Our signature Wine Red color */
   font-size: 5rem;
   /* Makes it a bold statement piece */
@@ -128,7 +128,7 @@
 
 /* Optional: Add a subtle glow/shadow to make it pop */
 .brand-title:hover {
-  color: #D8BFD8;
+  color: var(--light-purple);
   /* Changes to Light Purple on hover */
   transition: 0.5s ease;
   cursor: default;
@@ -220,7 +220,7 @@
 }
 
 .logo-text {
-  color: #4B0082;
+  color: var(--deep-purple);
   /* Deep Indigo/Purple */
   font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
@@ -229,7 +229,7 @@
 }
 
 .logo-subtext {
-  color: #722F37;
+  color: var(--wine);
   /* Wine accent */
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -253,8 +253,8 @@
 }
 
 .nav-tab:hover {
-  color: #722F37;
-  border-bottom: 2px solid #D8BFD8;
+  color: var(--wine);
+  border-bottom: 2px solid var(--light-purple);
 }
 
 .hero-section {
@@ -271,7 +271,7 @@
 
 .hero-title {
   font-size: 3rem;
-  color: #4B0082;
+  color: var(--deep-purple);
   font-family: 'Playfair Display', serif;
   line-height: 1.1;
 }
@@ -279,7 +279,7 @@
 .begin-button {
   margin-top: 30px;
   padding: 15px 40px;
-  background-color: #722F37;
+  background-color: var(--wine);
   color: white;
   border: none;
   border-radius: 5px;
@@ -422,7 +422,7 @@
 }
 
 .role-selector button.active {
-  background: #722F37;
+  background: var(--wine);
   color: white;
 }
 
@@ -443,7 +443,7 @@
 
 .signin-tab-option {
   cursor: pointer;
-  color: #722F37;
+  color: var(--wine);
   /* RUH Maroon to make it stand out slightly */
   font-weight: 700;
   border: none;
@@ -481,13 +481,13 @@
 }
 
 .signin-tab-option {
-  color: #722F37;
+  color: var(--wine);
   /* RUH Maroon to subtly draw the eye */
 }
 
 .nav-tab:hover,
 .signin-tab-option:hover {
-  color: #722F37;
+  color: var(--wine);
   opacity: 0.8;
 }
 
@@ -518,14 +518,14 @@
 .user-name {
   font-size: 13px;
   font-weight: 600;
-  color: #F1E9E9;
+  color: var(--light-gray);
   text-transform: capitalize;
 }
 
 .user-avatar-circle {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, #722F37, #982598);
+  background: linear-gradient(135deg, var(--wine), var(--brand-purple));
   color: white;
   border-radius: 50%;
   display: flex;
@@ -567,7 +567,7 @@
   display: block;
   font-size: 10px;
   text-transform: uppercase;
-  color: #E491C9;
+  color: var(--brand-pink);
   letter-spacing: 1.5px;
   font-weight: 800;
   margin-bottom: 4px;
@@ -583,7 +583,7 @@
   align-items: center;
   gap: 12px;
   padding: 12px 20px;
-  color: #F1E9E9 !important;
+  color: var(--light-gray) !important;
   text-decoration: none;
   font-size: 13px;
   font-weight: 600;
@@ -592,7 +592,7 @@
 
 .dropdown-nav-btn:hover {
   background: rgba(228, 145, 201, 0.1);
-  color: #E491C9 !important;
+  color: var(--brand-pink) !important;
   padding-left: 25px;
 }
 
@@ -625,9 +625,9 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #15173D;
+  background-color: var(--dark-navy);
   /* Dark Navy */
-  color: #F1E9E9;
+  color: var(--light-gray);
   /* Light Gray */
   /* Use clip instead of hidden — clip does not create a scroll container */
   overflow-x: clip;
@@ -650,7 +650,7 @@
 .orb-1 {
   width: 500px;
   height: 500px;
-  background: #982598;
+  background: var(--brand-purple);
   top: -150px;
   left: -100px;
   opacity: 0.5;
@@ -659,7 +659,7 @@
 .orb-2 {
   width: 400px;
   height: 400px;
-  background: #E491C9;
+  background: var(--brand-pink);
   bottom: -100px;
   right: -50px;
   opacity: 0.4;
@@ -796,7 +796,7 @@
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 20px;
-  background: linear-gradient(to right, #E491C9, #F1E9E9, #982598, #E491C9);
+  background: linear-gradient(to right, var(--brand-pink), var(--light-gray), var(--brand-purple), var(--brand-pink));
   background-size: 300% auto;
   color: #fff;
   -webkit-background-clip: text;
@@ -830,7 +830,7 @@
 }
 
 .modern-btn {
-  background: linear-gradient(90deg, #982598, #E491C9);
+  background: linear-gradient(90deg, var(--brand-purple), var(--brand-pink));
   color: white;
   border: none;
   padding: 15px 40px;
@@ -873,7 +873,7 @@
 }
 
 .marquee-item {
-  color: #F1E9E9;
+  color: var(--light-gray);
   font-size: 1.5rem;
   font-family: 'Playfair Display', serif;
   font-weight: 500;
@@ -887,7 +887,7 @@
 
 .marquee-item.accent {
   text-shadow: 0 0 10px rgba(228, 145, 201, 0.8);
-  color: #E491C9;
+  color: var(--brand-pink);
 }
 
 @keyframes scan {
@@ -925,7 +925,7 @@
   max-width: 450px;
   position: relative;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-  color: #F1E9E9;
+  color: var(--light-gray);
   animation: modalFadeIn 0.4s ease forwards;
 }
 
@@ -942,7 +942,7 @@
 }
 
 .modern-modal-content h3 {
-  color: #E491C9;
+  color: var(--brand-pink);
   font-family: 'Playfair Display', serif;
   margin-top: 0;
   margin-bottom: 25px;
@@ -957,13 +957,13 @@
   font-size: 28px;
   background: transparent;
   border: none;
-  color: #F1E9E9;
+  color: var(--light-gray);
   cursor: pointer;
   transition: 0.3s;
 }
 
 .modern-close-btn:hover {
-  color: #E491C9;
+  color: var(--brand-pink);
   transform: rotate(90deg);
 }
 
@@ -975,7 +975,7 @@
   background: rgba(0, 0, 0, 0.2) !important;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  color: #F1E9E9 !important;
+  color: var(--light-gray) !important;
   font-family: inherit;
   transition: all 0.3s ease;
   box-sizing: border-box;
@@ -990,9 +990,9 @@
 }
 
 .modern-form-select option {
-  background-color: #15173D;
+  background-color: var(--dark-navy);
   /* Dropdowns read native, setting background is essential */
-  color: #F1E9E9;
+  color: var(--light-gray);
 }
 
 .modern-form-input::placeholder {
@@ -1002,7 +1002,7 @@
 .modern-form-input:focus,
 .modern-form-select:focus {
   outline: none;
-  border-color: #E491C9;
+  border-color: var(--brand-pink);
   box-shadow: 0 0 10px rgba(228, 145, 201, 0.3);
 }
 
@@ -1016,8 +1016,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #15173D inset !important;
-  -webkit-text-fill-color: #F1E9E9 !important;
+  -webkit-box-shadow: 0 0 0 30px var(--dark-navy) inset !important;
+  -webkit-text-fill-color: var(--light-gray) !important;
 }
 
 /* Global Navigation & Header Modernization */
@@ -1031,25 +1031,25 @@ input:-webkit-autofill:active {
 }
 
 .modern-glass-header .logo-text {
-  color: #E491C9 !important;
+  color: var(--brand-pink) !important;
 }
 
 .modern-glass-header .logo-subtext {
-  color: #D8BFD8 !important;
+  color: var(--light-purple) !important;
 }
 
 .modern-glass-header .nav-tab {
-  color: #F1E9E9 !important;
+  color: var(--light-gray) !important;
 }
 
 .modern-glass-header .nav-tab:hover {
-  color: #E491C9 !important;
-  border-bottom-color: #E491C9 !important;
+  color: var(--brand-pink) !important;
+  border-bottom-color: var(--brand-pink) !important;
   text-shadow: 0 0 8px rgba(228, 145, 201, 0.6);
 }
 
 .modern-glass-header .signin-tab-option {
-  color: #E491C9 !important;
+  color: var(--brand-pink) !important;
 }
 
 .modern-glass-header .signin-tab-option:hover {
@@ -1057,7 +1057,7 @@ input:-webkit-autofill:active {
 }
 
 .modern-glass-header .user-name {
-  color: #F1E9E9 !important;
+  color: var(--light-gray) !important;
 }
 
 /* Global Fade In wrapper applied to pages */
@@ -1176,7 +1176,7 @@ input:-webkit-autofill:active {
 }
 
 .nav-dropdown-item {
-  color: #F1E9E9;
+  color: var(--light-gray);
   padding: 12px 20px;
   text-decoration: none;
   display: block;
@@ -1190,7 +1190,7 @@ input:-webkit-autofill:active {
 
 .nav-dropdown-item:hover {
   background-color: rgba(228, 145, 201, 0.15);
-  color: #E491C9;
+  color: var(--brand-pink);
 }
 
 /* 1. Cursor Glow */
@@ -1217,7 +1217,7 @@ input:-webkit-autofill:active {
 
 /* 3. Animated Gradient */
 .animated-gradient-btn {
-  background: linear-gradient(45deg, #982598, #E491C9, #4B0082, #982598);
+  background: linear-gradient(45deg, var(--brand-purple), var(--brand-pink), var(--deep-purple), var(--brand-purple));
   background-size: 300% 300%;
   animation: gradientBG 4s ease infinite;
 }
@@ -1379,12 +1379,12 @@ input:-webkit-autofill:active {
 }
 
 .cinematic-btn.primary-pink {
-  background-color: #ff477e; /* pink matching example */
+  background-color: var(--brand-pink); /* pink matching example */
   color: white;
-  border: 1px solid #ff477e;
+  border: 1px solid var(--brand-pink);
 }
 .cinematic-btn.primary-pink:hover {
-  background-color: #ff3366;
+  background-color: var(--brand-purple);
   box-shadow: 0 0 15px rgba(255, 71, 126, 0.5);
 }
 
@@ -1617,7 +1617,7 @@ input:-webkit-autofill:active {
 .reg-form select:focus,
 .reg-form textarea:focus {
   outline: none !important;
-  border-color: #E491C9 !important;
+  border-color: var(--brand-pink) !important;
   background: rgba(255, 255, 255, 0.08) !important;
   box-shadow: 0 0 12px rgba(228, 145, 201, 0.2) !important;
 }
@@ -1658,7 +1658,7 @@ input:-webkit-autofill:active {
   display: block !important;
   font-size: 0.85rem !important;
   font-weight: 700 !important;
-  color: #E491C9 !important;
+  color: var(--brand-pink) !important;
   margin-bottom: 8px !important;
   letter-spacing: 0.5px !important;
 }
@@ -1680,7 +1680,7 @@ input[type="file"].modern-form-input,
 .soulful-btn,
 .modern-btn,
 .reg-form button[type="submit"] {
-  background: linear-gradient(135deg, #982598 0%, #E491C9 100%) !important;
+  background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-pink) 100%) !important;
   color: white !important;
   border: none !important;
   padding: 14px 20px !important;
@@ -1853,7 +1853,7 @@ input[type="file"].modern-form-input,
 .dance-style-selection-wrapper .form-label-modern {
   display: block;
   font-size: 0.9rem;
-  color: #E491C9;
+  color: var(--brand-pink);
   margin-bottom: 10px;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -1869,7 +1869,7 @@ input[type="file"].modern-form-input,
 .dance-style-pill {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #F1E9E9;
+  color: var(--light-gray);
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -1889,8 +1889,8 @@ input[type="file"].modern-form-input,
 }
 
 .dance-style-pill.active {
-  background: linear-gradient(135deg, #ff477e 0%, #982598 100%);
-  border-color: #E491C9;
+  background: linear-gradient(135deg, var(--brand-pink) 0%, var(--brand-purple) 100%);
+  border-color: var(--brand-pink);
   color: #ffffff;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(255, 71, 126, 0.4);
@@ -1940,7 +1940,7 @@ input[type="file"].modern-form-input,
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  color: #F1E9E9;
+  color: var(--light-gray);
   font-family: inherit;
   font-size: 0.9rem;
   display: flex;
@@ -1953,7 +1953,7 @@ input[type="file"].modern-form-input,
 
 .custom-dropdown-header:hover,
 .custom-dropdown-header.active {
-  border-color: #E491C9;
+  border-color: var(--brand-pink);
   box-shadow: 0 0 10px rgba(228, 145, 201, 0.3);
 }
 
@@ -1966,7 +1966,7 @@ input[type="file"].modern-form-input,
 
 .dropdown-arrow {
   font-size: 0.7rem;
-  color: #E491C9;
+  color: var(--brand-pink);
   transition: transform 0.3s ease;
 }
 
@@ -1975,7 +1975,7 @@ input[type="file"].modern-form-input,
   top: calc(100% + 5px);
   left: 0;
   width: 100%;
-  background: #15173D;
+  background: var(--dark-navy);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
   z-index: 100;
@@ -2004,7 +2004,7 @@ input[type="file"].modern-form-input,
   padding: 10px 15px;
   cursor: pointer;
   transition: background 0.2s ease;
-  color: #F1E9E9;
+  color: var(--light-gray);
 }
 
 .custom-dropdown-item:hover {
@@ -2041,8 +2041,8 @@ input[type="file"].modern-form-input,
 }
 
 .custom-dropdown-checkbox:checked {
-  background: linear-gradient(135deg, #ff477e 0%, #982598 100%) !important;
-  border-color: #E491C9 !important;
+  background: linear-gradient(135deg, var(--brand-pink) 0%, var(--brand-purple) 100%) !important;
+  border-color: var(--brand-pink) !important;
 }
 
 .custom-dropdown-checkbox:checked::after {

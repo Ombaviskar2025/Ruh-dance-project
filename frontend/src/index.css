@@ -24,7 +24,7 @@ html {
     /* Eliminate touch delay on taps and scrolls, making interaction feel twice as fast (2x) */
     touch-action: manipulation;
     will-change: scroll-position;
-    background-color: #15173D;
+    background-color: var(--dark-navy);
 }
 
 body {
@@ -34,8 +34,8 @@ body {
     -webkit-overflow-scrolling: touch; /* Momentum scrolling on iOS Safari */
     touch-action: manipulation;
     will-change: scroll-position;
-    background-color: #15173D;
-    color: #F1E9E9;
+    background-color: var(--dark-navy);
+    color: var(--light-gray);
 }
 
 /* Ensure images and videos scale */
@@ -83,21 +83,21 @@ img, video, iframe {
 }
 
 ::-webkit-scrollbar-track {
-    background: #15173D; /* Match the dark navy background */
+    background: var(--dark-navy); /* Match the dark navy background */
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #722F37; /* RUH Wine Red */
+    background: var(--wine); /* RUH Wine Red */
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #E491C9; /* Soft Pink on hover */
+    background: var(--brand-pink); /* Soft Pink on hover */
 }
 
 /* Firefox support */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #722F37 #15173D;
+    scrollbar-color: var(--wine) var(--dark-navy);
 }

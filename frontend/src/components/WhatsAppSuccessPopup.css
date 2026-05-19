@@ -86,7 +86,7 @@
 }
 
 .popup-close-btn:hover {
-  color: #E491C9;
+  color: var(--brand-pink);
 }
 
 /* Animated Success Checkmark */
@@ -191,7 +191,7 @@
 }
 
 .popup-details-value {
-  color: #E491C9;
+  color: var(--brand-pink);
   font-weight: 600;
   max-width: 70%;
   text-align: right;
@@ -203,7 +203,7 @@
   display: inline-flex;
   align-items: center;
   background: rgba(228, 145, 201, 0.1);
-  color: #E491C9;
+  color: var(--brand-pink);
   border: 1px solid rgba(228, 145, 201, 0.2);
   padding: 6px 16px;
   border-radius: 30px;

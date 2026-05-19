@@ -80,7 +80,7 @@ const Admin = () => {
   if (!isLoggedIn) {
     return (
       <div className="admin-login" style={{ padding: '100px', textAlign: 'center' }}>
-        <h2 style={{ color: '#722F37' }}>Ruh Admin Portal</h2>
+        <h2 style={{ color: 'var(--wine)' }}>Ruh Admin Portal</h2>
         <form onSubmit={handleLogin}>
           <input 
             type="password" 
@@ -97,7 +97,7 @@ const Admin = () => {
 
   return (
     <div style={{ padding: '40px' }} className="fade-in">
-      <h2 style={{ color: '#722F37' }}>Admin Dashboard</h2>
+      <h2 style={{ color: 'var(--wine)' }}>Admin Dashboard</h2>
       
       {/* SECTION: Instructor Directory */}
       <section style={{ marginTop: '40px' }}>
@@ -134,7 +134,7 @@ const Admin = () => {
                 <td>{s.name}</td>
                 <td style={{ fontSize: '0.8rem' }}>{s.description.substring(0, 50)}...</td>
                 <td>
-                  <button onClick={() => startEdit(s)} style={{ cursor: 'pointer', background: '#D8BFD8', border: 'none', padding: '5px 10px', borderRadius: '4px' }}>Edit</button>
+                  <button onClick={() => startEdit(s)} style={{ cursor: 'pointer', background: 'var(--light-purple)', border: 'none', padding: '5px 10px', borderRadius: '4px' }}>Edit</button>
                 </td>
               </tr>
             ))}
@@ -197,7 +197,7 @@ const Admin = () => {
                 <td>{inq.phone}</td>
                 <td>{inq.gender} / {inq.age}</td>
                 <td><span style={{ background: '#f0e6ff', padding: '3px 7px', borderRadius: '10px', fontSize: '0.8rem' }}>{inq.danceStyle}</span></td>
-                <td><a href={`mailto:${inq.email}`} style={{ color: '#722F37' }}>{inq.email}</a></td>
+                <td><a href={`mailto:${inq.email}`} style={{ color: 'var(--wine)' }}>{inq.email}</a></td>
                 <td style={{ fontSize: '0.8rem', maxWidth: '150px' }}>{inq.message}</td>
                 <td>
                   <button onClick={() => deleteInquiry(inq._id)} style={{ color: 'red', border: 'none', background: 'none', cursor: 'pointer' }}>Delete</button>
