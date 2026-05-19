@@ -34,8 +34,20 @@ exports.updateSettings = async (req, res) => {
           console.error("Theme JSON parsing failed", e);
         }
       }
-      // Ensure we keep existing fields and only merge the new ones
-      settings.theme = { ...settings.theme, ...themeObj };
+      
+      // Safety: extract values as standard object to avoid Mongoose subdocument internal spread issues
+      const themeColors = settings.theme ? settings.theme.toObject() : {};
+      const mergedTheme = { ...themeColors, ...themeObj };
+      
+      // Explicitly assign each key to Mongoose subdocument to ensure validations and setters fire perfectly
+      if (!settings.theme) {
+        settings.theme = {};
+      }
+      Object.keys(mergedTheme).forEach(key => {
+        settings.theme[key] = mergedTheme[key];
+      });
+      
+      settings.markModified('theme');
     }
 
     await settings.save();
