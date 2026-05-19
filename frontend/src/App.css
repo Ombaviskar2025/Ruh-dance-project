@@ -77,10 +77,13 @@
 }
 
 :root {
-  --wine: var(--wine);
-  --light-purple: var(--light-purple);
-  /* Thistle/Light Purple */
-  --deep-purple: var(--deep-purple);
+  --wine: #722F37;
+  --brand-purple: #982598;
+  --brand-pink: #E491C9;
+  --dark-navy: #15173D;
+  --deep-purple: #4B0082;
+  --light-purple: #D8BFD8;
+  --light-gray: #F1E9E9;
   --white: #ffffff;
 }
 
