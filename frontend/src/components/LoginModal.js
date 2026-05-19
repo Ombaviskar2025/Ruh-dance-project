@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import WhatsAppSuccessPopup from './WhatsAppSuccessPopup';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { LuEye, LuEyeOff } from 'react-icons/lu';
@@ -24,6 +25,17 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [otherDanceStyle, setOtherDanceStyle] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  // WhatsApp Success Popup states
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [successPopupConfig, setSuccessPopupConfig] = useState({
+    title: '', subtitle: '', details: {}, whatsappMessage: ''
+  });
+
+  const handleSuccessPopupClose = () => {
+    setShowSuccessPopup(false);
+    setIsLogin(true);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -93,10 +105,24 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
         danceStyle: finalDanceStyle,
         role: role 
       });
-      alert("Registration Successful! Please login.");
+      
+      const welcomeMessage = `Hey Team Ruh 💃✨\nI just registered as a student on your website!\n\nHere are my registration details:\n- Name: ${regData.fullName}\n- Email: ${regData.email}\n- Phone: ${regData.phone || 'N/A'}\n- Preferred Dance Style(s): ${finalDanceStyle}\n- Role: Student\n\nI am super excited to join the Ruh family and start my classes! Please guide me with the batch joining and next steps. 💃🔥`;
+      
+      setSuccessPopupConfig({
+        title: 'Registration Successful!',
+        subtitle: `Welcome to the Ruh Family, ${regData.fullName}! We are excited to start this beautiful movement journey with you.`,
+        details: {
+          'Student Name': regData.fullName,
+          'Dance Style(s)': finalDanceStyle,
+          'Phone Number': regData.phone || 'N/A',
+          'Assigned Role': 'Student'
+        },
+        whatsappMessage: welcomeMessage
+      });
+      
       setSelectedDanceStyles([]);
       setOtherDanceStyle('');
-      setIsLogin(true);
+      setShowSuccessPopup(true);
     } catch (err) {
       alert("Registration Failed: " + (err.response?.data?.message || "Server Error"));
     }
@@ -293,6 +319,16 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
           </form>
         )}
       </div>
+      
+      <WhatsAppSuccessPopup 
+        isOpen={showSuccessPopup}
+        onClose={handleSuccessPopupClose}
+        title={successPopupConfig.title}
+        subtitle={successPopupConfig.subtitle}
+        details={successPopupConfig.details}
+        whatsappMessage={successPopupConfig.whatsappMessage}
+        buttonText="Complete Onboarding on WhatsApp"
+      />
     </div>
   );
 };

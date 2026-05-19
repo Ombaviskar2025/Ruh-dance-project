@@ -79,6 +79,19 @@ const FinanceAdmin = () => {
     }
   };
 
+  const handleSendWhatsAppReceipt = (t) => {
+    if (!t.studentId) return;
+    const studentName = t.studentId.fullName || t.studentId.username;
+    const studentPhone = t.studentId.phone || '';
+    const dateStr = new Date(t.date).toLocaleDateString();
+    const amountStr = t.amount.toLocaleString();
+    
+    const message = `Hey ${studentName}! 💃✨\nWe have successfully received your payment at Ruh Dance Studio!\n\nHere is your receipt confirmation:\n- Receipt Date: ${dateStr}\n- Amount Paid: ₹${amountStr}\n- Category / Batch: ${t.category}\n- Description: ${t.description}\n- Payment Method: ${t.paymentMethod || 'Online'}\n\nThank you for being part of the Ruh family! Let's keep dancing! 💃🔥`;
+    
+    const waUrl = `https://wa.me/${studentPhone.replace(/\D/g, '') || '9822202239'}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank');
+  };
+
   const handleDeleteFee = async (id) => {
     if (window.confirm("Delete this fee structure?")) {
       try {
@@ -175,9 +188,24 @@ const FinanceAdmin = () => {
                                 {t.type === 'INCOME' ? '+' : '-'} ₹{t.amount.toLocaleString()}
                             </td>
                             <td>
-                                <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
+                                <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', alignItems: 'center' }}>
                                     {t.studentId && t.isFeePayment && <LuMail style={{ color: '#007bff', cursor: 'pointer' }} title="Receipt sent" />}
-                                    <LuTrash2 className="icon-btn delete" onClick={() => handleDelete(t._id)} />
+                                    {t.studentId && (
+                                        <svg 
+                                          viewBox="0 0 24 24" 
+                                          width="16" 
+                                          height="16" 
+                                          fill="#25D366" 
+                                          style={{ cursor: 'pointer', transition: 'transform 0.2s ease' }} 
+                                          title="Send Receipt via WhatsApp"
+                                          onClick={() => handleSendWhatsAppReceipt(t)}
+                                          onMouseEnter={(e) => e.target.style.transform = 'scale(1.2)'}
+                                          onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                                        >
+                                          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.455L0 24zm6.59-4.846c1.66.986 3.284 1.447 4.96 1.448 5.505 0 9.982-4.475 9.985-9.98.002-2.67-1.025-5.18-2.888-7.047C16.84 1.7 14.33.67 11.666.67c-5.513 0-9.99 4.476-9.993 9.982-.001 1.764.473 3.42 1.385 4.887l-.953 3.477 3.552-.932zm13.176-7.37c-.36-.18-2.127-1.05-2.456-1.17-.33-.12-.57-.18-.81.18-.24.36-.93 1.17-1.14 1.41-.21.24-.42.27-.78.09-.36-.18-1.52-.56-2.896-1.787-1.077-.96-1.802-2.15-2.013-2.51-.21-.36-.02-.56.16-.74.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.81-1.95-1.11-2.67-.3-.72-.6-1.2-.81-1.21h-.69c-.24 0-.63.09-.96.45-.33.36-1.26 1.23-1.26 3.01 0 1.78 1.3 3.51 1.48 3.75.18.24 2.55 3.9 6.19 5.48.86.37 1.54.6 2.06.77.87.28 1.66.24 2.28.15.7-.1 2.13-.87 2.43-1.72.3-.85.3-1.57.21-1.72-.09-.15-.33-.24-.69-.42z"/>
+                                        </svg>
+                                    )}
+                                    <LuTrash2 className="icon-btn delete" onClick={() => handleDelete(t._id)} style={{ cursor: 'pointer' }} />
                                 </div>
                             </td>
                         </tr>

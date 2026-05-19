@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
+import WhatsAppSuccessPopup from '../components/WhatsAppSuccessPopup';
 
 const StudentDashboard = () => {
   const [user, setUser] = useState(null);
@@ -14,6 +15,39 @@ const StudentDashboard = () => {
   const [isDmtModalOpen, setIsDmtModalOpen] = useState(false);
   const [dmtBookings, setDmtBookings] = useState([]);
   const [dmtFormData, setDmtFormData] = useState({ date: '', time: '', notes: '' });
+
+  // WhatsApp Success Popup states
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [successPopupConfig, setSuccessPopupConfig] = useState({
+    title: '', subtitle: '', details: {}, whatsappMessage: ''
+  });
+
+  // Payment Reporting states
+  const [isPaymentReportModalOpen, setIsPaymentReportModalOpen] = useState(false);
+  const [paymentReportFormData, setPaymentReportFormData] = useState({ amount: '', category: 'Monthly Fee', date: '', method: 'Online / UPI' });
+
+  const handlePaymentReportSubmit = (e) => {
+    e.preventDefault();
+    
+    const pmMessage = `Hey Team Ruh 💃✨\nI just completed a fee payment online!\n\nHere are my payment details:\n- Student Name: ${user.fullName || user.username}\n- Email: ${user.email}\n- Amount: ₹${Number(paymentReportFormData.amount).toLocaleString()}\n- Category / Style: ${paymentReportFormData.category}\n- Date of Payment: ${paymentReportFormData.date}\n- Payment Method: ${paymentReportFormData.method}\n\nPlease verify and record this in my ledger. Thank you! 💃🔥`;
+    
+    setSuccessPopupConfig({
+      title: 'Payment Reported!',
+      subtitle: `Your payment of ₹${Number(paymentReportFormData.amount).toLocaleString()} has been reported to Team Ruh. Please click below to send the confirmation to us on WhatsApp!`,
+      details: {
+        'Student Name': user.fullName || user.username,
+        'Amount': `₹${Number(paymentReportFormData.amount).toLocaleString()}`,
+        'Category / Style': paymentReportFormData.category,
+        'Payment Date': paymentReportFormData.date,
+        'Method': paymentReportFormData.method
+      },
+      whatsappMessage: pmMessage
+    });
+    
+    setIsPaymentReportModalOpen(false);
+    setPaymentReportFormData({ amount: '', category: 'Monthly Fee', date: '', method: 'Online / UPI' });
+    setShowSuccessPopup(true);
+  };
 
   // Payment History State
   const [payments, setPayments] = useState([]);
@@ -98,11 +132,27 @@ const StudentDashboard = () => {
         time: dmtFormData.time,
         notes: dmtFormData.notes
       };
+      
       const res = await axios.post('https://ruh-dance-project.onrender.com/api/dmt-bookings', payload);
-      alert('Booking Requested Successfully!');
+      
+      const dmtMessage = `Hey Team Ruh 🧘‍♀️🌿\nI just booked a Dance Movement Therapy (DMT) session on your website!\n\nHere are my session details:\n- Name: ${user.fullName || user.username}\n- Preferred Date: ${dmtFormData.date}\n- Time Slot: ${dmtFormData.time}\n- Focus Area / Notes: ${dmtFormData.notes || 'None'}\n\nPlease confirm my session booking. Thank you! 🌿✨`;
+      
+      setSuccessPopupConfig({
+        title: 'Booking Requested!',
+        subtitle: `Hi ${user.fullName || user.username}, your Dance Movement Therapy session has been successfully booked. Let's auto-confirm on WhatsApp!`,
+        details: {
+          'Student Name': user.fullName || user.username,
+          'Therapy Date': dmtFormData.date,
+          'Time Slot': dmtFormData.time,
+          'Focus Area': dmtFormData.notes || 'None'
+        },
+        whatsappMessage: dmtMessage
+      });
+      
       setDmtBookings([res.data.booking, ...dmtBookings]);
       setIsDmtModalOpen(false);
       setDmtFormData({ date: '', time: '', notes: '' });
+      setShowSuccessPopup(true);
     } catch (err) {
       alert("Booking failed: " + (err.response?.data?.message || "Server Error"));
     }
@@ -235,15 +285,14 @@ const StudentDashboard = () => {
             </button>
           </div>
 
-          {/* Payment History Section */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left', background: 'rgba(40, 167, 69, 0.05)' }}>
             <h3 style={{ color: '#2ecc71', marginBottom: '15px' }}>Payment History</h3>
             {payments.length === 0 ? (
-               <p style={{ color: '#d1d5db', fontSize: '0.9rem' }}>
+               <p style={{ color: '#d1d5db', fontSize: '0.9rem', marginBottom: '15px' }}>
                  No payment records found. Your fee receipts will appear here once recorded by the admin.
                </p>
             ) : (
-              <div className="dashboard-scroll-box">
+              <div className="dashboard-scroll-box" style={{ marginBottom: '15px' }}>
                 {payments.map(p => (
                   <div key={p._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '10px', marginBottom: '10px', borderLeft: '3px solid #2ecc71' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
@@ -256,6 +305,13 @@ const StudentDashboard = () => {
                 ))}
               </div>
             )}
+            <button 
+              className="modern-btn" 
+              style={{ width: '100%', padding: '10px', fontSize: '0.9rem', background: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)', boxShadow: '0 4px 15px rgba(46, 204, 113, 0.2)' }} 
+              onClick={() => setIsPaymentReportModalOpen(true)}
+            >
+              Report New Payment
+            </button>
           </div>
         </div>
 
@@ -378,6 +434,74 @@ const StudentDashboard = () => {
           </div>
         </div>
       )}
+
+      {/* Payment Report Modal */}
+      {isPaymentReportModalOpen && (
+        <div className="modern-modal-overlay">
+          <div className="modern-modal-content">
+            <button className="modern-close-btn" onClick={() => setIsPaymentReportModalOpen(false)}>&times;</button>
+            <h3 style={{ color: '#2ecc71', fontFamily: "'Playfair Display', serif", fontSize: '1.8rem', marginBottom: '20px' }}>Report Online Payment</h3>
+            <form onSubmit={handlePaymentReportSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <div>
+                <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Amount Paid (₹)</label>
+                <input 
+                  type="number" required className="modern-form-input" style={{ marginTop: '5px' }}
+                  placeholder="e.g., 2000"
+                  value={paymentReportFormData.amount} 
+                  onChange={(e) => setPaymentReportFormData({...paymentReportFormData, amount: e.target.value})} 
+                />
+              </div>
+              <div>
+                <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Category / Style</label>
+                <input 
+                  type="text" required className="modern-form-input" style={{ marginTop: '5px' }}
+                  placeholder="e.g., Monthly Fee - Kathak"
+                  value={paymentReportFormData.category} 
+                  onChange={(e) => setPaymentReportFormData({...paymentReportFormData, category: e.target.value})} 
+                />
+              </div>
+              <div>
+                <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Payment Date</label>
+                <input 
+                  type="date" required className="modern-form-input" style={{ marginTop: '5px' }}
+                  value={paymentReportFormData.date} 
+                  onChange={(e) => setPaymentReportFormData({...paymentReportFormData, date: e.target.value})} 
+                />
+              </div>
+              <div>
+                <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Payment Method</label>
+                <select 
+                  required className="modern-form-select" style={{ marginTop: '5px' }}
+                  value={paymentReportFormData.method} 
+                  onChange={(e) => setPaymentReportFormData({...paymentReportFormData, method: e.target.value})}
+                >
+                  <option value="Online / UPI">Online / UPI</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Cash">Cash</option>
+                </select>
+              </div>
+              <button 
+                type="submit" 
+                className="modern-btn" 
+                style={{ width: '100%', marginTop: '10px', background: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)' }}
+              >
+                Send to WhatsApp
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* WhatsApp Success Popup */}
+      <WhatsAppSuccessPopup 
+        isOpen={showSuccessPopup}
+        onClose={() => setShowSuccessPopup(false)}
+        title={successPopupConfig.title}
+        subtitle={successPopupConfig.subtitle}
+        details={successPopupConfig.details}
+        whatsappMessage={successPopupConfig.whatsappMessage}
+        buttonText="Send Confirmation to WhatsApp"
+      />
       </div>
     </div>
   );
