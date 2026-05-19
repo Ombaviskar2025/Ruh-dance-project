@@ -657,6 +657,7 @@ const AdminDashboard = () => {
           <SidebarItem Icon={LuCalendarCheck} label="Events" isActive={activeTab === 'Events'} onClick={() => { setActiveTab('Events'); setIsSidebarOpen(false); }} />
           <SidebarItem Icon={LuCreditCard} label="Finance" isActive={activeTab === 'Finance'} onClick={() => { setActiveTab('Finance'); setIsSidebarOpen(false); }} />
           <SidebarItem Icon={LuSettings} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => { setActiveTab('Background Photos & Video'); setIsSidebarOpen(false); }} />
+          <SidebarItem Icon={LuSettings} label="Theme" isActive={activeTab === 'Theme'} onClick={() => { setActiveTab('Theme'); setIsSidebarOpen(false); }} />
         </nav>
       </aside>
 
@@ -1062,9 +1063,13 @@ const AdminDashboard = () => {
                 </div>
               </section>
             </div>
+          </div>
+        )}
 
+        {activeTab === 'Theme' && (
+          <div className="admin-content-main fade-in">
             {/* Theme Settings Customizer */}
-            <section className="management-card-premium theme-config-card" style={{ marginTop: '30px', width: '100%', gridColumn: '1 / -1' }}>
+            <section className="management-card-premium theme-config-card" style={{ width: '100%' }}>
               <div className="section-header-flex">
                 <div className="title-stack">
                   <h3>Live Color Palette Customization</h3>
@@ -1165,8 +1170,7 @@ const AdminDashboard = () => {
               </div>
             </section>
           </div>
-        </div>
-      )}
+        )}
       </main>
 
       {/* --- GALLERY MODAL --- */}
