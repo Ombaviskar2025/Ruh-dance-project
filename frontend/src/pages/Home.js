@@ -5,6 +5,8 @@ import '../App.css';
 import MasterpieceGallery from '../components/MasterpieceGallery';
 import GurusSection from '../components/GurusSection';
 import TestimonialsSection from '../components/TestimonialsSection';
+import ComparisonSection from '../components/ComparisonSection';
+import FaqSection from '../components/FaqSection';
 import { resolveMediaUrl } from '../utils/media';
 
 const Home = () => {
@@ -231,6 +233,10 @@ const Home = () => {
         <TestimonialsSection />
       </div>
 
+      <div className="scroll-reveal">
+        <ComparisonSection />
+      </div>
+
       {/* Infinite Scrolling Marquee */}
       <div className="marquee-container scroll-reveal">
         <div className="marquee-content">
@@ -292,6 +298,10 @@ const Home = () => {
             Begin Your Journey →
           </button>
         </div>
+      </div>
+
+      <div className="scroll-reveal" style={{ marginTop: '40px', marginBottom: '80px' }}>
+        <FaqSection />
       </div>
 
       {/* Modern Glass Inquiry Modal */}
