@@ -1112,8 +1112,28 @@ input:-webkit-autofill:active {
 }
 
 .whatsapp-icon {
-  background: #25D366;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5), 0 0 0 0px rgba(37, 211, 102, 0.4);
+  animation: whatsappPulse 2.5s infinite ease-in-out;
+}
+
+.whatsapp-icon:hover {
+  transform: scale(1.15) translateY(-5px) !important;
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.7) !important;
+  background: linear-gradient(135deg, #2ae972 0%, #14a695 100%) !important;
+  animation: none !important;
+}
+
+@keyframes whatsappPulse {
+  0% {
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5), 0 0 0 0px rgba(37, 211, 102, 0.4);
+  }
+  70% {
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5), 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5), 0 0 0 0px rgba(37, 211, 102, 0);
+  }
 }
 
 /* Global Nav Dropdown */
