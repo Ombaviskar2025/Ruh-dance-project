@@ -20,6 +20,8 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
     age: '', 
     danceStyle: ''
   });
+  const [selectedDanceStyles, setSelectedDanceStyles] = useState([]);
+  const [otherDanceStyle, setOtherDanceStyle] = useState('');
 
   if (!isOpen) return null;
 
@@ -57,12 +59,31 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
+      let finalDanceStyle = regData.danceStyle;
+
+      if (role === 'student') {
+        let finalStyles = selectedDanceStyles.filter(s => s !== 'Other');
+        if (selectedDanceStyles.includes('Other') && otherDanceStyle.trim() !== '') {
+          finalStyles.push(otherDanceStyle.trim());
+        }
+
+        if (finalStyles.length === 0) {
+          alert("Please select at least one preferred dance style.");
+          return;
+        }
+
+        finalDanceStyle = finalStyles.join(', ');
+      }
+
       const API_BASE = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://ruh-dance-project.onrender.com';
       await axios.post(`${API_BASE}/api/auth/register`, {
         ...regData,
+        danceStyle: finalDanceStyle,
         role: role 
       });
       alert("Registration Successful! Please login.");
+      setSelectedDanceStyles([]);
+      setOtherDanceStyle('');
       setIsLogin(true);
     } catch (err) {
       alert("Registration Failed: " + (err.response?.data?.message || "Server Error"));
@@ -185,12 +206,52 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 onChange={(e) => setRegData({...regData, age: e.target.value})} 
               />
             </div>
-            <input 
-              type="text" 
-              placeholder={role === 'instructor' ? "Expertise / Dance Specialties Taught" : "Preferred Dance Style (e.g., Bollywood)"} 
-              required 
-              onChange={(e) => setRegData({...regData, danceStyle: e.target.value})} 
-            />
+            {role === 'instructor' ? (
+              <input 
+                type="text" 
+                placeholder="Expertise / Dance Specialties Taught" 
+                required 
+                value={regData.danceStyle}
+                onChange={(e) => setRegData({...regData, danceStyle: e.target.value})} 
+              />
+            ) : (
+              <div className="dance-style-selection-wrapper" style={{ marginTop: '10px' }}>
+                <label className="form-label-modern">Select Preferred Dance Style(s) <span style={{ color: '#ff477e' }}>*</span></label>
+                <div className="dance-style-grid">
+                  {['Semi-Classical', 'Ballet', 'Bollywood', 'Hip-Hop', 'Contemporary', 'Other'].map((style) => {
+                    const isActive = selectedDanceStyles.includes(style);
+                    return (
+                      <button
+                        key={style}
+                        type="button"
+                        className={`dance-style-pill ${isActive ? 'active' : ''}`}
+                        onClick={() => {
+                          if (selectedDanceStyles.includes(style)) {
+                            setSelectedDanceStyles(selectedDanceStyles.filter(s => s !== style));
+                          } else {
+                            setSelectedDanceStyles([...selectedDanceStyles, style]);
+                          }
+                        }}
+                      >
+                        {style}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className={`other-specify-container ${selectedDanceStyles.includes('Other') ? 'show' : ''}`}>
+                  <input
+                    type="text"
+                    placeholder="Please specify your dance style..."
+                    value={otherDanceStyle}
+                    onChange={(e) => setOtherDanceStyle(e.target.value)}
+                    className="modern-form-input"
+                    required={selectedDanceStyles.includes('Other')}
+                    style={{ margin: 0 }}
+                  />
+                </div>
+              </div>
+            )}
             <button type="submit" className="submit-btn">CREATE ACCOUNT</button>
             <p className="toggle-text">
               Already have an account? <span onClick={() => setIsLogin(true)} style={{cursor: 'pointer', color: '#E491C9', fontWeight: 'bold'}}>Login here</span>

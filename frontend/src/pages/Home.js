@@ -14,6 +14,8 @@ const Home = () => {
   const [formData, setFormData] = useState({
     fullName: '', phone: '', gender: '', age: '', danceStyle: '', email:'', interest:'', message:''
   });
+  const [selectedDanceStyles, setSelectedDanceStyles] = useState([]);
+  const [otherDanceStyle, setOtherDanceStyle] = useState('');
   
   // Default fallback video URL
   const defaultVideoUrl = 'https://cdn.pixabay.com/video/2021/08/11/84687-587889617_tiny.mp4';
@@ -142,14 +144,32 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Compile dance styles
+    let finalDanceStyles = selectedDanceStyles.filter(s => s !== 'Other');
+    if (selectedDanceStyles.includes('Other') && otherDanceStyle.trim() !== '') {
+      finalDanceStyles.push(otherDanceStyle.trim());
+    }
+
+    if (finalDanceStyles.length === 0) {
+      alert('Please select at least one dance style.');
+      return;
+    }
+
+    const danceStyleString = finalDanceStyles.join(', ');
+    
+    // Save data reference before clearing state
+    const dataToSubmit = { 
+      ...formData,
+      danceStyle: danceStyleString
+    };
+    
     // Optimistic UI: Immediately show success and close modal for 0ms wait time
     alert('Your soul has spoken, inquiry sent successfully !!');
     
-    // Save data reference before clearing state
-    const dataToSubmit = { ...formData };
-    
     // Clear form and close modal instantly
     setFormData({ fullName: '', phone: '', gender: '', age: '', danceStyle: '' , email: '', interest: '', message: '' });
+    setSelectedDanceStyles([]);
+    setOtherDanceStyle('');
     setShowModal(false);
 
     // Process network request in the background
@@ -344,18 +364,41 @@ const Home = () => {
               />
             </div>
 
-            <select 
-              required value={formData.danceStyle} 
-              onChange={(e) => setFormData({...formData, danceStyle: e.target.value})}
-              className="modern-form-select"
-            >
-              <option value="">Select Dance Style</option>
-              <option value="semi-classical">Semi-Classical</option>
-              <option value="ballet">Ballet</option>
-              <option value="bollywood">Bollywood</option>
-              <option value="hip-hop">Hip-Hop</option>
-              <option value="contemporary">Contemporary</option>
-            </select>
+            <div className="dance-style-selection-wrapper">
+              <label className="form-label-modern">Select Dance Style(s) <span style={{ color: '#ff477e' }}>*</span></label>
+              <div className="dance-style-grid">
+                {['Semi-Classical', 'Ballet', 'Bollywood', 'Hip-Hop', 'Contemporary', 'Other'].map((style) => {
+                  const isActive = selectedDanceStyles.includes(style);
+                  return (
+                    <button
+                      key={style}
+                      type="button"
+                      className={`dance-style-pill ${isActive ? 'active' : ''}`}
+                      onClick={() => {
+                        if (selectedDanceStyles.includes(style)) {
+                          setSelectedDanceStyles(selectedDanceStyles.filter(s => s !== style));
+                        } else {
+                          setSelectedDanceStyles([...selectedDanceStyles, style]);
+                        }
+                      }}
+                    >
+                      {style}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className={`other-specify-container ${selectedDanceStyles.includes('Other') ? 'show' : ''}`}>
+                <input
+                  type="text"
+                  placeholder="Please specify your dance style..."
+                  value={otherDanceStyle}
+                  onChange={(e) => setOtherDanceStyle(e.target.value)}
+                  className="modern-form-input"
+                  required={selectedDanceStyles.includes('Other')}
+                />
+              </div>
+            </div>
 
             <input 
               type="email" placeholder="Email" required 

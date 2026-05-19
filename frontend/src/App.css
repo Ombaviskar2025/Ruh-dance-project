@@ -1822,3 +1822,87 @@ input[type="file"].modern-form-input,
   /* Removed max-height and overflow per user request to avoid nested scrollbars */
   padding-right: 5px;
 }
+
+/* Premium Multi-Select Dance Styles UI */
+.dance-style-selection-wrapper {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.dance-style-selection-wrapper .form-label-modern {
+  display: block;
+  font-size: 0.9rem;
+  color: #E491C9;
+  margin-bottom: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.dance-style-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.dance-style-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #F1E9E9;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dance-style-pill:hover {
+  background: rgba(228, 145, 201, 0.1);
+  border-color: rgba(228, 145, 201, 0.5);
+  transform: translateY(-1px);
+}
+
+.dance-style-pill.active {
+  background: linear-gradient(135deg, #ff477e 0%, #982598 100%);
+  border-color: #E491C9;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(255, 71, 126, 0.4);
+  transform: scale(1.02);
+}
+
+.other-specify-container {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease-out, opacity 0.3s ease-out;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.other-specify-container.show {
+  max-height: 80px;
+  opacity: 1;
+}
+
+.other-specify-container .modern-form-input {
+  margin-bottom: 0;
+  animation: slideDownIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideDownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
