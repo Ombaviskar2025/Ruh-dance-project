@@ -25,6 +25,19 @@ exports.updateSettings = async (req, res) => {
       settings.homeVideoUrl = req.body.homeVideoUrl; // Allow direct URL bypass if we want
     }
 
+    if (req.body.theme) {
+      let themeObj = req.body.theme;
+      if (typeof themeObj === 'string') {
+        try {
+          themeObj = JSON.parse(themeObj);
+        } catch (e) {
+          console.error("Theme JSON parsing failed", e);
+        }
+      }
+      // Ensure we keep existing fields and only merge the new ones
+      settings.theme = { ...settings.theme, ...themeObj };
+    }
+
     await settings.save();
     res.status(200).json({ success: true, data: settings });
   } catch (err) {

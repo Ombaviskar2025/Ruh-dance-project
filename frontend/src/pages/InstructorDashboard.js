@@ -79,8 +79,8 @@ const InstructorDashboard = () => {
 
       <div className="fade-in modern-page-content" style={{ position: 'relative', zIndex: 1 }}>
       <header className="dashboard-header">
-        <h1 className="hero-title-modern" style={{ color: '#E491C9' }}>
-          Instructor Portal: <span style={{ color: '#F1E9E9' }}>{user.fullName || user.username}</span>
+        <h1 className="hero-title-modern" style={{ color: 'var(--brand-pink)' }}>
+          Instructor Portal: <span style={{ color: 'var(--light-gray)' }}>{user.fullName || user.username}</span>
         </h1>
         <p className="hero-desc-modern">
           Manage your schedule, stay updated, and inspire the Ruh Dance community.
@@ -95,9 +95,9 @@ const InstructorDashboard = () => {
           {/* Profile Card */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left' }}>
             <div className="profile-card-header">
-              <h3 style={{ color: '#E491C9', margin: 0 }}>My Profile</h3>
+              <h3 style={{ color: 'var(--brand-pink)', margin: 0 }}>My Profile</h3>
               {!isEditingProfile && (
-                <button onClick={() => { setEditFormData(user); setIsEditingProfile(true); }} style={{ background: 'transparent', color: '#E491C9', border: '1px solid #E491C9', borderRadius: '5px', padding: '5px 15px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                <button onClick={() => { setEditFormData(user); setIsEditingProfile(true); }} style={{ background: 'transparent', color: 'var(--brand-pink)', border: '1px solid var(--brand-pink)', borderRadius: '5px', padding: '5px 15px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
                   Edit Profile
                 </button>
               )}
@@ -144,7 +144,7 @@ const InstructorDashboard = () => {
                 <li><strong>Age:</strong> {user.age}</li>
                 <li>
                   <strong>Specialty:</strong> 
-                  <span style={{ marginLeft: '10px', background: 'rgba(228,145,201,0.2)', color: '#E491C9', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 'bold' }}>
+                  <span style={{ marginLeft: '10px', background: 'rgba(228,145,201,0.2)', color: 'var(--brand-pink)', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 'bold' }}>
                     {user.danceStyle || 'Instructor'}
                   </span>
                 </li>
@@ -158,7 +158,7 @@ const InstructorDashboard = () => {
           
           {/* Classes Render Panel */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left' }}>
-            <h3 style={{ color: '#E491C9', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
+            <h3 style={{ color: 'var(--brand-pink)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
               My Assigned Classes
             </h3>
             {myClasses.length === 0 ? (
@@ -166,9 +166,9 @@ const InstructorDashboard = () => {
             ) : (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px' }}>
                 {myClasses.map(c => (
-                  <div key={c._id} style={{ background: 'rgba(0,0,0,0.3)', padding: '20px', borderRadius: '10px', borderTop: '4px solid #E491C9' }}>
+                  <div key={c._id} style={{ background: 'rgba(0,0,0,0.3)', padding: '20px', borderRadius: '10px', borderTop: '4px solid var(--brand-pink)' }}>
                     <h4 style={{ margin: '0 0 10px 0', color: '#F1E9E9', fontSize: '1.2rem' }}>{c.className}</h4>
-                    <p style={{ margin: '5px 0', color: '#E491C9', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                    <p style={{ margin: '5px 0', color: 'var(--brand-pink)', fontSize: '0.9rem', fontWeight: 'bold' }}>
                       🕒 {c.scheduleTime}
                     </p>
                     <div style={{ marginTop: '15px', display: 'flex', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>
@@ -183,7 +183,7 @@ const InstructorDashboard = () => {
 
           {/* Studio Announcements (Real Events) */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left', background: 'rgba(228,145,201,0.05)' }}>
-            <h3 style={{ color: '#E491C9', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
+            <h3 style={{ color: 'var(--brand-pink)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
               Studio Announcements
             </h3>
             {events.length === 0 ? (
@@ -193,7 +193,7 @@ const InstructorDashboard = () => {
                 {events.map((evt) => (
                   <div key={evt._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', borderLeft: '4px solid #982598' }}>
                     <h4 style={{ margin: '0 0 5px 0', color: '#F1E9E9' }}>{evt.title}</h4>
-                    <span style={{ fontSize: '0.8rem', color: '#E491C9', fontWeight: 'bold' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--brand-pink)', fontWeight: 'bold' }}>
                       {new Date(evt.date).toLocaleDateString()} | {evt.category}
                     </span>
                     <p style={{ margin: '10px 0 0 0', color: '#d1d5db', fontSize: '0.9rem', lineHeight: '1.5' }}>

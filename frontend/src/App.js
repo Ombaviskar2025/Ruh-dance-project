@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import axios from 'axios';
 import LoginModal from './components/LoginModal';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
@@ -28,6 +29,25 @@ function App() {
   const [user, setUser] = useState(null); // Store user data
   const [showDropdown, setShowDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchAndApplyTheme = async () => {
+      try {
+        const res = await axios.get('https://ruh-dance-project.onrender.com/api/settings');
+        if (res.data.success && res.data.data.theme) {
+          const theme = res.data.data.theme;
+          Object.entries(theme).forEach(([key, val]) => {
+            const cssVarName = `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
+            document.documentElement.style.setProperty(cssVarName, val);
+          });
+        }
+      } catch (err) {
+        console.error("Failed to load website theme settings", err);
+      }
+    };
+    fetchAndApplyTheme();
+  }, []);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user'); // Get user info stored during login

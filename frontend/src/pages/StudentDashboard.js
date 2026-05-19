@@ -205,9 +205,9 @@ const StudentDashboard = () => {
           {/* Profile Card */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left' }}>
             <div className="profile-card-header">
-              <h3 style={{ color: '#E491C9', margin: 0 }}>My Profile</h3>
+              <h3 style={{ color: 'var(--brand-pink)', margin: 0 }}>My Profile</h3>
               {!isEditingProfile && (
-                <button onClick={() => { setEditFormData(user); setIsEditingProfile(true); }} style={{ background: 'transparent', color: '#E491C9', border: '1px solid #E491C9', borderRadius: '5px', padding: '5px 15px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                <button onClick={() => { setEditFormData(user); setIsEditingProfile(true); }} style={{ background: 'transparent', color: 'var(--brand-pink)', border: '1px solid var(--brand-pink)', borderRadius: '5px', padding: '5px 15px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
                   Edit Profile
                 </button>
               )}
@@ -254,7 +254,7 @@ const StudentDashboard = () => {
                 <li><strong>Age:</strong> {user.age}</li>
                 <li>
                   <strong>Discipline:</strong> 
-                  <span style={{ marginLeft: '10px', background: 'rgba(228,145,201,0.2)', color: '#E491C9', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 'bold' }}>
+                  <span style={{ marginLeft: '10px', background: 'rgba(228,145,201,0.2)', color: 'var(--brand-pink)', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 'bold' }}>
                     {user.danceStyle || 'Student'}
                   </span>
                 </li>
@@ -264,7 +264,7 @@ const StudentDashboard = () => {
 
           {/* DMT Bookings Section */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left', background: 'rgba(228,145,201,0.05)' }}>
-            <h3 style={{ color: '#E491C9', marginBottom: '15px' }}>DMT Bookings</h3>
+            <h3 style={{ color: 'var(--brand-pink)', marginBottom: '15px' }}>DMT Bookings</h3>
             {dmtBookings.length === 0 ? (
                <p style={{ color: '#d1d5db', fontSize: '0.9rem', marginBottom: '15px' }}>
                  No upcoming therapy sessions booked. Schedule one to explore mindfulness through movement.
@@ -272,7 +272,7 @@ const StudentDashboard = () => {
             ) : (
               <div className="dashboard-scroll-box" style={{ marginBottom: '15px', maxHeight: '200px' }}>
                 {dmtBookings.map(b => (
-                  <div key={b._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '8px', marginBottom: '10px', borderLeft: `3px solid ${b.status === 'Confirmed' ? '#25D366' : '#E491C9'}` }}>
+                  <div key={b._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '8px', marginBottom: '10px', borderLeft: `3px solid ${b.status === 'Confirmed' ? '#25D366' : 'var(--brand-pink)'}` }}>
                     <p style={{ margin: '0 0 5px 0', fontSize: '0.9rem', color: '#F1E9E9' }}><strong>{new Date(b.date).toLocaleDateString()}</strong> at {b.time}</p>
                     <p style={{ margin: 0, fontSize: '0.8rem', color: '#d1d5db' }}>Status: <span style={{ color: b.status === 'Confirmed' ? '#25D366' : '#d1d5db' }}>{b.status}</span></p>
                   </div>
@@ -318,19 +318,18 @@ const StudentDashboard = () => {
         {/* RIGHT COLUMN: Studio Feeds */}
         <div className="dashboard-right-col">
           
-          {/* Studio Announcements (Real Events) */}
-          <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left' }}>
-            <h3 style={{ color: '#E491C9', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
+          {/* Stu          <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left' }}>
+            <h3 style={{ color: 'var(--brand-pink)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
               Studio Announcements
             </h3>
             {events.length === 0 ? (
-              <p style={{ color: '#d1d5db' }}>No new announcements at this time.</p>
+               <p style={{ color: '#d1d5db' }}>No new announcements at this time.</p>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {events.map((evt) => (
                   <div key={evt._id} style={{ background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', borderLeft: '4px solid #982598' }}>
                     <h4 style={{ margin: '0 0 5px 0', color: '#F1E9E9' }}>{evt.title}</h4>
-                    <span style={{ fontSize: '0.8rem', color: '#E491C9', fontWeight: 'bold' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--brand-pink)', fontWeight: 'bold' }}>
                       {new Date(evt.date).toLocaleDateString()} | {evt.category}
                     </span>
                     <p style={{ margin: '10px 0 0 0', color: '#d1d5db', fontSize: '0.9rem', lineHeight: '1.5' }}>
@@ -340,15 +339,17 @@ const StudentDashboard = () => {
                 ))}
               </div>
             )}
+              </div>
+            )}
           </div>
 
           {/* Schedule Placeholder */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left' }}>
-            <h3 style={{ color: '#E491C9', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
+            <h3 style={{ color: 'var(--brand-pink)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
               My Upcoming Classes
             </h3>
             <div style={{ textAlign: 'center', padding: '30px 0' }}>
-              <svg viewBox="0 0 24 24" width="50" height="50" fill="rgba(228,145,201,0.3)" style={{ marginBottom: '15px' }}>
+              <svg viewBox="0 0 24 24" width="50" height="50" fill="var(--brand-pink)" opacity="0.3" style={{ marginBottom: '15px' }}>
                 <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/>
               </svg>
               <p style={{ color: '#d1d5db' }}>Your class schedule integration is currently under construction.</p>
@@ -358,7 +359,7 @@ const StudentDashboard = () => {
 
           {/* Testimonial / Review Form */}
           <div className="glass-hero-panel" style={{ padding: '30px', textAlign: 'left', background: 'rgba(216, 191, 216, 0.05)' }}>
-            <h3 style={{ color: '#D8BFD8', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
+            <h3 style={{ color: 'var(--light-purple)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px', marginBottom: '20px' }}>
               Write a Review
             </h3>
             {testimonialSubmitted ? (
@@ -406,7 +407,7 @@ const StudentDashboard = () => {
         <div className="modern-modal-overlay">
           <div className="modern-modal-content">
             <button className="modern-close-btn" onClick={() => setIsDmtModalOpen(false)}>&times;</button>
-            <h3 style={{ color: '#E491C9', fontFamily: "'Playfair Display', serif", fontSize: '1.8rem', marginBottom: '20px' }}>Book DMT Session</h3>
+            <h3 style={{ color: 'var(--brand-pink)', fontFamily: "'Playfair Display', serif", fontSize: '1.8rem', marginBottom: '20px' }}>Book DMT Session</h3>
             <form onSubmit={handleDmtSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div>
                 <label style={{ color: '#d1d5db', fontSize: '0.85rem' }}>Preferred Date</label>

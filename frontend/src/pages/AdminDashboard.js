@@ -16,6 +16,57 @@ import FinanceAdmin from '../components/FinanceAdmin';
 import { resolveMediaUrl } from '../utils/media';
 import ReportAdmin from '../components/ReportAdmin';
 
+const THEME_PRESETS = [
+  {
+    name: 'Midnight Glow (Default)',
+    theme: {
+      wine: '#722F37',
+      brandPurple: '#982598',
+      brandPink: '#E491C9',
+      darkNavy: '#15173D',
+      deepPurple: '#4B0082',
+      lightPurple: '#D8BFD8',
+      lightGray: '#F1E9E9'
+    }
+  },
+  {
+    name: 'Royal Velvet',
+    theme: {
+      wine: '#5C0612',
+      brandPurple: '#7A1C50',
+      brandPink: '#C97A9E',
+      darkNavy: '#0F0914',
+      deepPurple: '#3B0F2A',
+      lightPurple: '#EBCBE3',
+      lightGray: '#F5ECEE'
+    }
+  },
+  {
+    name: 'Emerald Oasis',
+    theme: {
+      wine: '#0F5132',
+      brandPurple: '#146C43',
+      brandPink: '#B7E4C7',
+      darkNavy: '#081C15',
+      deepPurple: '#1B4332',
+      lightPurple: '#D8F3DC',
+      lightGray: '#F4FAF6'
+    }
+  },
+  {
+    name: 'Classic Crimson',
+    theme: {
+      wine: '#A30000',
+      brandPurple: '#B8860B',
+      brandPink: '#E9C46A',
+      darkNavy: '#1F1111',
+      deepPurple: '#4D1212',
+      lightPurple: '#F4A261',
+      lightGray: '#FAECEB'
+    }
+  }
+];
+
 const AdminDashboard = () => {
   
   const navigate = useNavigate();
@@ -62,6 +113,15 @@ const AdminDashboard = () => {
   const [videoUrlInput, setVideoUrlInput] = useState('');
   const [newVideoFile, setNewVideoFile] = useState(null);
   const [isUpdatingSettings, setIsUpdatingSettings] = useState(false);
+  const [themeState, setThemeState] = useState({
+    wine: '#722F37',
+    brandPurple: '#982598',
+    brandPink: '#E491C9',
+    darkNavy: '#15173D',
+    deepPurple: '#4B0082',
+    lightPurple: '#D8BFD8',
+    lightGray: '#F1E9E9'
+  });
 
     // Gallery State
   const [galleryItems, setGalleryItems] = useState([]);
@@ -119,6 +179,9 @@ const AdminDashboard = () => {
       if (settingsRes.data.success) {
         setSettings(settingsRes.data.data);
         setVideoUrlInput(settingsRes.data.data.homeVideoUrl);
+        if (settingsRes.data.data.theme) {
+          setThemeState(prev => ({ ...prev, ...settingsRes.data.data.theme }));
+        }
       }
     } catch (err) {}
 
@@ -436,6 +499,51 @@ const AdminDashboard = () => {
       alert("Failed to update settings");
     } finally {
       setIsUpdatingSettings(false);
+    }
+  };
+
+  // --- THEME CUSTOMIZER COMMANDS ---
+  const handleColorChange = (key, value) => {
+    setThemeState(prev => ({ ...prev, [key]: value }));
+    const cssVarName = `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
+    document.documentElement.style.setProperty(cssVarName, value);
+  };
+
+  const handleApplyPreset = (presetTheme) => {
+    setThemeState(presetTheme);
+    Object.entries(presetTheme).forEach(([key, val]) => {
+      const cssVarName = `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
+      document.documentElement.style.setProperty(cssVarName, val);
+    });
+  };
+
+  const handleSaveTheme = async (e) => {
+    e.preventDefault();
+    setIsUpdatingSettings(true);
+    try {
+      const res = await axios.post('https://ruh-dance-project.onrender.com/api/settings', { theme: themeState }, {
+        headers: config.headers
+      });
+      if (res.data.success) {
+        alert("Color theme saved successfully!");
+        setSettings(res.data.data);
+        fetchData();
+      }
+    } catch (err) {
+      alert("Failed to save color theme");
+    } finally {
+      setIsUpdatingSettings(false);
+    }
+  };
+
+  const handleRevertTheme = () => {
+    if (window.confirm("Revert colors to last saved settings?")) {
+      const defaultOrSaved = settings.theme || THEME_PRESETS[0].theme;
+      setThemeState(defaultOrSaved);
+      Object.entries(defaultOrSaved).forEach(([key, val]) => {
+        const cssVarName = `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
+        document.documentElement.style.setProperty(cssVarName, val);
+      });
     }
   };
 
@@ -954,8 +1062,111 @@ const AdminDashboard = () => {
                 </div>
               </section>
             </div>
+
+            {/* Theme Settings Customizer */}
+            <section className="management-card-premium theme-config-card" style={{ marginTop: '30px', width: '100%', gridColumn: '1 / -1' }}>
+              <div className="section-header-flex">
+                <div className="title-stack">
+                  <h3>Live Color Palette Customization</h3>
+                  <span className="subtitle" style={{ color: 'var(--brand-pink)' }}>Re-theme the entire website and dashboards in real-time</span>
+                </div>
+              </div>
+              <div className="card-body-content" style={{ marginTop: '20px' }}>
+                {/* Preset Themes List */}
+                <div className="presets-container" style={{ marginBottom: '30px' }}>
+                  <h5 style={{ color: 'white', fontSize: '1rem', marginBottom: '15px' }}>One-Click Premium Style Presets:</h5>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                    {THEME_PRESETS.map((preset) => (
+                      <button
+                        key={preset.name}
+                        type="button"
+                        className="modern-btn"
+                        style={{
+                          padding: '8px 16px',
+                          fontSize: '0.85rem',
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          borderRadius: '20px',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease',
+                          color: 'white'
+                        }}
+                        onClick={() => handleApplyPreset(preset.theme)}
+                        onMouseOver={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.15)'}
+                        onMouseOut={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.05)'}
+                      >
+                        {preset.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <form onSubmit={handleSaveTheme}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '30px' }}>
+                    <div className="settings-group" style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <h6 style={{ color: 'var(--brand-pink)', marginBottom: '15px', fontWeight: 'bold' }}>Core Brand Accents</h6>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <label style={{ fontSize: '0.9rem', color: '#ccc' }}>Primary Accent (Wine):</label>
+                          <input type="color" value={themeState.wine} onChange={(e) => handleColorChange('wine', e.target.value)} style={{ border: 'none', background: 'transparent', width: '50px', height: '35px', cursor: 'pointer' }} />
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <label style={{ fontSize: '0.9rem', color: '#ccc' }}>Brand Accent (Pink):</label>
+                          <input type="color" value={themeState.brandPink} onChange={(e) => handleColorChange('brandPink', e.target.value)} style={{ border: 'none', background: 'transparent', width: '50px', height: '35px', cursor: 'pointer' }} />
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <label style={{ fontSize: '0.9rem', color: '#ccc' }}>Glow Overlay (Purple):</label>
+                          <input type="color" value={themeState.brandPurple} onChange={(e) => handleColorChange('brandPurple', e.target.value)} style={{ border: 'none', background: 'transparent', width: '50px', height: '35px', cursor: 'pointer' }} />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="settings-group" style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <h6 style={{ color: 'var(--brand-pink)', marginBottom: '15px', fontWeight: 'bold' }}>Website Base & Cards</h6>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <label style={{ fontSize: '0.9rem', color: '#ccc' }}>Base Background (Navy):</label>
+                          <input type="color" value={themeState.darkNavy} onChange={(e) => handleColorChange('darkNavy', e.target.value)} style={{ border: 'none', background: 'transparent', width: '50px', height: '35px', cursor: 'pointer' }} />
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <label style={{ fontSize: '0.9rem', color: '#ccc' }}>Deep Accent (Purple):</label>
+                          <input type="color" value={themeState.deepPurple} onChange={(e) => handleColorChange('deepPurple', e.target.value)} style={{ border: 'none', background: 'transparent', width: '50px', height: '35px', cursor: 'pointer' }} />
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <label style={{ fontSize: '0.9rem', color: '#ccc' }}>Secondary Overlay (Light Purple):</label>
+                          <input type="color" value={themeState.lightPurple} onChange={(e) => handleColorChange('lightPurple', e.target.value)} style={{ border: 'none', background: 'transparent', width: '50px', height: '35px', cursor: 'pointer' }} />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="settings-group" style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <h6 style={{ color: 'var(--brand-pink)', marginBottom: '15px', fontWeight: 'bold' }}>Typography Colors</h6>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <label style={{ fontSize: '0.9rem', color: '#ccc' }}>Text Primary (Light Gray):</label>
+                          <input type="color" value={themeState.lightGray} onChange={(e) => handleColorChange('lightGray', e.target.value)} style={{ border: 'none', background: 'transparent', width: '50px', height: '35px', cursor: 'pointer' }} />
+                        </div>
+                        <p style={{ fontSize: '0.8rem', color: '#888', marginTop: '10px', lineHeight: '1.4' }}>
+                          💡 <strong>Real-time Preview:</strong> Changing these colors instantly updates your current screen styling so you can view how it feels before saving.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '15px' }}>
+                    <button type="submit" className="save-btn-premium" style={{ flex: 1 }} disabled={isUpdatingSettings}>
+                      {isUpdatingSettings ? 'Saving theme...' : 'Save Website Theme'}
+                    </button>
+                    <button type="button" className="save-btn-premium" style={{ flex: 1, background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'white' }} onClick={handleRevertTheme}>
+                      Revert Theme
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </section>
           </div>
-        )}
+        </div>
+      )}
       </main>
 
       {/* --- GALLERY MODAL --- */}
