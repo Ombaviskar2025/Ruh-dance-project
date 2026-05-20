@@ -35,8 +35,9 @@ const GurusSection = () => {
             <div 
               key={guru._id} 
               className="guru-card"
+              onClick={() => setSelectedGuru(guru)}
             >
-              <div className="guru-image-wrapper" onClick={() => setSelectedGuru(guru)}>
+              <div className="guru-image-wrapper">
                 <img 
                   src={resolveMediaUrl(guru.image) || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop'} 
                   alt={guru.name} 
@@ -49,7 +50,7 @@ const GurusSection = () => {
                   </a>
                 )}
               </div>
-              <h3 className="guru-name" onClick={() => setSelectedGuru(guru)}>{guru.name}</h3>
+              <h3 className="guru-name">{guru.name}</h3>
               <p className="guru-style">{guru.style}</p>
             </div>
           ))
