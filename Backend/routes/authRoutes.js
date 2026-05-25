@@ -176,7 +176,7 @@ router.put('/update-password', async (req, res) => {
     }
 });
 
-router.put('/update-profile/:id', async (req, res) => {
+router.put('/update-profile/:id', upload.single('profilePhoto'), async (req, res) => {
     try {
         const updateData = { ...req.body };
         // Delete structural fields to prevent overriding core access logic
@@ -184,6 +184,12 @@ router.put('/update-profile/:id', async (req, res) => {
         delete updateData.role;
         delete updateData.email; 
         delete updateData.isApproved;
+        
+        if (req.file) {
+            updateData.profilePhoto = req.file.path;
+        } else if (req.body.profilePhotoUrl) {
+            updateData.profilePhoto = req.body.profilePhotoUrl;
+        }
         
         const updatedUser = await User.findByIdAndUpdate(
             req.params.id, 

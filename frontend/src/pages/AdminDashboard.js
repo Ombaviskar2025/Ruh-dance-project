@@ -109,6 +109,14 @@ const AdminDashboard = () => {
   const [newInstructorPhoto, setNewInstructorPhoto] = useState(null);
   const [instructorPhotoPreview, setInstructorPhotoPreview] = useState(null);
 
+  // Instructor Edit State
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingInstructor, setEditingInstructor] = useState(null);
+  const [editInstructorData, setEditInstructorData] = useState({
+    fullName: '', age: '', danceStyle: '', gender: '', phone: '', bio: '', profilePhoto: ''
+  });
+  const [editInstructorPhoto, setEditInstructorPhoto] = useState(null);
+
   // Settings State
   const [settings, setSettings] = useState({ homeVideoUrl: '' });
   const [videoUrlInput, setVideoUrlInput] = useState('');
@@ -146,7 +154,49 @@ const AdminDashboard = () => {
   }), [token]);
 
   const handleEditClick = (instructor) => {
-    console.log("Edit requested for:", instructor);
+    setEditingInstructor(instructor);
+    setEditInstructorData({
+      fullName: instructor.fullName || instructor.name || '',
+      age: instructor.age || '',
+      danceStyle: instructor.danceStyle || instructor.expertise || '',
+      gender: instructor.gender || '',
+      phone: instructor.phone || '',
+      bio: instructor.bio || '',
+      profilePhoto: instructor.profilePhoto || ''
+    });
+    setEditInstructorPhoto(null);
+    setShowEditModal(true);
+  };
+
+  const handleSaveInstructorEdit = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append('fullName', editInstructorData.fullName);
+      formData.append('age', editInstructorData.age);
+      formData.append('danceStyle', editInstructorData.danceStyle);
+      formData.append('gender', editInstructorData.gender);
+      formData.append('phone', editInstructorData.phone);
+      formData.append('bio', editInstructorData.bio || '');
+      
+      if (editInstructorPhoto) {
+        formData.append('profilePhoto', editInstructorPhoto);
+      } else if (editInstructorData.profilePhoto) {
+        formData.append('profilePhotoUrl', editInstructorData.profilePhoto);
+      }
+      
+      await axios.put(`https://ruh-dance-project.onrender.com/api/auth/update-profile/${editingInstructor._id}`, formData, {
+        headers: { ...config.headers, 'Content-Type': 'multipart/form-data' }
+      });
+      
+      alert("Instructor updated successfully!");
+      setShowEditModal(false);
+      setEditingInstructor(null);
+      setEditInstructorPhoto(null);
+      fetchData();
+    } catch (err) {
+      alert(err.response?.data?.message || "Server Error");
+    }
   };
 
   const fetchData = useCallback(async () => {
@@ -1476,6 +1526,50 @@ const AdminDashboard = () => {
               <div className="modal-buttons-grid" style={{ gridColumn: '1 / -1' }}>
                 <button type="submit" className="btn-modal save">Save Instructor</button>
                 <button type="button" className="btn-modal cancel" onClick={() => setShowAddModal(false)}>Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* --- EDIT INSTRUCTOR MODAL --- */}
+      {showEditModal && (
+        <div className="modal-overlay">
+          <div className="modal-content add-instructor-modal" style={{ maxWidth: '480px', padding: '30px' }}>
+            <div className="modal-header" style={{ marginBottom: '15px' }}>
+              <h2 className="modal-title" style={{ fontSize: '1.5rem', marginBottom: '0' }}>Edit Instructor</h2>
+              <LuX className="close-icon" onClick={() => { setShowEditModal(false); setEditingInstructor(null); }} />
+            </div>
+            <form onSubmit={handleSaveInstructorEdit} className="modal-form-grid">
+              <input className="modal-form-input" placeholder="Full Name" required value={editInstructorData.fullName} onChange={e => setEditInstructorData({...editInstructorData, fullName: e.target.value})} />
+              
+              <div className="form-row-split">
+                <input className="modal-form-input" type="number" placeholder="Age" required value={editInstructorData.age} onChange={e => setEditInstructorData({...editInstructorData, age: e.target.value})} />
+                <select className="modal-form-input modal-select" value={editInstructorData.gender} onChange={e => setEditInstructorData({...editInstructorData, gender: e.target.value})} required>
+                  <option value="" disabled>Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              
+              <input className="modal-form-input" placeholder="Expertise (e.g. Kathak, Bharatanatyam)" required value={editInstructorData.danceStyle} onChange={e => setEditInstructorData({...editInstructorData, danceStyle: e.target.value})} />
+              <input className="modal-form-input" type="tel" placeholder="Phone Number" required value={editInstructorData.phone} onChange={e => setEditInstructorData({...editInstructorData, phone: e.target.value})} />
+              <textarea className="modal-form-input" placeholder="Bio" style={{ gridColumn: '1 / -1', minHeight: '80px', resize: 'vertical' }} value={editInstructorData.bio} onChange={e => setEditInstructorData({...editInstructorData, bio: e.target.value})}></textarea>
+              
+              <div style={{ gridColumn: '1 / -1', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '8px', marginBottom: '10px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', color: '#E491C9', fontSize: '0.9rem', fontWeight: 'bold' }}>Profile Photo</label>
+                <input type="file" style={{ color: 'white', marginBottom: '10px' }} onChange={e => setEditInstructorPhoto(e.target.files[0])} />
+                <input 
+                  className="modal-form-input" 
+                  placeholder="Or Paste Photo URL (https://...)" 
+                  value={editInstructorData.profilePhoto} 
+                  onChange={e => setEditInstructorData({...editInstructorData, profilePhoto: e.target.value})} 
+                />
+              </div>
+              <div className="modal-buttons-grid" style={{ gridColumn: '1 / -1' }}>
+                <button type="submit" className="btn-modal save">Update Instructor</button>
+                <button type="button" className="btn-modal cancel" onClick={() => { setShowEditModal(false); setEditingInstructor(null); }}>Cancel</button>
               </div>
             </form>
           </div>
