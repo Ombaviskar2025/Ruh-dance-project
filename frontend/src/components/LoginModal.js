@@ -221,29 +221,6 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 {showPassword ? <LuEyeOff size={20} /> : <LuEye size={20} />}
               </span>
             </div>
-            <input 
-              type="text" 
-              placeholder="Phone Number" 
-              required 
-              onChange={(e) => setRegData({...regData, phone: e.target.value})} 
-            />
-            <div className="form-row" style={{ display: 'flex', gap: '10px' }}>
-              <select 
-                style={{ flex: 1, padding: '10px' }}
-                onChange={(e) => setRegData({...regData, gender: e.target.value})}
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-              <input 
-                style={{ flex: 1 }}
-                type="number" 
-                placeholder={role === 'instructor' ? "Years of Exp. or Age" : "Age"} 
-                required 
-                onChange={(e) => setRegData({...regData, age: e.target.value})} 
-              />
-            </div>
             {role === 'instructor' ? (
               <input 
                 type="text" 
@@ -312,6 +289,29 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 </div>
               </div>
             )}
+            <input 
+              type="text" 
+              placeholder="Phone Number" 
+              required 
+              onChange={(e) => setRegData({...regData, phone: e.target.value})} 
+            />
+            <div className="form-row" style={{ display: 'flex', gap: '10px' }}>
+              <select 
+                style={{ flex: 1, padding: '10px' }}
+                onChange={(e) => setRegData({...regData, gender: e.target.value})}
+              >
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+              <input 
+                style={{ flex: 1 }}
+                type="number" 
+                placeholder={role === 'instructor' ? "Years of Exp. or Age" : "Age"} 
+                required 
+                onChange={(e) => setRegData({...regData, age: e.target.value})} 
+              />
+            </div>
             <button type="submit" className="submit-btn">CREATE ACCOUNT</button>
             <p className="toggle-text">
               Already have an account? <span onClick={() => setIsLogin(true)} style={{cursor: 'pointer', color: 'var(--brand-pink)', fontWeight: 'bold'}}>Login here</span>
