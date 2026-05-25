@@ -312,7 +312,10 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 onChange={(e) => setRegData({...regData, age: e.target.value})} 
               />
             </div>
-            <button type="submit" className="submit-btn">CREATE ACCOUNT</button>
+            <div className="modal-buttons-row">
+              <button type="submit" className="submit-btn">CREATE ACCOUNT</button>
+              <button type="button" className="cancel-btn" onClick={onClose}>CANCEL</button>
+            </div>
             <p className="toggle-text">
               Already have an account? <span onClick={() => setIsLogin(true)} style={{cursor: 'pointer', color: 'var(--brand-pink)', fontWeight: 'bold'}}>Login here</span>
             </p>

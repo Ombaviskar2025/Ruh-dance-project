@@ -126,6 +126,39 @@
   box-shadow: 0 8px 25px rgba(228, 145, 201, 0.6);
 }
 
+.modal-buttons-row {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.modal-buttons-row .submit-btn {
+  margin: 0;
+  flex: 1.2;
+}
+
+.cancel-btn {
+  margin: 0;
+  flex: 0.8;
+  padding: 15px;
+  background: transparent;
+  color: var(--light-gray);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 30px; /* Modern pill */
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--brand-pink);
+  color: var(--brand-pink);
+  transform: translateY(-2px);
+}
+
 .toggle-text {
   margin-top: 25px;
   font-size: 14px;
