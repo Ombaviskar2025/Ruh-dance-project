@@ -304,9 +304,9 @@
   -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Fix flexbox centering scroll bug */
   z-index: 2000;
-  padding: 20px;
+  padding: 40px 20px;
   overflow-y: auto;
 }
 
@@ -322,7 +322,7 @@
   color: white !important;
   position: relative;
   overflow: visible !important; /* No internal scrollbar */
-  margin-bottom: 50px;
+  margin: 0 auto;
 }
 
 .modal-content::before {
