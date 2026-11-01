@@ -1,4 +1,5 @@
 const Signature = require('../models/Signature');
+const upload = require('../middleware/multer');
 
 // @desc    Get all signature performances
 // @route   GET /api/signatures
@@ -20,14 +21,16 @@ exports.createSignature = async (req, res) => {
         console.log('Files:', req.files);
 
         const signatureData = { ...req.body };
-        
-        // Handle files from multer
+
+        // Handle files from multer (memory storage — upload to Cloudinary)
         if (req.files) {
-            if (req.files.image) {
-                signatureData.image = req.files.image[0].path;
+            if (req.files.image && req.files.image[0]) {
+                const f = req.files.image[0];
+                signatureData.image = await upload.uploadToCloudinary(f.buffer, f.mimetype);
             }
-            if (req.files.videoUrl) {
-                signatureData.videoUrl = req.files.videoUrl[0].path;
+            if (req.files.videoUrl && req.files.videoUrl[0]) {
+                const f = req.files.videoUrl[0];
+                signatureData.videoUrl = await upload.uploadToCloudinary(f.buffer, f.mimetype);
             }
         }
 
@@ -35,14 +38,14 @@ exports.createSignature = async (req, res) => {
         if (!signatureData.image && req.body.imageUrl) {
             signatureData.image = req.body.imageUrl;
         }
-        if (!signatureData.videoUrl && req.body.videoUrl) {
-            signatureData.videoUrl = req.body.videoUrl;
+        if (!signatureData.videoUrl && req.body.videoUrlText) {
+            signatureData.videoUrl = req.body.videoUrlText;
         }
-        
+
         // Remove empty strings so Mongoose doesn't validate them
         if (!signatureData.image) delete signatureData.image;
         if (!signatureData.videoUrl) delete signatureData.videoUrl;
-        
+
         console.log('Data to be saved:', signatureData);
 
         const signature = await Signature.create(signatureData);
@@ -59,13 +62,15 @@ exports.createSignature = async (req, res) => {
 exports.updateSignature = async (req, res) => {
     try {
         const updatedData = { ...req.body };
-        
+
         if (req.files) {
-            if (req.files.image) {
-                updatedData.image = req.files.image[0].path;
+            if (req.files.image && req.files.image[0]) {
+                const f = req.files.image[0];
+                updatedData.image = await upload.uploadToCloudinary(f.buffer, f.mimetype);
             }
-            if (req.files.videoUrl) {
-                updatedData.videoUrl = req.files.videoUrl[0].path;
+            if (req.files.videoUrl && req.files.videoUrl[0]) {
+                const f = req.files.videoUrl[0];
+                updatedData.videoUrl = await upload.uploadToCloudinary(f.buffer, f.mimetype);
             }
         }
 

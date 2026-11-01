@@ -1,4 +1,5 @@
 const Guru = require('../models/Guru');
+const upload = require('../middleware/multer');
 
 // @desc    Get all gurus
 // @route   GET /api/gurus
@@ -17,23 +18,16 @@ exports.createGuru = async (req, res) => {
   try {
     const { name, style, description, instagram } = req.body;
     let imageUrl = '';
-    
+
     if (req.file) {
-      imageUrl = req.file.path;
+      imageUrl = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
     } else if (req.body.imageUrl) {
       imageUrl = req.body.imageUrl;
     } else if (req.body.image) {
       imageUrl = req.body.image;
     }
 
-    const guru = await Guru.create({
-      name,
-      style,
-      description,
-      instagram,
-      image: imageUrl
-    });
-
+    const guru = await Guru.create({ name, style, description, instagram, image: imageUrl });
     res.status(201).json({ success: true, data: guru });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Server Error', error: err.message });
@@ -57,7 +51,7 @@ exports.updateGuru = async (req, res) => {
     guru.instagram = instagram !== undefined ? instagram : guru.instagram;
 
     if (req.file) {
-      guru.image = req.file.path;
+      guru.image = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
     } else if (req.body.imageUrl) {
       guru.image = req.body.imageUrl;
     } else if (req.body.image) {
@@ -76,11 +70,9 @@ exports.updateGuru = async (req, res) => {
 exports.deleteGuru = async (req, res) => {
   try {
     const guru = await Guru.findById(req.params.id);
-
     if (!guru) {
       return res.status(404).json({ success: false, message: 'Guru not found' });
     }
-
     await guru.deleteOne();
     res.status(200).json({ success: true, data: {} });
   } catch (err) {

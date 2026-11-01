@@ -1,10 +1,11 @@
 const Settings = require('../models/Settings');
+const upload = require('../middleware/multer');
 
 exports.getSettings = async (req, res) => {
   try {
     let settings = await Settings.findOne();
     if (!settings) {
-      settings = await Settings.create({}); // Creates default document if none exists
+      settings = await Settings.create({});
     }
     res.status(200).json({ success: true, data: settings });
   } catch (err) {
@@ -20,9 +21,10 @@ exports.updateSettings = async (req, res) => {
     }
 
     if (req.file) {
-      settings.homeVideoUrl = req.file.path;
+      // Upload video/image to Cloudinary
+      settings.homeVideoUrl = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
     } else if (req.body.homeVideoUrl) {
-      settings.homeVideoUrl = req.body.homeVideoUrl; // Allow direct URL bypass if we want
+      settings.homeVideoUrl = req.body.homeVideoUrl;
     }
 
     if (req.body.theme) {
@@ -31,22 +33,20 @@ exports.updateSettings = async (req, res) => {
         try {
           themeObj = JSON.parse(themeObj);
         } catch (e) {
-          console.error("Theme JSON parsing failed", e);
+          console.error('Theme JSON parsing failed', e);
         }
       }
-      
-      // Safety: extract values as standard object to avoid Mongoose subdocument internal spread issues
+
       const themeColors = settings.theme ? settings.theme.toObject() : {};
       const mergedTheme = { ...themeColors, ...themeObj };
-      
-      // Explicitly assign each key to Mongoose subdocument to ensure validations and setters fire perfectly
+
       if (!settings.theme) {
         settings.theme = {};
       }
       Object.keys(mergedTheme).forEach(key => {
         settings.theme[key] = mergedTheme[key];
       });
-      
+
       settings.markModified('theme');
     }
 

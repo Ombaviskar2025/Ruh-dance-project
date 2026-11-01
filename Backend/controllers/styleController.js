@@ -1,4 +1,5 @@
 const Style = require('../models/Style');
+const upload = require('../middleware/multer');
 
 // @desc    Get all dance styles
 // @route   GET /api/styles
@@ -15,10 +16,11 @@ exports.getStyles = async (req, res) => {
 // @route   POST /api/styles
 exports.createStyle = async (req, res) => {
     try {
-        const styleData = {
-           ...req.body,
-           image: req.file ? req.file.path : (req.body.imageUrl || req.body.image)
-        };
+        let imageUrl = req.body.imageUrl || req.body.image || '';
+        if (req.file) {
+            imageUrl = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
+        }
+        const styleData = { ...req.body, image: imageUrl };
         const style = await Style.create(styleData);
         res.status(201).json({ success: true, data: style });
     } catch (err) {
@@ -32,7 +34,7 @@ exports.updateStyle = async (req, res) => {
     try {
         const updatedData = { ...req.body };
         if (req.file) {
-            updatedData.image = req.file.path;
+            updatedData.image = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
         } else if (req.body.imageUrl) {
             updatedData.image = req.body.imageUrl;
         } else if (req.body.image) {

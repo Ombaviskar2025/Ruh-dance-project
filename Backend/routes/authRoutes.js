@@ -47,11 +47,10 @@ router.post('/forgot-password', async (req, res) => {
 
         const frontendUrl = req.headers.origin || process.env.FRONTEND_URL || 'https://ruhdance.vercel.app';
         const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
-        
+
         try {
             const proxyUrl = `${frontendUrl}/api/send-email`;
-            
-            // Native Node 18+ fetch to send the email via Vercel Proxy
+
             const emailResponse = await fetch(proxyUrl, {
                 method: 'POST',
                 headers: {
@@ -73,7 +72,6 @@ router.post('/forgot-password', async (req, res) => {
             res.status(200).json({ message: "Success! Please check your Gmail inbox." });
         } catch (mailErr) {
             console.error("Failed to send reset password email via proxy:", mailErr);
-            // Revert token if email fails so they can try again
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
             await user.save();
@@ -96,7 +94,7 @@ router.post('/reset-password/:token', async (req, res) => {
 
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(req.body.password, salt);
-        
+
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
         await user.save();
@@ -111,8 +109,7 @@ router.post('/reset-password/:token', async (req, res) => {
 router.post('/admin/add-instructor', upload.single('profilePhoto'), async (req, res) => {
     try {
         const { fullName, email, password, age, danceStyle, gender, phone } = req.body;
-        
-        // Validation for Mongoose requirements
+
         if (!gender || !phone) return res.status(400).json({ message: "Gender and Phone are required." });
 
         const existingUser = await User.findOne({ email: email.toLowerCase() });
@@ -122,19 +119,24 @@ router.post('/admin/add-instructor', upload.single('profilePhoto'), async (req, 
         const hashedPassword = await bcrypt.hash(password, salt);
         const resetToken = crypto.randomBytes(20).toString('hex');
 
+        // Upload profile photo to Cloudinary if a file was provided
+        let profilePhoto = req.body.profilePhotoUrl || req.body.profilePhoto || '';
+        if (req.file) {
+            profilePhoto = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
+        }
+
         const newUser = new User({
             fullName, email: email.toLowerCase(), password: hashedPassword,
             age, danceStyle, gender, phone,
             role: 'instructor',
             isApproved: true,
-            profilePhoto: req.file ? req.file.path : (req.body.profilePhotoUrl || req.body.profilePhoto || ''),
+            profilePhoto,
             resetPasswordToken: resetToken,
-            resetPasswordExpires: Date.now() + 3600000 
+            resetPasswordExpires: Date.now() + 3600000
         });
 
         await newUser.save();
 
-        // Wrap Mail in a separate try/catch so DB save isn't rolled back if Gmail fails
         try {
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -179,24 +181,23 @@ router.put('/update-password', async (req, res) => {
 router.put('/update-profile/:id', upload.single('profilePhoto'), async (req, res) => {
     try {
         const updateData = { ...req.body };
-        // Delete structural fields to prevent overriding core access logic
         delete updateData.password;
         delete updateData.role;
-        delete updateData.email; 
+        delete updateData.email;
         delete updateData.isApproved;
-        
+
         if (req.file) {
-            updateData.profilePhoto = req.file.path;
+            updateData.profilePhoto = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
         } else if (req.body.profilePhotoUrl) {
             updateData.profilePhoto = req.body.profilePhotoUrl;
         }
-        
+
         const updatedUser = await User.findByIdAndUpdate(
-            req.params.id, 
-            { $set: updateData }, 
+            req.params.id,
+            { $set: updateData },
             { new: true }
         ).select('-password');
-        
+
         if (!updatedUser) return res.status(404).json({ message: "User not found" });
         res.status(200).json({ message: "Profile updated successfully!", user: updatedUser });
     } catch (err) {
@@ -212,10 +213,7 @@ router.delete('/instructor/:id', async (req, res) => {
         res.status(500).json({ message: "Delete failed" });
     }
 });
-// Example backend handler
-// Ensure this is in your auth routes file
-// A single route can handle deleting any user by ID
-// Add this inside Backend/routes/authRoutes.js
+
 router.delete('/student/:id', async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
@@ -224,10 +222,5 @@ router.delete('/student/:id', async (req, res) => {
     res.status(500).json({ message: "Delete failed", error: error.message });
   }
 });
-// Example Backend Route
-router.post('/', protect, admin, async (req, res) => {
-  const { title, date, desc, category } = req.body;
-  const newEvent = await Event.create({ title, date, desc, category });
-  res.status(201).json({ event: newEvent });
-});
+
 module.exports = router;

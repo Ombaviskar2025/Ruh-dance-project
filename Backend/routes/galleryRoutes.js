@@ -18,15 +18,21 @@ router.get('/', async (req, res) => {
 });
 
 // @route   POST /api/gallery
-// @desc    Add a gallery item
+// @desc    Add a gallery item (file upload OR direct URL)
 // @access  Private (Admin)
 router.post('/', protect, upload.single('media'), async (req, res) => {
   try {
     const { title, description, type } = req.body;
-    let mediaUrl = req.body.mediaUrl;
+    let mediaUrl = req.body.mediaUrl ? req.body.mediaUrl.trim() : '';
 
+    // If a file was uploaded, push it to Cloudinary
     if (req.file) {
-      mediaUrl = req.file.path;
+      try {
+        mediaUrl = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
+      } catch (cloudErr) {
+        console.error('Cloudinary upload error:', cloudErr);
+        return res.status(500).json({ success: false, message: 'Failed to upload file to Cloudinary. Check your CLOUDINARY_* env variables.' });
+      }
     }
 
     if (!title || !mediaUrl) {
@@ -37,14 +43,14 @@ router.post('/', protect, upload.single('media'), async (req, res) => {
       title,
       description,
       type: type || 'photo',
-      mediaUrl
+      mediaUrl,
     });
 
     const item = await newItem.save();
     res.json({ success: true, data: item });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ success: false, message: 'Server Error' });
+    console.error('Gallery POST error:', err.message);
+    res.status(500).json({ success: false, message: err.message || 'Server Error' });
   }
 });
 
@@ -54,10 +60,16 @@ router.post('/', protect, upload.single('media'), async (req, res) => {
 router.put('/:id', protect, upload.single('media'), async (req, res) => {
   try {
     const { title, description, type } = req.body;
-    let mediaUrl = req.body.mediaUrl;
+    let mediaUrl = req.body.mediaUrl ? req.body.mediaUrl.trim() : '';
 
+    // If a new file was uploaded, push it to Cloudinary
     if (req.file) {
-      mediaUrl = req.file.path;
+      try {
+        mediaUrl = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
+      } catch (cloudErr) {
+        console.error('Cloudinary upload error:', cloudErr);
+        return res.status(500).json({ success: false, message: 'Failed to upload file to Cloudinary. Check your CLOUDINARY_* env variables.' });
+      }
     }
 
     let item = await Gallery.findById(req.params.id);
@@ -71,8 +83,8 @@ router.put('/:id', protect, upload.single('media'), async (req, res) => {
     await item.save();
     res.json({ success: true, data: item });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ success: false, message: 'Server Error' });
+    console.error('Gallery PUT error:', err.message);
+    res.status(500).json({ success: false, message: err.message || 'Server Error' });
   }
 });
 
