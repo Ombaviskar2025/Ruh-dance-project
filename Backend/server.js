@@ -59,6 +59,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Ensure uploads directory exists
 const fs = require('fs');
@@ -116,10 +117,22 @@ mongoose.connect(process.env.MONGO_URI)
 
 // 7. Basic Test Route
 app.get('/', (req, res) => {
-    res.send("Ruh Dance Production API v1.3 - Dynamic Theme Persistence Live");
+    res.send("Ruh Dance Production API v1.4 - Media Upload Fix Live");
 });
 
-// 8. Define the Port and Start Server
+// 8. Global Error Handler Middleware (Prevents HTML 500 error pages)
+app.use((err, req, res, next) => {
+  console.error("❌ Global Express Error:", err);
+  if (res.headersSent) {
+    return next(err);
+  }
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Server Error'
+  });
+});
+
+// 9. Define the Port and Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server is flying on port ${PORT}`);

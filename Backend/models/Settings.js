@@ -13,6 +13,35 @@ const SettingsSchema = new mongoose.Schema({
     deepPurple: { type: String, default: '#4B0082' },
     lightPurple: { type: String, default: '#D8BFD8' },
     lightGray: { type: String, default: '#F1E9E9' }
+  },
+  savedThemes: [
+    {
+      id: { type: String },
+      name: { type: String, required: true },
+      colors: {
+        wine: { type: String },
+        brandPurple: { type: String },
+        brandPink: { type: String },
+        darkNavy: { type: String },
+        deepPurple: { type: String },
+        lightPurple: { type: String },
+        lightGray: { type: String }
+      },
+      createdAt: { type: Date, default: Date.now }
+    }
+  ],
+  previousTheme: {
+    name: { type: String },
+    colors: {
+      wine: { type: String },
+      brandPurple: { type: String },
+      brandPink: { type: String },
+      darkNavy: { type: String },
+      deepPurple: { type: String },
+      lightPurple: { type: String },
+      lightGray: { type: String }
+    },
+    savedAt: { type: Date, default: Date.now }
   }
 }, { timestamps: true });
 

@@ -50,6 +50,36 @@ exports.updateSettings = async (req, res) => {
       settings.markModified('theme');
     }
 
+    if (req.body.savedThemes !== undefined) {
+      let savedThemesArr = req.body.savedThemes;
+      if (typeof savedThemesArr === 'string') {
+        try {
+          savedThemesArr = JSON.parse(savedThemesArr);
+        } catch (e) {
+          console.error('Saved Themes JSON parsing failed', e);
+        }
+      }
+      if (Array.isArray(savedThemesArr)) {
+        settings.savedThemes = savedThemesArr;
+        settings.markModified('savedThemes');
+      }
+    }
+
+    if (req.body.previousTheme !== undefined) {
+      let prevObj = req.body.previousTheme;
+      if (typeof prevObj === 'string') {
+        try {
+          prevObj = JSON.parse(prevObj);
+        } catch (e) {
+          console.error('Previous Theme JSON parsing failed', e);
+        }
+      }
+      if (prevObj && typeof prevObj === 'object') {
+        settings.previousTheme = prevObj;
+        settings.markModified('previousTheme');
+      }
+    }
+
     await settings.save();
     res.status(200).json({ success: true, data: settings });
   } catch (err) {

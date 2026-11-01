@@ -25,13 +25,13 @@ router.post('/', protect, upload.single('media'), async (req, res) => {
     const { title, description, type } = req.body;
     let mediaUrl = req.body.mediaUrl ? req.body.mediaUrl.trim() : '';
 
-    // If a file was uploaded, push it to Cloudinary
+    // If a file was uploaded, save via Cloudinary or local fallback
     if (req.file) {
       try {
-        mediaUrl = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
-      } catch (cloudErr) {
-        console.error('Cloudinary upload error:', cloudErr);
-        return res.status(500).json({ success: false, message: 'Failed to upload file to Cloudinary. Check your CLOUDINARY_* env variables.' });
+        mediaUrl = await upload.saveMedia(req.file.buffer, req.file.originalname, req.file.mimetype);
+      } catch (uploadErr) {
+        console.error('Media upload error:', uploadErr);
+        return res.status(500).json({ success: false, message: 'Failed to process media file: ' + uploadErr.message });
       }
     }
 
@@ -49,7 +49,7 @@ router.post('/', protect, upload.single('media'), async (req, res) => {
     const item = await newItem.save();
     res.json({ success: true, data: item });
   } catch (err) {
-    console.error('Gallery POST error:', err.message);
+    console.error('Gallery POST error:', err);
     res.status(500).json({ success: false, message: err.message || 'Server Error' });
   }
 });
@@ -62,13 +62,13 @@ router.put('/:id', protect, upload.single('media'), async (req, res) => {
     const { title, description, type } = req.body;
     let mediaUrl = req.body.mediaUrl ? req.body.mediaUrl.trim() : '';
 
-    // If a new file was uploaded, push it to Cloudinary
+    // If a new file was uploaded, save via Cloudinary or local fallback
     if (req.file) {
       try {
-        mediaUrl = await upload.uploadToCloudinary(req.file.buffer, req.file.mimetype);
-      } catch (cloudErr) {
-        console.error('Cloudinary upload error:', cloudErr);
-        return res.status(500).json({ success: false, message: 'Failed to upload file to Cloudinary. Check your CLOUDINARY_* env variables.' });
+        mediaUrl = await upload.saveMedia(req.file.buffer, req.file.originalname, req.file.mimetype);
+      } catch (uploadErr) {
+        console.error('Media upload error:', uploadErr);
+        return res.status(500).json({ success: false, message: 'Failed to process media file: ' + uploadErr.message });
       }
     }
 
@@ -83,7 +83,7 @@ router.put('/:id', protect, upload.single('media'), async (req, res) => {
     await item.save();
     res.json({ success: true, data: item });
   } catch (err) {
-    console.error('Gallery PUT error:', err.message);
+    console.error('Gallery PUT error:', err);
     res.status(500).json({ success: false, message: err.message || 'Server Error' });
   }
 });

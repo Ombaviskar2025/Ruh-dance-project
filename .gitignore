@@ -4,3 +4,4 @@ Backend/.env
 frontend/.env
 # Local Netlify folder
 .netlify
+scratch/
