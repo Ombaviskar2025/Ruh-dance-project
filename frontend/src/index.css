@@ -1,4 +1,5 @@
 :root {
+  --nav-height: 72px;
   --wine: #722F37;
   --brand-purple: #982598;
   --brand-pink: #E491C9;
@@ -72,11 +73,12 @@ img, video, iframe {
         border-collapse: collapse;
     }
 
-    /* Main content fills width, no overflow containers */
+    /* Main content fills width on mobile with comfortable breathing room */
     .main-content {
         margin-left: 0 !important;
         width: 100% !important;
-        padding: 0 !important;
+        padding: 16px 14px !important;
+        box-sizing: border-box !important;
         overflow: visible !important;
     }
 

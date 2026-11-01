@@ -881,68 +881,68 @@ const AdminDashboard = () => {
   );
 
   return (
-    <div className="home-aesthetic-container" style={{ minHeight: '100vh' }}>
-      {/* Ambient Glowing Orbs */}
-      <div className="ambient-orb orb-1"></div>
-      <div className="ambient-orb orb-2"></div>
-      <div className="ambient-orb orb-3"></div>
+    <div className="admin-dashboard-page">
+      {/* Mobile Sidebar Backdrop Overlay */}
+      <div 
+        className={`admin-sidebar-backdrop ${isSidebarOpen ? 'active' : ''}`} 
+        onClick={() => setIsSidebarOpen(false)} 
+      />
 
-      <div className="admin-container" style={{ position: 'relative' }}>
+      <div className="admin-container">
         <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
-          <div className="sidebar-header" style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-             <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div className="sidebar-header">
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <div className="ru-logo-placeholder">RU</div>
               <div>
                 <h2 style={{ color: 'var(--brand-pink)', margin: 0, fontSize: '18px', fontWeight: '800' }}>RUH</h2>
-                <p style={{ margin: 0, fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,255,255,0.5)' }}>DANCE STUDIO</p>
+                <p style={{ margin: 0, fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,255,255,0.6)' }}>DANCE STUDIO</p>
               </div>
             </div>
             {/* Close button for mobile */}
-            <button className="admin-hamburger d-md-none" onClick={() => setIsSidebarOpen(false)} style={{ display: window.innerWidth <= 768 ? 'block' : 'none' }}>
-              <LuX size={28} />
+            <button className="admin-sidebar-close-btn" onClick={() => setIsSidebarOpen(false)} aria-label="Close menu">
+              <LuX size={24} />
             </button>
           </div>
-        <nav className="nav-menu">
-          <SidebarItem Icon={LuLayoutGrid} label="Overview" isActive={activeTab === 'Overview'} onClick={() => { setActiveTab('Overview'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuHistory} label="Productions" isActive={activeTab === 'Productions'} onClick={() => { setActiveTab('Productions'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuLayoutGrid} label="Dance Styles" isActive={activeTab === 'Dance Styles'} onClick={() => { setActiveTab('Dance Styles'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuUsers} label="Students" isActive={activeTab === 'Students'} onClick={() => { setActiveTab('Students'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuUser} label="Instructors" isActive={activeTab === 'Instructors'} onClick={() => { setActiveTab('Instructors'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuUser} label="Gurus" isActive={activeTab === 'Gurus'} onClick={() => { setActiveTab('Gurus'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuListTodo} label="Classes" isActive={activeTab === 'Classes'} onClick={() => { setActiveTab('Classes'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuLayoutGrid} label="Gallery" isActive={activeTab === 'Gallery'} onClick={() => { setActiveTab('Gallery'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuListTodo} label="Report" isActive={activeTab === 'Report'} onClick={() => { setActiveTab('Report'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuCalendarCheck} label="Events" isActive={activeTab === 'Events'} onClick={() => { setActiveTab('Events'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuCreditCard} label="Finance" isActive={activeTab === 'Finance'} onClick={() => { setActiveTab('Finance'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuImage} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => { setActiveTab('Background Photos & Video'); setIsSidebarOpen(false); }} />
-          <SidebarItem Icon={LuPalette} label="Theme" isActive={activeTab === 'Theme'} onClick={() => { setActiveTab('Theme'); setIsSidebarOpen(false); }} />
-        </nav>
-      </aside>
+          <nav className="nav-menu">
+            <SidebarItem Icon={LuLayoutGrid} label="Overview" isActive={activeTab === 'Overview'} onClick={() => { setActiveTab('Overview'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuHistory} label="Productions" isActive={activeTab === 'Productions'} onClick={() => { setActiveTab('Productions'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuLayoutGrid} label="Dance Styles" isActive={activeTab === 'Dance Styles'} onClick={() => { setActiveTab('Dance Styles'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuUsers} label="Students" isActive={activeTab === 'Students'} onClick={() => { setActiveTab('Students'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuUser} label="Instructors" isActive={activeTab === 'Instructors'} onClick={() => { setActiveTab('Instructors'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuUser} label="Gurus" isActive={activeTab === 'Gurus'} onClick={() => { setActiveTab('Gurus'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuListTodo} label="Classes" isActive={activeTab === 'Classes'} onClick={() => { setActiveTab('Classes'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuLayoutGrid} label="Gallery" isActive={activeTab === 'Gallery'} onClick={() => { setActiveTab('Gallery'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuListTodo} label="Report" isActive={activeTab === 'Report'} onClick={() => { setActiveTab('Report'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuCalendarCheck} label="Events" isActive={activeTab === 'Events'} onClick={() => { setActiveTab('Events'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuCreditCard} label="Finance" isActive={activeTab === 'Finance'} onClick={() => { setActiveTab('Finance'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuImage} label="Background Photos & Video" isActive={activeTab === 'Background Photos & Video'} onClick={() => { setActiveTab('Background Photos & Video'); setIsSidebarOpen(false); }} />
+            <SidebarItem Icon={LuPalette} label="Theme" isActive={activeTab === 'Theme'} onClick={() => { setActiveTab('Theme'); setIsSidebarOpen(false); }} />
+          </nav>
+        </aside>
 
-      <main className="main-content">
-        {window.innerWidth <= 768 && (
-          <div className="admin-mobile-header d-md-none">
-             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-               <button className="admin-hamburger" onClick={() => setIsSidebarOpen(true)} style={{ marginRight: '4px' }}>
-                 <LuMenu size={28} />
-               </button>
-               <div className="ru-logo-placeholder" style={{width: 30, height: 30, fontSize: 14}}>RU</div>
-               <h2 style={{margin: 0}}>Admin</h2>
-             </div>
+        <main className="main-content">
+          <div className="admin-mobile-header">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <button className="admin-hamburger" onClick={() => setIsSidebarOpen(true)} aria-label="Open sidebar">
+                <LuMenu size={24} />
+              </button>
+              <div className="ru-logo-placeholder" style={{ width: 32, height: 32, fontSize: 13, marginRight: 0 }}>RU</div>
+              <h2 style={{ margin: 0, fontSize: '1.2rem', color: '#fff' }}>Admin Dashboard</h2>
+            </div>
           </div>
-        )}
-        {activeTab === 'Overview' && (
-          <div className="admin-content-main fade-in">
-             <header className="dashboard-header" style={{ display: window.innerWidth <= 768 ? 'none' : 'flex', justifyContent: 'space-between' }}>
-               <h2>Admin Control Panel <span style={{fontSize: '12px', opacity: 0.5}}>(v3.2)</span></h2>
-               <div style={{fontSize: '12px', color: 'var(--brand-pink)'}}>Cloud Storage Active</div>
-             </header>
 
-             <div className="stats-row-container" style={{ marginBottom: '30px' }}>
+          {activeTab === 'Overview' && (
+            <div className="admin-content-main fade-in">
+              <header className="dashboard-header desktop-only-flex">
+                <h2>Admin Control Panel <span style={{ fontSize: '12px', opacity: 0.6 }}>(v3.2)</span></h2>
+                <div style={{ fontSize: '12px', color: 'var(--brand-pink)', fontWeight: 600 }}>Cloud Storage Active</div>
+              </header>
+
+              <div className="stats-row-container" style={{ marginBottom: '30px' }}>
                 <div className="stat-card-item"><h3>TOTAL STUDENTS</h3><p>{students.length}</p></div>
                 <div className="stat-card-item"><h3>INSTRUCTORS</h3><p>{instructors.length}</p></div>
                 <div className="stat-card-item"><h3>PRODUCTIONS</h3><p>{productions.length}</p></div>
-             </div>
+              </div>
 
              <section className="management-card-full" style={{padding: '40px', textAlign: 'center'}}>
                 <h2 style={{color: 'var(--brand-pink)'}}>Welcome to Ruh Dance Studio Admin</h2>
@@ -973,9 +973,13 @@ const AdminDashboard = () => {
                       </td>
                       <td>{item.title}</td>
                       <td>
-                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                           <LuPencil style={{ cursor: 'pointer', color: '#722F37' }} onClick={() => handleOpenGalleryModal(item)} />
-                           <LuTrash2 className="trash-delete-btn" onClick={() => handleDeleteGalleryItem(item._id)} />
+                        <div className="table-actions-group">
+                          <button className="table-action-btn edit-btn" title="Edit" onClick={() => handleOpenGalleryModal(item)} aria-label="Edit item">
+                            <LuPencil size={15} />
+                          </button>
+                          <button className="table-action-btn delete-btn" title="Delete" onClick={() => handleDeleteGalleryItem(item._id)} aria-label="Delete item">
+                            <LuTrash2 size={15} />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -1029,9 +1033,13 @@ const AdminDashboard = () => {
                       <td>{inst.danceStyle || inst.expertise}</td>
                       <td>{inst.phone || 'N/A'}</td>
                       <td>
-                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                           <LuPencil style={{ cursor: 'pointer', color: '#722F37' }} onClick={() => handleEditClick(inst)} />
-                           <LuTrash2 className="trash-delete-btn" onClick={() => handleDeleteInstructor(inst._id)} />
+                        <div className="table-actions-group">
+                          <button className="table-action-btn edit-btn" title="Edit" onClick={() => handleEditClick(inst)} aria-label="Edit instructor">
+                            <LuPencil size={15} />
+                          </button>
+                          <button className="table-action-btn delete-btn" title="Delete" onClick={() => handleDeleteInstructor(inst._id)} aria-label="Delete instructor">
+                            <LuTrash2 size={15} />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -1057,7 +1065,11 @@ const AdminDashboard = () => {
                       <td>{s.email}</td>
                       <td>{s.danceStyle || 'N/A'}</td>
                       <td><span className="status-badge-active">Active</span></td>
-                      <td><LuTrash2 className="trash-delete-btn" onClick={() => handleDeleteStudent(s._id)} /></td>
+                      <td>
+                        <button className="table-action-btn delete-btn" title="Delete" onClick={() => handleDeleteStudent(s._id)} aria-label="Delete student">
+                          <LuTrash2 size={15} />
+                        </button>
+                      </td>
                     </tr>
                   )) : <tr><td colSpan="5" style={{textAlign:'center'}}>No students found</td></tr>}
                 </tbody>
@@ -1083,9 +1095,13 @@ const AdminDashboard = () => {
                       <td style={{ fontWeight: 'bold' }}>{s.name}</td>
                       <td style={{ maxWidth: '300px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{s.description}</td>
                       <td>
-                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                           <LuPencil style={{ cursor: 'pointer', color: '#722F37' }} onClick={() => handleOpenStyleModal(s)} />
-                           <LuTrash2 className="trash-delete-btn" onClick={() => handleDeleteStyle(s._id)} />
+                        <div className="table-actions-group">
+                          <button className="table-action-btn edit-btn" title="Edit" onClick={() => handleOpenStyleModal(s)} aria-label="Edit style">
+                            <LuPencil size={15} />
+                          </button>
+                          <button className="table-action-btn delete-btn" title="Delete" onClick={() => handleDeleteStyle(s._id)} aria-label="Delete style">
+                            <LuTrash2 size={15} />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -1114,9 +1130,13 @@ const AdminDashboard = () => {
                       <td>{g.style}</td>
                       <td style={{ maxWidth: '250px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{g.description}</td>
                       <td>
-                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                           <LuPencil style={{ cursor: 'pointer', color: '#722F37' }} onClick={() => handleOpenGuruModal(g)} />
-                           <LuTrash2 className="trash-delete-btn" onClick={() => handleDeleteGuru(g._id)} />
+                        <div className="table-actions-group">
+                          <button className="table-action-btn edit-btn" title="Edit" onClick={() => handleOpenGuruModal(g)} aria-label="Edit guru">
+                            <LuPencil size={15} />
+                          </button>
+                          <button className="table-action-btn delete-btn" title="Delete" onClick={() => handleDeleteGuru(g._id)} aria-label="Delete guru">
+                            <LuTrash2 size={15} />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -1128,11 +1148,11 @@ const AdminDashboard = () => {
         )}
 
         {activeTab === 'Productions' && (
-          <div className="fade-in" style={{ padding: '20px' }}>
+          <div className="fade-in" style={{ padding: '10px 0' }}>
             <header style={{ textAlign: 'center', marginBottom: '30px', position: 'relative' }}>
-              <h2 style={{ color: '#722F37', fontSize: '2.5rem' }}>Stage Productions</h2>
-              <p style={{ letterSpacing: '2px', color: '#666', fontSize: '12px' }}>WHERE STORYTELLING MEETS SPECTACLE</p>
-              <button className="add-btn" style={{ position: 'absolute', right: '0', top: '10px' }} onClick={() => setShowAddProdModal(true)}>
+              <h2 className="dashboard-section-title">Stage Productions</h2>
+              <p className="dashboard-section-subtitle">WHERE STORYTELLING MEETS SPECTACLE</p>
+              <button className="add-btn add-btn-right-desktop" onClick={() => setShowAddProdModal(true)}>
                 <LuPlus /> Add Production
               </button>
             </header>
@@ -1309,9 +1329,9 @@ const AdminDashboard = () => {
                             </span>
                           </td>
                           <td className="text-right">
-                            <div className="action-btn-row">
-                              <button className="icon-btn-edit-small" onClick={() => handleOpenSignatureModal(sig)}><LuPencil /></button>
-                              <button className="icon-btn-delete-small" onClick={() => handleDeleteSignature(sig._id)}><LuTrash2 /></button>
+                            <div className="table-actions-group text-right">
+                              <button className="table-action-btn edit-btn" title="Edit" onClick={() => handleOpenSignatureModal(sig)} aria-label="Edit performance"><LuPencil size={15} /></button>
+                              <button className="table-action-btn delete-btn" title="Delete" onClick={() => handleDeleteSignature(sig._id)} aria-label="Delete performance"><LuTrash2 size={15} /></button>
                             </div>
                           </td>
                         </tr>
