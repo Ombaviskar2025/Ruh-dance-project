@@ -1820,3 +1820,37 @@ input[type="file"]::file-selector-button:hover {
   font-weight: 500 !important;
   letter-spacing: 0.02em !important;
 }
+
+
+/* ============================================================
+   TYPOGRAPHY CUSTOMIZER STYLES
+   ============================================================ */
+.typo-select-box {
+  background-color: rgba(20, 15, 35, 0.95) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(228, 145, 201, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  font-size: 0.88rem !important;
+  transition: all 0.3s ease !important;
+  outline: none !important;
+  cursor: pointer !important;
+}
+
+.typo-select-box:focus {
+  border-color: var(--brand-pink) !important;
+  box-shadow: 0 0 12px rgba(228, 145, 201, 0.35) !important;
+}
+
+.typo-select-box option {
+  background-color: #120C1F !important;
+  color: #ffffff !important;
+  padding: 8px !important;
+}
+
+@media (max-width: 900px) {
+  .presets-container {
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+}

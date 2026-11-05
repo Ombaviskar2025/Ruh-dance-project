@@ -17,6 +17,103 @@ import FinanceAdmin from '../components/FinanceAdmin';
 import { resolveMediaUrl } from '../utils/media';
 import ReportAdmin from '../components/ReportAdmin';
 
+const DEFAULT_TYPOGRAPHY = {
+  fontDisplay: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+  fontSubheading: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+  fontBody: "'DM Sans', 'Inter', system-ui, sans-serif",
+  headingStyle: 'normal',
+  colorH1: '#E491C9',
+  colorH2: '#E491C9',
+  colorH3: '#D4A0E8',
+  colorH4: '#C8B8F0',
+  colorBody: '#E8E0F0',
+  colorBodyMuted: '#B3A6C4',
+  colorAccent: '#E491C9'
+};
+
+const TYPOGRAPHY_PRESETS = [
+  {
+    name: 'Luxury Serif (Cormorant + DM Sans)',
+    typography: {
+      fontDisplay: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+      fontSubheading: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+      fontBody: "'DM Sans', 'Inter', system-ui, sans-serif",
+      headingStyle: 'normal',
+      colorH1: '#E491C9',
+      colorH2: '#E491C9',
+      colorH3: '#D4A0E8',
+      colorH4: '#C8B8F0',
+      colorBody: '#E8E0F0',
+      colorBodyMuted: '#B3A6C4',
+      colorAccent: '#E491C9'
+    }
+  },
+  {
+    name: 'Modern Editorial (Playfair + Inter)',
+    typography: {
+      fontDisplay: "'Playfair Display', Georgia, serif",
+      fontSubheading: "'Playfair Display', Georgia, serif",
+      fontBody: "'Inter', system-ui, sans-serif",
+      headingStyle: 'italic',
+      colorH1: '#F4B6DA',
+      colorH2: '#E491C9',
+      colorH3: '#E0B0FF',
+      colorH4: '#D8BFD8',
+      colorBody: '#F5F0F6',
+      colorBodyMuted: '#C2B6CD',
+      colorAccent: '#E491C9'
+    }
+  },
+  {
+    name: 'Regal Cinematic (Cinzel + Montserrat)',
+    typography: {
+      fontDisplay: "'Cinzel', Georgia, serif",
+      fontSubheading: "'Montserrat', sans-serif",
+      fontBody: "'Montserrat', sans-serif",
+      headingStyle: 'normal',
+      colorH1: '#FFD700',
+      colorH2: '#E9C46A',
+      colorH3: '#F4A261',
+      colorH4: '#E76F51',
+      colorBody: '#FAECEB',
+      colorBodyMuted: '#C8B6B6',
+      colorAccent: '#E9C46A'
+    }
+  },
+  {
+    name: 'Clean Contemporary (Montserrat + Poppins)',
+    typography: {
+      fontDisplay: "'Montserrat', sans-serif",
+      fontSubheading: "'Poppins', sans-serif",
+      fontBody: "'Poppins', sans-serif",
+      headingStyle: 'normal',
+      colorH1: '#E491C9',
+      colorH2: '#F1E9E9',
+      colorH3: '#D8BFD8',
+      colorH4: '#C8B8F0',
+      colorBody: '#EDE8F5',
+      colorBodyMuted: '#A99DBB',
+      colorAccent: '#E491C9'
+    }
+  },
+  {
+    name: 'Minimalist Sans (Raleway + Lato)',
+    typography: {
+      fontDisplay: "'Raleway', sans-serif",
+      fontSubheading: "'Lato', sans-serif",
+      fontBody: "'Lato', sans-serif",
+      headingStyle: 'normal',
+      colorH1: '#FFFFFF',
+      colorH2: '#E491C9',
+      colorH3: '#D4A0E8',
+      colorH4: '#C8B8F0',
+      colorBody: '#F0ECF4',
+      colorBodyMuted: '#9E94A8',
+      colorAccent: '#E491C9'
+    }
+  }
+];
+
 const THEME_PRESETS = [
   {
     name: 'Midnight Glow (Default)',
@@ -131,6 +228,10 @@ const AdminDashboard = () => {
     lightPurple: '#D8BFD8',
     lightGray: '#F1E9E9'
   });
+
+  // ---- Typography Customizer State ----
+  const [typographyState, setTypographyState] = useState(DEFAULT_TYPOGRAPHY);
+
   const [savedThemes, setSavedThemes] = useState([]);
   const [previousTheme, setPreviousTheme] = useState(null);
   const [newThemeName, setNewThemeName] = useState('');
@@ -236,6 +337,26 @@ const AdminDashboard = () => {
         setVideoUrlInput(settingsRes.data.data.homeVideoUrl);
         if (settingsRes.data.data.theme) {
           setThemeState(prev => ({ ...prev, ...settingsRes.data.data.theme }));
+        }
+        // Load saved typography settings
+        if (settingsRes.data.data.typography) {
+          const savedTypo = settingsRes.data.data.typography;
+          setTypographyState(prev => ({ ...prev, ...savedTypo }));
+          // Apply immediately to live page
+          const cssMap = {
+            fontDisplay:    '--font-display',
+            fontBody:       '--font-body',
+            colorH1:        '--typo-h1-fallback',
+            colorH2:        '--typo-h2',
+            colorH3:        '--typo-h3',
+            colorH4:        '--typo-h4',
+            colorBody:      '--typo-body',
+            colorBodyMuted: '--typo-body-muted',
+            colorAccent:    '--typo-accent',
+          };
+          Object.entries(savedTypo).forEach(([k, v]) => {
+            if (cssMap[k]) document.documentElement.style.setProperty(cssMap[k], v);
+          });
         }
 
         // Safely load savedThemes from server and sync with browser localStorage
@@ -616,6 +737,74 @@ const AdminDashboard = () => {
     document.documentElement.style.setProperty(cssVarName, value);
   };
 
+  // ---- Typography real-time preview ----
+    const FONT_DISPLAY_OPTIONS = [
+    { label: 'Cormorant Garamond (Graceful Luxury Serif)', value: "'Cormorant Garamond', 'Playfair Display', Georgia, serif" },
+    { label: 'Playfair Display (Classic Editorial Serif)', value: "'Playfair Display', Georgia, serif" },
+    { label: 'Cinzel (Regal Cinematic Serif)', value: "'Cinzel', Georgia, serif" },
+    { label: 'Montserrat (Bold Modern Clean)', value: "'Montserrat', sans-serif" },
+    { label: 'Raleway (Geometric Sans)', value: "'Raleway', sans-serif" },
+  ];
+
+  const FONT_SUBHEADING_OPTIONS = [
+    { label: 'Cormorant Garamond (Serif)', value: "'Cormorant Garamond', 'Playfair Display', Georgia, serif" },
+    { label: 'Playfair Display (Serif)', value: "'Playfair Display', Georgia, serif" },
+    { label: 'Montserrat (Modern Sans)', value: "'Montserrat', sans-serif" },
+    { label: 'Poppins (Geometric Sans)', value: "'Poppins', sans-serif" },
+    { label: 'DM Sans (Humanist Sans)', value: "'DM Sans', 'Inter', system-ui, sans-serif" },
+  ];
+
+  const FONT_BODY_OPTIONS = [
+    { label: 'DM Sans (Ultra-readable Humanist)', value: "'DM Sans', 'Inter', system-ui, sans-serif" },
+    { label: 'Inter (Clean High-clarity)', value: "'Inter', system-ui, sans-serif" },
+    { label: 'Poppins (Warm Modern Sans)', value: "'Poppins', sans-serif" },
+    { label: 'Lato (Balanced Approachable)', value: "'Lato', sans-serif" },
+    { label: 'Raleway (Minimalist Clean)', value: "'Raleway', sans-serif" },
+  ];
+
+  const handleTypographyChange = (key, value) => {
+    setTypographyState(prev => {
+      const updated = { ...prev, [key]: value };
+      localStorage.setItem('ruh_typography', JSON.stringify(updated));
+      return updated;
+    });
+
+    const cssMap = {
+      fontDisplay:    '--font-display',
+      fontSubheading: '--font-subheading',
+      fontBody:       '--font-body',
+      colorH1:        '--typo-h1-fallback',
+      colorH2:        '--typo-h2',
+      colorH3:        '--typo-h3',
+      colorH4:        '--typo-h4',
+      colorBody:      '--typo-body',
+      colorBodyMuted: '--typo-body-muted',
+      colorAccent:    '--typo-accent',
+    };
+
+    if (cssMap[key]) {
+      document.documentElement.style.setProperty(cssMap[key], value);
+    }
+    if (key === 'fontDisplay') document.documentElement.style.setProperty('--font-display', value);
+    if (key === 'fontSubheading') document.documentElement.style.setProperty('--font-subheading', value);
+    if (key === 'fontBody') {
+      document.documentElement.style.setProperty('--font-body', value);
+      document.body.style.fontFamily = value;
+    }
+    if (key === 'headingStyle') {
+      document.documentElement.style.setProperty('--font-style-heading', value);
+    }
+  };
+
+  const handleApplyTypographyPreset = (presetTypo) => {
+    setTypographyState(presetTypo);
+    localStorage.setItem('ruh_typography', JSON.stringify(presetTypo));
+    Object.entries(presetTypo).forEach(([k, v]) => {
+      handleTypographyChange(k, v);
+    });
+  };
+
+
   // 1. Save Theme: Save current palette into Saved Themes list
   const handleSaveCurrentTheme = async (e) => {
     if (e && e.preventDefault) e.preventDefault();
@@ -749,6 +938,9 @@ const AdminDashboard = () => {
       const cssVarName = `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
       document.documentElement.style.setProperty(cssVarName, val);
     });
+    if (prev.typography) {
+      handleApplyTypographyPreset(prev.typography);
+    }
 
     try {
       const res = await axios.post('https://ruh-dance-project.onrender.com/api/settings', {
@@ -766,7 +958,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // 5. Save Website Theme: Save current customized colors to live website
+    // 5. Save Website Theme: Save current customized colors & typography to live website
   const handleSaveTheme = async (e) => {
     e.preventDefault();
     setIsUpdatingSettings(true);
@@ -774,25 +966,29 @@ const AdminDashboard = () => {
     const prevToSave = {
       name: 'Palette before update (' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ')',
       colors: { ...(settings.theme || themeState) },
+      typography: { ...(settings.typography || typographyState) },
       savedAt: new Date().toISOString()
     };
     setPreviousTheme(prevToSave);
     localStorage.setItem('ruh_previous_theme', JSON.stringify(prevToSave));
+    localStorage.setItem('ruh_theme', JSON.stringify(themeState));
+    localStorage.setItem('ruh_typography', JSON.stringify(typographyState));
 
     try {
       const res = await axios.post('https://ruh-dance-project.onrender.com/api/settings', { 
         theme: themeState,
+        typography: typographyState,
         previousTheme: prevToSave
-      }, {
+      }, { 
         headers: config.headers
       });
       if (res.data.success) {
-        alert("Color theme saved successfully!");
+        alert("Color theme & typography saved successfully to live website!");
         setSettings(res.data.data);
         fetchData();
       }
     } catch (err) {
-      alert("Failed to save color theme");
+      alert("Failed to save to cloud server, but settings are preserved in your browser!");
     } finally {
       setIsUpdatingSettings(false);
     }
@@ -800,8 +996,9 @@ const AdminDashboard = () => {
 
   // Revert to default preset
   const handleRevertTheme = () => {
-    if (window.confirm("Reset colors to Midnight Glow (Default) preset?")) {
+    if (window.confirm("Reset colors and typography to Default preset?")) {
       handleApplyTheme(THEME_PRESETS[0].theme, THEME_PRESETS[0].name);
+      handleApplyTypographyPreset(DEFAULT_TYPOGRAPHY);
     }
   };
 
@@ -1567,16 +1764,271 @@ const AdminDashboard = () => {
                       </div>
                     </div>
 
-                    <div className="settings-group" style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                      <h6 style={{ color: 'var(--brand-pink)', marginBottom: '15px', fontWeight: 'bold' }}>Typography Colors</h6>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                    {/* Typography Colors */}
+                    <div className="settings-group" style={{ background: 'rgba(0,0,0,0.25)', padding: '20px', borderRadius: '14px', border: '1px solid rgba(228,145,201,0.2)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+                        <h6 style={{ color: 'var(--brand-pink)', margin: 0, fontWeight: 'bold', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <LuPalette size={16} /> Typography Colors
+                        </h6>
+                        <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', background: 'rgba(255,255,255,0.05)', padding: '2px 8px', borderRadius: '10px' }}>Hierarchy</span>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <label style={{ fontSize: '0.9rem', color: '#ccc' }}>Text Primary (Light Gray):</label>
-                          <input type="color" value={themeState.lightGray} onChange={(e) => handleColorChange('lightGray', e.target.value)} style={{ border: 'none', background: 'transparent', width: '50px', height: '35px', cursor: 'pointer' }} />
+                          <div>
+                            <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, margin: 0 }}>Heading 1 (Hero & Titles):</label>
+                            <span style={{ display: 'block', fontSize: '0.72rem', color: '#888' }}>Main gradient shimmer & title color</span>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.75rem', color: '#aaa', fontFamily: 'monospace' }}>{typographyState.colorH1}</span>
+                            <input type="color" value={typographyState.colorH1 || '#E491C9'} onChange={(e) => handleTypographyChange('colorH1', e.target.value)} style={{ border: 'none', background: 'transparent', width: '42px', height: '32px', cursor: 'pointer', borderRadius: '6px' }} />
+                          </div>
                         </div>
-                        <p style={{ fontSize: '0.8rem', color: '#888', marginTop: '10px', lineHeight: '1.4' }}>
-                          💡 <strong>Real-time Preview:</strong> Changing these colors instantly updates your current screen styling so you can view how it feels before saving.
-                        </p>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, margin: 0 }}>Heading 2 (Section Titles):</label>
+                            <span style={{ display: 'block', fontSize: '0.72rem', color: '#888' }}>Page sections & major cards</span>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.75rem', color: '#aaa', fontFamily: 'monospace' }}>{typographyState.colorH2}</span>
+                            <input type="color" value={typographyState.colorH2 || '#E491C9'} onChange={(e) => handleTypographyChange('colorH2', e.target.value)} style={{ border: 'none', background: 'transparent', width: '42px', height: '32px', cursor: 'pointer', borderRadius: '6px' }} />
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, margin: 0 }}>Subheadings (H3 / H4):</label>
+                            <span style={{ display: 'block', fontSize: '0.72rem', color: '#888' }}>Subsections, card headers, labels</span>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.75rem', color: '#aaa', fontFamily: 'monospace' }}>{typographyState.colorH3}</span>
+                            <input type="color" value={typographyState.colorH3 || '#D4A0E8'} onChange={(e) => handleTypographyChange('colorH3', e.target.value)} style={{ border: 'none', background: 'transparent', width: '42px', height: '32px', cursor: 'pointer', borderRadius: '6px' }} />
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, margin: 0 }}>Paragraph & Body Text:</label>
+                            <span style={{ display: 'block', fontSize: '0.72rem', color: '#888' }}>Standard text, paragraphs, lists</span>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.75rem', color: '#aaa', fontFamily: 'monospace' }}>{typographyState.colorBody}</span>
+                            <input type="color" value={typographyState.colorBody || '#E8E0F0'} onChange={(e) => { handleTypographyChange('colorBody', e.target.value); handleColorChange('lightGray', e.target.value); }} style={{ border: 'none', background: 'transparent', width: '42px', height: '32px', cursor: 'pointer', borderRadius: '6px' }} />
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, margin: 0 }}>Muted Description Text:</label>
+                            <span style={{ display: 'block', fontSize: '0.72rem', color: '#888' }}>Subtitles, metadata, timestamps</span>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.75rem', color: '#aaa', fontFamily: 'monospace' }}>{typographyState.colorBodyMuted}</span>
+                            <input type="color" value={typographyState.colorBodyMuted || '#B3A6C4'} onChange={(e) => handleTypographyChange('colorBodyMuted', e.target.value)} style={{ border: 'none', background: 'transparent', width: '42px', height: '32px', cursor: 'pointer', borderRadius: '6px' }} />
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, margin: 0 }}>Accent / Highlight Color:</label>
+                            <span style={{ display: 'block', fontSize: '0.72rem', color: '#888' }}>Badges, quotes, decorative markers</span>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.75rem', color: '#aaa', fontFamily: 'monospace' }}>{typographyState.colorAccent}</span>
+                            <input type="color" value={typographyState.colorAccent || '#E491C9'} onChange={(e) => handleTypographyChange('colorAccent', e.target.value)} style={{ border: 'none', background: 'transparent', width: '42px', height: '32px', cursor: 'pointer', borderRadius: '6px' }} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Typography Font Styles */}
+                    <div className="settings-group" style={{ background: 'rgba(0,0,0,0.25)', padding: '20px', borderRadius: '14px', border: '1px solid rgba(228,145,201,0.2)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+                        <h6 style={{ color: 'var(--brand-pink)', margin: 0, fontWeight: 'bold', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <LuSparkles size={16} /> Font Styles & Families
+                        </h6>
+                        <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', background: 'rgba(255,255,255,0.05)', padding: '2px 8px', borderRadius: '10px' }}>Pairings</span>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, marginBottom: '6px', display: 'block' }}>
+                            Headings Font (H1 / H2 / Brand):
+                          </label>
+                          <select 
+                            className="modern-form-input typo-select-box"
+                            value={typographyState.fontDisplay}
+                            onChange={(e) => handleTypographyChange('fontDisplay', e.target.value)}
+                            style={{ width: '100%', padding: '10px 12px', background: 'rgba(21, 23, 61, 0.9)', color: 'white', border: '1px solid rgba(228,145,201,0.3)', borderRadius: '8px', fontSize: '0.88rem' }}
+                          >
+                            {FONT_DISPLAY_OPTIONS.map((f) => (
+                              <option key={f.value} value={f.value}>{f.label}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div>
+                          <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, marginBottom: '6px', display: 'block' }}>
+                            Subheadings Font (H3 / H4 / Card Headers):
+                          </label>
+                          <select 
+                            className="modern-form-input typo-select-box"
+                            value={typographyState.fontSubheading}
+                            onChange={(e) => handleTypographyChange('fontSubheading', e.target.value)}
+                            style={{ width: '100%', padding: '10px 12px', background: 'rgba(21, 23, 61, 0.9)', color: 'white', border: '1px solid rgba(228,145,201,0.3)', borderRadius: '8px', fontSize: '0.88rem' }}
+                          >
+                            {FONT_SUBHEADING_OPTIONS.map((f) => (
+                              <option key={f.value} value={f.value}>{f.label}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div>
+                          <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, marginBottom: '6px', display: 'block' }}>
+                            Paragraph & Body Font (All readable text):
+                          </label>
+                          <select 
+                            className="modern-form-input typo-select-box"
+                            value={typographyState.fontBody}
+                            onChange={(e) => handleTypographyChange('fontBody', e.target.value)}
+                            style={{ width: '100%', padding: '10px 12px', background: 'rgba(21, 23, 61, 0.9)', color: 'white', border: '1px solid rgba(228,145,201,0.3)', borderRadius: '8px', fontSize: '0.88rem' }}
+                          >
+                            {FONT_BODY_OPTIONS.map((f) => (
+                              <option key={f.value} value={f.value}>{f.label}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div>
+                          <label style={{ fontSize: '0.85rem', color: '#ddd', fontWeight: 600, marginBottom: '6px', display: 'block' }}>
+                            Heading Style / Accent:
+                          </label>
+                          <div style={{ display: 'flex', gap: '10px' }}>
+                            {['normal', 'italic'].map((styleOpt) => (
+                              <button
+                                key={styleOpt}
+                                type="button"
+                                style={{
+                                  flex: 1,
+                                  padding: '8px',
+                                  fontSize: '0.82rem',
+                                  background: typographyState.headingStyle === styleOpt ? 'linear-gradient(135deg, var(--wine), var(--brand-purple))' : 'rgba(255,255,255,0.06)',
+                                  border: typographyState.headingStyle === styleOpt ? '1px solid var(--brand-pink)' : '1px solid rgba(255,255,255,0.1)',
+                                  borderRadius: '8px',
+                                  color: 'white',
+                                  fontStyle: styleOpt,
+                                  cursor: 'pointer',
+                                  textTransform: 'capitalize',
+                                  transition: 'all 0.2s ease'
+                                }}
+                                onClick={() => handleTypographyChange('headingStyle', styleOpt)}
+                              >
+                                {styleOpt === 'italic' ? 'Italic Accent' : 'Standard'}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Curated Typography Pairings */}
+                        <div style={{ marginTop: '8px' }}>
+                          <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.6)', display: 'block', marginBottom: '8px' }}>
+                            ⚡ One-Click Curated Font Pairings:
+                          </span>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                            {TYPOGRAPHY_PRESETS.map((p) => (
+                              <button
+                                key={p.name}
+                                type="button"
+                                style={{
+                                  padding: '5px 10px',
+                                  fontSize: '0.74rem',
+                                  background: 'rgba(228,145,201,0.08)',
+                                  border: '1px solid rgba(228,145,201,0.25)',
+                                  borderRadius: '12px',
+                                  color: 'var(--brand-pink)',
+                                  cursor: 'pointer'
+                                }}
+                                onClick={() => handleApplyTypographyPreset(p.typography)}
+                              >
+                                {p.name.split(' (')[0]}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Live Typography Preview Card */}
+                    <div className="settings-group" style={{ background: 'rgba(15, 12, 30, 0.6)', padding: '20px', borderRadius: '14px', border: '1px solid rgba(228,145,201,0.25)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                          <h6 style={{ color: 'var(--brand-pink)', margin: 0, fontWeight: 'bold', fontSize: '0.95rem' }}>
+                            👁️ Live Typography Hierarchy
+                          </h6>
+                          <span style={{ fontSize: '0.7rem', color: '#2ecc71', background: 'rgba(46, 204, 113, 0.1)', padding: '2px 8px', borderRadius: '10px' }}>Real-time</span>
+                        </div>
+
+                        <div style={{ padding: '16px', background: 'rgba(0,0,0,0.3)', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                          <div style={{ marginBottom: '8px' }}>
+                            <span style={{ 
+                              display: 'inline-block',
+                              fontSize: '0.65rem',
+                              letterSpacing: '2px',
+                              textTransform: 'uppercase',
+                              color: typographyState.colorAccent || 'var(--brand-pink)',
+                              background: 'rgba(228,145,201,0.1)',
+                              border: '1px solid rgba(228,145,201,0.3)',
+                              padding: '2px 8px',
+                              borderRadius: '12px',
+                              marginBottom: '6px'
+                            }}>
+                              ✦ Classical & Contemporary
+                            </span>
+                            <h3 style={{ 
+                              fontFamily: typographyState.fontDisplay,
+                              fontStyle: typographyState.headingStyle || 'normal',
+                              color: typographyState.colorH1 || 'var(--brand-pink)',
+                              margin: '0 0 6px 0',
+                              fontSize: '1.4rem',
+                              lineHeight: 1.2
+                            }}>
+                              The Language of the Soul
+                            </h3>
+                            <h5 style={{ 
+                              fontFamily: typographyState.fontSubheading || typographyState.fontDisplay,
+                              color: typographyState.colorH3 || '#D4A0E8',
+                              margin: '0 0 10px 0',
+                              fontSize: '0.95rem',
+                              fontWeight: 500
+                            }}>
+                              Masterclasses, Productions & DMT
+                            </h5>
+                          </div>
+
+                          <p style={{ 
+                            fontFamily: typographyState.fontBody,
+                            color: typographyState.colorBody || '#E8E0F0',
+                            fontSize: '0.85rem',
+                            lineHeight: 1.6,
+                            margin: '0 0 10px 0'
+                          }}>
+                            Bridging technical dance excellence with emotional healing. We cultivate a sanctuary where artistry meets modern expression.
+                          </p>
+
+                          <p style={{ 
+                            fontFamily: typographyState.fontBody,
+                            color: typographyState.colorBodyMuted || '#B3A6C4',
+                            fontSize: '0.75rem',
+                            margin: 0
+                          }}>
+                            Enrolling 200+ dancers across Kathak, Contemporary & Ballet.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div style={{ marginTop: '14px', fontSize: '0.78rem', color: '#888', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span>💡 Click <strong>Save Website Theme</strong> below to permanently apply these fonts & colors across your live site!</span>
                       </div>
                     </div>
                   </div>

@@ -50,6 +50,29 @@ exports.updateSettings = async (req, res) => {
       settings.markModified('theme');
     }
 
+    if (req.body.typography) {
+      let typoObj = req.body.typography;
+      if (typeof typoObj === 'string') {
+        try {
+          typoObj = JSON.parse(typoObj);
+        } catch (e) {
+          console.error('Typography JSON parsing failed', e);
+        }
+      }
+
+      const typoProps = settings.typography ? settings.typography.toObject() : {};
+      const mergedTypo = { ...typoProps, ...typoObj };
+
+      if (!settings.typography) {
+        settings.typography = {};
+      }
+      Object.keys(mergedTypo).forEach(key => {
+        settings.typography[key] = mergedTypo[key];
+      });
+
+      settings.markModified('typography');
+    }
+
     if (req.body.savedThemes !== undefined) {
       let savedThemesArr = req.body.savedThemes;
       if (typeof savedThemesArr === 'string') {

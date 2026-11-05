@@ -31,15 +31,61 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    const applyTypographyVars = (typo) => {
+      if (!typo) return;
+      const cssMap = {
+        fontDisplay:    '--font-display',
+        fontSubheading: '--font-subheading',
+        fontBody:       '--font-body',
+        colorH1:        '--typo-h1-fallback',
+        colorH2:        '--typo-h2',
+        colorH3:        '--typo-h3',
+        colorH4:        '--typo-h4',
+        colorBody:      '--typo-body',
+        colorBodyMuted: '--typo-body-muted',
+        colorAccent:    '--typo-accent',
+      };
+      Object.entries(typo).forEach(([key, val]) => {
+        if (cssMap[key]) {
+          document.documentElement.style.setProperty(cssMap[key], val);
+        }
+      });
+      if (typo.fontDisplay) document.documentElement.style.setProperty('--font-display', typo.fontDisplay);
+      if (typo.fontSubheading) document.documentElement.style.setProperty('--font-subheading', typo.fontSubheading);
+      if (typo.fontBody) {
+        document.documentElement.style.setProperty('--font-body', typo.fontBody);
+        document.body.style.fontFamily = typo.fontBody;
+      }
+    };
+
+    try {
+      const cachedTheme = JSON.parse(localStorage.getItem('ruh_theme') || 'null');
+      if (cachedTheme) {
+        Object.entries(cachedTheme).forEach(([key, val]) => {
+          const cssVarName = '--' + key.replace(/([A-Z])/g, '-$1').toLowerCase();
+          document.documentElement.style.setProperty(cssVarName, val);
+        });
+      }
+      const cachedTypo = JSON.parse(localStorage.getItem('ruh_typography') || 'null');
+      if (cachedTypo) applyTypographyVars(cachedTypo);
+    } catch (e) {}
+
     const fetchAndApplyTheme = async () => {
       try {
         const res = await axios.get('https://ruh-dance-project.onrender.com/api/settings');
-        if (res.data.success && res.data.data.theme) {
-          const theme = res.data.data.theme;
-          Object.entries(theme).forEach(([key, val]) => {
-            const cssVarName = `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
-            document.documentElement.style.setProperty(cssVarName, val);
-          });
+        if (res.data.success) {
+          if (res.data.data.theme) {
+            const theme = res.data.data.theme;
+            Object.entries(theme).forEach(([key, val]) => {
+              const cssVarName = '--' + key.replace(/([A-Z])/g, '-$1').toLowerCase();
+              document.documentElement.style.setProperty(cssVarName, val);
+            });
+            localStorage.setItem('ruh_theme', JSON.stringify(theme));
+          }
+          if (res.data.data.typography) {
+            applyTypographyVars(res.data.data.typography);
+            localStorage.setItem('ruh_typography', JSON.stringify(res.data.data.typography));
+          }
         }
       } catch (err) {
         console.error("Failed to load website theme settings", err);

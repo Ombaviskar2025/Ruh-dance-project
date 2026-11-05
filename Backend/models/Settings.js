@@ -14,6 +14,18 @@ const SettingsSchema = new mongoose.Schema({
     lightPurple: { type: String, default: '#D8BFD8' },
     lightGray: { type: String, default: '#F1E9E9' }
   },
+  typography: {
+    fontDisplay: { type: String, default: "'Cormorant Garamond', 'Playfair Display', Georgia, serif" },
+    fontSubheading: { type: String, default: "'Cormorant Garamond', 'Playfair Display', Georgia, serif" },
+    fontBody: { type: String, default: "'DM Sans', 'Inter', system-ui, sans-serif" },
+    colorH1: { type: String, default: '#E491C9' },
+    colorH2: { type: String, default: '#E491C9' },
+    colorH3: { type: String, default: '#D4A0E8' },
+    colorH4: { type: String, default: '#C8B8F0' },
+    colorBody: { type: String, default: '#E8E0F0' },
+    colorBodyMuted: { type: String, default: '#B3A6C4' },
+    colorAccent: { type: String, default: '#E491C9' }
+  },
   savedThemes: [
     {
       id: { type: String },
