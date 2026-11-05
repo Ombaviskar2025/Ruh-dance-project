@@ -151,3 +151,22 @@
     gap: 20px;
   }
 }
+
+
+/* ---- RUH Typography System Overrides ---- */
+.gallery-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif !important;
+  font-size: clamp(2.2rem, 5vw, 3.5rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.1 !important;
+  color: var(--brand-pink) !important;
+}
+
+.gallery-subtitle {
+  font-family: 'DM Sans', system-ui, sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.16em !important;
+  color: rgba(232, 224, 240, 0.60) !important;
+}

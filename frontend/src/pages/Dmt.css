@@ -653,3 +653,30 @@
   .dmt-timeslot-grid { grid-template-columns: repeat(2, 1fr); }
   .dmt-modal-header, .dmt-modal-body { padding: 20px; }
 }
+
+
+/* ---- RUH Typography System Overrides ---- */
+.dmt-page {
+  font-family: 'DM Sans', 'Inter', 'Segoe UI', sans-serif !important;
+}
+
+.dmt-eyebrow {
+  font-family: 'DM Sans', system-ui, sans-serif !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 700 !important;
+}
+
+.dmt-hero-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.dmt-hero-quote {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 400 !important;
+  line-height: 1.75 !important;
+  color: rgba(232, 224, 240, 0.65) !important;
+}

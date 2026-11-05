@@ -1781,3 +1781,42 @@ input[type="file"]::file-selector-button:hover {
   padding: 16px 20px;
   margin-bottom: 25px;
 }
+
+
+/* ============================================================
+   RUH Typography System — AdminDashboard Overrides
+   ============================================================ */
+.admin-container {
+  font-family: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Section/Card headings inside admin */
+.admin-container h1,
+.admin-container h2,
+.admin-container h3 {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  letter-spacing: -0.01em;
+}
+
+.admin-container h4,
+.admin-container h5,
+.admin-container h6 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.admin-container p,
+.admin-container td,
+.admin-container li {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  line-height: 1.65;
+}
+
+/* Sidebar nav item labels */
+.sidebar-item span,
+.sidebar-nav-item span {
+  font-family: 'DM Sans', system-ui, sans-serif !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+}

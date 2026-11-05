@@ -1,7 +1,7 @@
 .gurus-section-wrapper {
   background-color: transparent; /* Use App.css background or let it inherit */
   padding: 80px 20px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', 'Inter', sans-serif;
   color: #fff;
   position: relative;
   z-index: 2;
@@ -225,4 +225,22 @@
 @keyframes slideUp {
   from { transform: translateY(40px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* ---- RUH Typography System Overrides ---- */
+.gurus-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif !important;
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.15 !important;
+}
+
+.gurus-subtitle {
+  font-family: 'DM Sans', system-ui, sans-serif !important;
+  font-size: 1.15rem !important;
+  color: rgba(232, 224, 240, 0.65) !important;
+  font-weight: 300 !important;
+  line-height: 1.75 !important;
 }

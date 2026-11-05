@@ -98,3 +98,29 @@
     font-size: 0.9rem;
   }
 }
+
+
+/* ---- RUH Typography System Overrides ---- */
+.faq-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif !important;
+  font-size: clamp(2rem, 4vw, 2.8rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.2 !important;
+  color: #fff !important;
+}
+
+.faq-question {
+  font-family: 'DM Sans', system-ui, sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  color: var(--light-gray) !important;
+}
+
+.faq-answer {
+  font-family: 'DM Sans', system-ui, sans-serif !important;
+  font-size: 0.95rem !important;
+  line-height: 1.75 !important;
+  color: rgba(232, 224, 240, 0.70) !important;
+}
